@@ -1,10 +1,21 @@
-#include "a.h"
+#include "cli_exception.h"
+#include "cli_application.h"
+#include <iostream>
 
-using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
-    cout << "Hello World!" << endl;
+    try
+    {
+        CLIApplication app(argc, argv);
+        return app.main_loop();
+    }
+    catch (CLIException &e)
+    {
+        std::cout << "CLIException: ";
+        std::cout << e.what() << std::endl;
+    }
+
     return 0;
 }
 
