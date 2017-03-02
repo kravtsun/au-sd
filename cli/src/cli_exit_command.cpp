@@ -22,9 +22,13 @@ CLIExitCommand::CLIExitCommand(std::istream &is, std::ostream &os, const CLIComm
     }
 }
 
-
 int CLIExitCommand::run(CLIEnvironment &env)
 {
     (void)env;
     throw CLIExitException(exit_code_);
+}
+
+std::string CLIExitCommand::name() const
+{
+    return "exit";
 }

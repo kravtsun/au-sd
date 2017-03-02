@@ -1,8 +1,8 @@
 #include "include/cli_command_parser.h"
 #include "include/cli_exception.h"
+#include <functional>
 #include <cassert>
 #include <cctype>
-#include <functional>
 
 CLICommandParser::CLICommandParser(const CLIEnvironment &env, std::istream &is)
     : env_(env)
@@ -10,26 +10,18 @@ CLICommandParser::CLICommandParser(const CLIEnvironment &env, std::istream &is)
 {}
 
 
-CLICommandPipe CLICommandParser::parse_all() {
+CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
     // entries currently being parsed.
-    CLICommandPipe::Container pipe; //
-    CLICommandPipe::Entry pipe_entry;
+    CLICommandPipe pipe; //
+    CLICommandPipeEntry pipe_entry;
 
-    bool is_variable_opened;
-    std::string var_name;
+    bool is_variable_opened = false;
+    std::string var_name = "";
 
     bool is_double_quotes = false, is_single_quotes = false;
     std::string output = "";
 
-    auto close_word = [&]()
-    {
-        if (output == "")
-        {
-            return;
-        }
-        pipe_entry.push_back(std::move(output));
-        output.clear();
-    };
+    std::function<void()> close_word;
 
     auto close_variable_if_needed = [&]()
     {
@@ -38,16 +30,24 @@ CLICommandPipe CLICommandParser::parse_all() {
             return;
         }
 
+        // Several ways of dealing with cases when env. variable name was not parsed.
+//        if (var_name.empty())
+//        {
+//            output += '$';
+//        }
+
 //        if (var_name.empty())
 //        {
 //            throw CLIParseException(output, "environment variable");
 //        }
-        if (!is_single_quotes)
-        {
-            throw CLIUnknownException();
-        }
 
-        std::string var_value = env_.get_var(var_name);
+        // can't work with environmental variables when in single quotes.
+        assert(!is_single_quotes);
+
+        std::string var_value = env_.get_var(std::move(var_name));
+        is_variable_opened = false;
+        var_name.clear();
+
         if (is_double_quotes)
         {
             output += var_value;
@@ -66,9 +66,17 @@ CLICommandPipe CLICommandParser::parse_all() {
                 }
             }
         }
+    };
 
-        is_variable_opened = false;
-        var_name.clear();
+    close_word = [&]()
+    {
+        close_variable_if_needed();
+        if (output.empty())
+        {
+            return;
+        }
+        pipe_entry.push_back(std::move(output));
+        output.clear();
     };
 
 
@@ -86,33 +94,28 @@ CLICommandPipe CLICommandParser::parse_all() {
 
     std::string line;
     bool next_line_needed = true;
-    while (next_line_needed && std::getline(is_, line))
+    while (next_line_needed && std::getline(is, line))
     {
         next_line_needed = false;
         for (size_t i = 0; i < line.size(); ++i)
         {
             if (line[i] == '$' && !is_single_quotes)
             {
-                if (is_variable_opened)
+                if (is_variable_opened && var_name.empty())
                 {
-                    if (var_name.empty())
-                    {
-                        output += '$'; // $$ -> $.
-                    }
-                    else
-                    {
-                        close_variable_if_needed();
-                    }
+                    output += '$'; // $$ -> $.
                     is_variable_opened = false;
                 }
                 else
                 {
+                    close_variable_if_needed(); // $x$y
                     is_variable_opened = true;
-                    CLIAssert(var_name == "");
+                    assert(var_name.empty());
                 }
             }
             else if (line[i] == '\'' && !is_double_quotes)
             {
+                close_variable_if_needed();
                 is_single_quotes = !is_single_quotes;
             }
             else if (line[i] == '"' && !is_single_quotes)
@@ -132,18 +135,18 @@ CLICommandPipe CLICommandParser::parse_all() {
 //            {
 //                // TODO. implement?
 //            }
-            else
+            else if (line[i] == ' ')
             {
                 close_variable_if_needed();
-
-                if (line[i] == '|')
-                {
-                    close_pipe_entry();
-                }
-                else
-                {
-                    output += line[i];
-                }
+                close_word();
+            }
+            else if (line[i] == '|' && !is_single_quotes && !is_double_quotes)
+            {
+                close_pipe_entry();
+            }
+            else
+            {
+                output += line[i];
             }
         }
 

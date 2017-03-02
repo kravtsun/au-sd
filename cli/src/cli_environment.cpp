@@ -14,7 +14,9 @@ CLIEnvironment::CLIEnvironment(int argc, char **argv)
 bool CLIEnvironment::is_var_assignment(const std::string &s)
 {
     auto equal_pos = s.find('=');
-    if (equal_pos == std::string::npos || equal_pos+1 == std::string::npos || s.find('=', equal_pos + 1))
+    if (equal_pos == std::string::npos ||
+        equal_pos+1 == std::string::npos ||
+        s.find('=', equal_pos + 1) != std::string::npos)
     {
         return false;
     }
@@ -55,7 +57,7 @@ void CLIEnvironment::set_var(const std::string &name, const std::string &value)
     auto it = vars_.find(name);
     if (it != vars_.end())
     {
-        LOG("Assigning environment variable \"" + name + "\" to value: " + value + "\n");
+        LOG("Reassigning environment variable \"" + name + "\" to value: " + value);
     }
 
     vars_[name] = value;

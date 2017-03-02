@@ -13,13 +13,13 @@ int CLIApplication::main_loop()
 {
     try
     {
-        // parse variables.
         while (true)
         {
-            //не совсем понятно, зачем на каждой итерации создавать парсер.
-            CLICommandParser p(env_, std::cin);
+            // NB. Not sure if I need to create a parser on every iteration.
+            // Maybe it's because of environment - it's kind of interiterational thing.
+            CLICommandParser p(env_);
 
-            auto commands = p.parse_all();
+            auto commands = p.parse_all_commands(std::cin);
             CLICommandQueue q(env_, std::move(commands), std::cout);
             env_ = q.execute_pipe();
         }

@@ -15,37 +15,11 @@ class CLICommandParser
 public:
     CLICommandParser(const CLIEnvironment &env, std::istream &is);
 
-    CLICommandPipe parse_all();
+    CLICommandPipe parse_all_commands(std::istream &is_);
 
 private:
     const CLIEnvironment &env_;
-    std::istream &is_;
-
-
-//    // kind of Finite Discrete Automata's state.
-//    class CLICommandParserState
-//    {
-//        enum struct LexerState
-//        {
-//            FREE,
-//            SINGLE_QUOTES,
-//            DOUBLE_QUOTES,
-//            NEXT_STRING
-//        };
-
-//    public:
-//        CLICommandParserState()
-//            : lexer_state_(LexerState::FREE)
-//            , is_var_open_(false)
-//        {}
-
-
-//        std::string get_result();
-//    private:
-//        LexerState lexer_state_;
-
-//        bool is_var_open_;
-//    };
+//    std::istream &is_;
 
     std::string get_all_input();
 };

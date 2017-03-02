@@ -13,6 +13,8 @@ public:
     CLIException();
 
     const char *what() const noexcept override;
+protected:
+    std::string base_msg_;
 };
 
 class CLIExitException : public CLIException
@@ -37,8 +39,6 @@ class CLIParseException : public CLIException
 public:
     CLIParseException(const std::string &expr, const std::string &goal);
 
-    const char *what() const noexcept override;
-
 private:
     std::string expr_, goal_;
 };
@@ -47,8 +47,6 @@ class CLINotImlementedException : public CLIException
 {
 public:
     CLINotImlementedException(const std::string &component);
-
-    const char *what() const noexcept override;
 
 private:
     std::string component_;
@@ -59,17 +57,19 @@ class CLICommandException : public CLIException
 public:
     CLICommandException(const std::string &command, const std::string &msg);
 
-    const char *what() const noexcept override;
-
 private:
     std::string command_, msg_;
 };
 
 
-class CLIUnknownException : public CLIException
-{};
+class CLIUnknownError : public CLIException
+{
+public:
+    CLIUnknownError(std::string &&msg);
 
+private:
+    std::string msg_;
+};
 
-void CLIAssert(bool condition);
 
 #endif // CLI_EXCEPTION_H

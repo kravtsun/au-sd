@@ -4,7 +4,7 @@
 #include <iostream>
 
 #define LOG(msg) {\
-    std::cout << (msg) << std::endl;\
+    std::cout << "LOG:" << (msg) << std::endl;\
     }
 
 #endif // COMMON_H

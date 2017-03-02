@@ -23,12 +23,12 @@ public:
     virtual std::string name() const = 0;
 
 protected:
-    CLICommand();
     std::istream &is_;
     std::ostream &os_;
     ParamsListType params_;
 
 private:
+    CLICommand();
 };
 
 #endif // CLI_COMMAND_H

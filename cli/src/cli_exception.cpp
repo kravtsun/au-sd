@@ -2,53 +2,37 @@
 #include <cstring>
 
 CLIException::CLIException()
+    : base_msg_("")
 {}
-
 
 const char *CLIException::what() const noexcept
 {
-    std::string msg = "CLIException: ";
-    msg += std::exception::what();
-    return msg.c_str();
+    return base_msg_.c_str();
 }
 
 CLIParseException::CLIParseException(const std::string &expr, const std::string &goal)
     : expr_(expr)
     , goal_(goal)
-{}
-
-const char *CLIParseException::what() const noexcept
 {
-    const std::string msg = ("CLIParseException: Failed to parse: \"") +
-                            expr_ + ("\" into ") + goal_;
-    return msg.c_str();
+    base_msg_ = ("CLIParseException: Failed to parse: \"") +
+            expr_ + ("\" into ") + goal_;
 }
 
 CLINotImlementedException::CLINotImlementedException(const std::string &component)
     : component_(component)
-{}
-
-const char *CLINotImlementedException::what() const noexcept
 {
-    const std::string msg = "CLINotImlementedException: " + component_;
-    return msg.c_str();
+    base_msg_ = "CLINotImlementedException: " + component_;
 }
 
 CLICommandException::CLICommandException(const std::string &command, const std::string &msg)
     : command_(command)
     , msg_(msg)
-{}
-
-const char *CLICommandException::what() const noexcept
 {
-    const std::string msg = command_ + ": " + msg_;
-    return msg.c_str();
+    base_msg_ = command_ + ": " + msg_;
 }
 
-void CLIAssert(bool condition)
+CLIUnknownError::CLIUnknownError(std::__cxx11::string &&msg)
+    : msg_(msg)
 {
-    if (!condition)
-    {
-        throw CLIUnknownException();
-    }
+    base_msg_ = "CLIUnknownError: " + msg_;
 }

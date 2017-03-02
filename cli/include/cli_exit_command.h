@@ -10,10 +10,7 @@ public:
 
     int run(CLIEnvironment &env) override;
 
-    std::string name() const override
-    {
-        return "exit";
-    }
+    std::string name() const override;
 private:
     int exit_code_;
 };
