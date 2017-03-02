@@ -5,8 +5,11 @@
 #include "cli_exit_command.h"
 #include "cli_cat_command.h"
 #include "cli_echo_command.h"
+#include "cli_word_count_command.h"
+#include "cli_unknown_command.h"
 #include <string>
 #include <iostream>
+#include <memory>
 #include <cassert>
 
 CLICommandQueue::CLICommandQueue(CLIEnvironment &env, CLICommandPipe &&pipe, std::ostream &os)
@@ -34,10 +37,16 @@ static CLICommand *command_from_name(const std::string &command,
     {
         return new CLIEchoCommand(is, os, params);
     }
+    else if (command == "wc")
+    {
+        return new CLIWordCountCommand(is, os, params);
+    }
     else
     {
-        throw CLINotImlementedException("Subprocess");
-        // send to subprocess.
+        CLICommand::ParamsListType unknown_params;
+        unknown_params.push_back(command);
+        unknown_params.insert(unknown_params.end(), params.cbegin(), params.cend());
+        return new CLIUnknownCommand(is, os, unknown_params);
     }
     return nullptr;
 }
@@ -58,6 +67,7 @@ CLIEnvironment CLICommandQueue::execute_pipe()
 
     for (auto const &command_strings : pipe_)
     {
+        os.str("");
         if (command_strings.empty())
         {
             LOG("command_strings is empty");
@@ -88,20 +98,12 @@ CLIEnvironment CLICommandQueue::execute_pipe()
         i++;
 
         const CLICommand::ParamsListType command_params(command_strings.begin() + i, command_strings.end());
-        clear_stream(os);
         std::istream &is = iss_initialized? iss : std::cin;
-        CLICommand *new_command = command_from_name(command_name, command_params, is, os);
+        std::unique_ptr<CLICommand> new_command(command_from_name(command_name, command_params, is, os));
         new_command->run(env_);
 
-        if (iss_initialized)
-        {
-            iss.str(os.str());
-        }
-        else
-        {
-            iss_initialized = true;
-            iss.str(os.str());
-        }
+        iss.str(os.str());
+        iss_initialized = true;
     }
     os_ << os.str();
     return env_;

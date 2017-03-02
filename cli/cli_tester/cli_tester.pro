@@ -24,6 +24,11 @@ SOURCES += \
 #    ../third_party/cxxtest/cxxtest/GlobalFixture.cpp \
 #    ../third_party/cxxtest/cxxtest/DummyDescriptions.cpp \
 #    ../third_party/cxxtest/cxxtest/Descriptions.cpp
+    ../src/test_runner.cpp \
+    ../src/main.cpp \
+    ../src/cli_word_count_command.cpp \
+    ../src/cli_unknown_command.cpp \
+    ../src/cli_interactive_command.cpp
 
 INCLUDEPATH += ../include/ ../third_party/cxxtest/
 

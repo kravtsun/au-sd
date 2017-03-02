@@ -22,6 +22,8 @@ public:
 
     virtual std::string name() const = 0;
 
+    virtual ~CLICommand() {}
+
 protected:
     std::istream &is_;
     std::ostream &os_;
