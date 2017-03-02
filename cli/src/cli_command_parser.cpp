@@ -4,9 +4,8 @@
 #include <cassert>
 #include <cctype>
 
-CLICommandParser::CLICommandParser(const CLIEnvironment &env, std::istream &is)
+CLICommandParser::CLICommandParser(const CLIEnvironment &env)
     : env_(env)
-    , is_(is)
 {}
 
 

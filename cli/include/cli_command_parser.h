@@ -13,7 +13,7 @@
 class CLICommandParser
 {
 public:
-    CLICommandParser(const CLIEnvironment &env, std::istream &is);
+    CLICommandParser(const CLIEnvironment &env);
 
     CLICommandPipe parse_all_commands(std::istream &is_);
 
