@@ -1,4 +1,4 @@
-#include "cli_catcommand.h"
+#include "cli_cat_command.h"
 #include "cli_exception.h"
 
 #include <iostream>

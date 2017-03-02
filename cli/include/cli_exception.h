@@ -15,6 +15,23 @@ public:
     const char *what() const noexcept override;
 };
 
+class CLIExitException : public CLIException
+{
+public:
+    CLIExitException(int exit_code=0)
+        : exit_code_(exit_code)
+    {}
+
+    int exit_code() const
+    {
+        return exit_code_;
+    }
+
+private:
+    int exit_code_;
+    CLIExitException();
+};
+
 class CLIParseException : public CLIException
 {
 public:
@@ -48,5 +65,11 @@ private:
     std::string command_, msg_;
 };
 
+
+class CLIUnknownException : public CLIException
+{};
+
+
+void CLIAssert(bool condition);
 
 #endif // CLI_EXCEPTION_H

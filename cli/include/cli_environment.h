@@ -9,6 +9,7 @@ class CLIEnvironment
 public:
     CLIEnvironment(int argc, char **argv);
 
+    // parsing functions look odd here?..
     static bool is_var_assignment(const std::string &s);
     void parse_and_assign(const std::string &s);
 

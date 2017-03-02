@@ -11,7 +11,13 @@ SOURCES += src/main.cpp \
     src/cli_environment.cpp \
     src/cli_application.cpp \
     src/cli_command.cpp \
-    src/cli_catcommand.cpp
+    src/cli_exit_command.cpp \
+    src/cli_parser.cpp \
+    src/cli_command_parser.cpp \
+    src/cli_input_handler.cpp \
+    src/cli_command_queue.cpp \
+    src/cli_command_pipe.cpp \
+    src/cli_cat_command.cpp
 
 HEADERS += \
     include/cli_exception.h \
@@ -19,7 +25,13 @@ HEADERS += \
     include/common.h \
     include/cli_application.h \
     include/cli_command.h \
-    include/cli_catcommand.h
+    include/cli_exit_command.h \
+    include/cli_parser.h \
+    include/cli_command_parser.h \
+    include/cli_input_handler.h \
+    include/cli_command_queue.h \
+    include/cli_command_pipe.h \
+    include/cli_cat_command.h
 
 
 QMAKE_CXXFLAGS += -Wall -Wconversion -Wpedantic

@@ -41,6 +41,14 @@ CLICommandException::CLICommandException(const std::string &command, const std::
 
 const char *CLICommandException::what() const noexcept
 {
-    const std::string msg = "error in command \"" + command_ + "\": " + msg_;
+    const std::string msg = command_ + ": " + msg_;
     return msg.c_str();
+}
+
+void CLIAssert(bool condition)
+{
+    if (!condition)
+    {
+        throw CLIUnknownException();
+    }
 }

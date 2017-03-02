@@ -13,10 +13,10 @@
  */
 class CLICommand
 {
-protected:
-    typedef std::vector<std::string> ParamsListType;
 public:
-    CLICommand(std::istream &is, std::ostream &os, const ParamsListType &params);
+    typedef std::vector<std::string> ParamsListType;
+
+    CLICommand(std::istream &is, std::ostream &os, const ParamsListType &params={});
 
     virtual int run(CLIEnvironment &env) = 0;
 
