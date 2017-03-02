@@ -7,7 +7,11 @@
 class CLIEnvironment
 {
 public:
+    typedef std::map<std::string, std::string> VarListType;
+
+    CLIEnvironment();
     CLIEnvironment(int argc, char **argv);
+    CLIEnvironment(const VarListType &vars);
 
     // parsing functions look odd here?..
     static bool is_var_assignment(const std::string &s);
@@ -18,11 +22,9 @@ public:
 
     CLIEnvironment operator|(const CLIEnvironment &rhs);
 
+    const VarListType &get_vars();
+
 private:
-    typedef std::map<std::string, std::string> VarListType;
-
-    CLIEnvironment (const VarListType &vars);
-
     VarListType vars_;
 };
 

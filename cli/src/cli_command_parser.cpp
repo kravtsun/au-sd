@@ -1,5 +1,5 @@
-#include "include/cli_command_parser.h"
-#include "include/cli_exception.h"
+#include "cli_command_parser.h"
+#include "cli_exception.h"
 #include <functional>
 #include <cassert>
 #include <cctype>
@@ -7,7 +7,6 @@
 CLICommandParser::CLICommandParser(const CLIEnvironment &env)
     : env_(env)
 {}
-
 
 CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
     // entries currently being parsed.
@@ -134,9 +133,8 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
 //            {
 //                // TODO. implement?
 //            }
-            else if (line[i] == ' ')
+            else if (line[i] == ' ' && !is_single_quotes && !is_double_quotes)
             {
-                close_variable_if_needed();
                 close_word();
             }
             else if (line[i] == '|' && !is_single_quotes && !is_double_quotes)
@@ -145,6 +143,7 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
             }
             else
             {
+                close_variable_if_needed();
                 output += line[i];
             }
         }

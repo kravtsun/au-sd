@@ -1,4 +1,4 @@
-#include "include/cli_echo_command.h"
+#include "cli_echo_command.h"
 
 CLIEchoCommand::CLIEchoCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLICommand(is, os, params)

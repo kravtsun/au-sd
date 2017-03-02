@@ -17,10 +17,10 @@ CLICommandQueue::CLICommandQueue(CLIEnvironment &env, CLICommandPipe &&pipe, std
 
 }
 
-static CLICommand * command_from_name(const std::string &command,
-                                      const CLICommand::ParamsListType &params,
-                                      std::istream &is,
-                                      std::ostream &os)
+static CLICommand *command_from_name(const std::string &command,
+                                     const CLICommand::ParamsListType &params,
+                                     std::istream &is,
+                                     std::ostream &os)
 {
     if (command == "exit")
     {
@@ -52,8 +52,9 @@ static void clear_stream(T &ss)
 CLIEnvironment CLICommandQueue::execute_pipe()
 {
     // TODO: execute environmental varialbes assignments.
-    std::istringstream is;
     std::ostringstream os;
+    std::istringstream iss;
+    bool iss_initialized = false;
 
     for (auto const &command_strings : pipe_)
     {
@@ -88,10 +89,19 @@ CLIEnvironment CLICommandQueue::execute_pipe()
 
         const CLICommand::ParamsListType command_params(command_strings.begin() + i, command_strings.end());
         clear_stream(os);
+        std::istream &is = iss_initialized? iss : std::cin;
         CLICommand *new_command = command_from_name(command_name, command_params, is, os);
         new_command->run(env_);
 
-        is.str(os.str());
+        if (iss_initialized)
+        {
+            iss.str(os.str());
+        }
+        else
+        {
+            iss_initialized = true;
+            iss.str(os.str());
+        }
     }
     os_ << os.str();
     return env_;

@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv)
 {
-    freopen("../../misc/input.txt", "r", stdin);
+//    freopen("../../misc/input.txt", "r", stdin);
     CLIApplication app(argc, argv);
     return app.main_loop();
 }

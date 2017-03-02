@@ -1,8 +1,8 @@
 #ifndef CLI_COMMAND_PARSER_H
 #define CLI_COMMAND_PARSER_H
 
-#include "include/cli_environment.h"
-#include "include/cli_command_pipe.h"
+#include "cli_environment.h"
+#include "cli_command_pipe.h"
 #include <vector>
 #include <istream>
 
@@ -19,9 +19,6 @@ public:
 
 private:
     const CLIEnvironment &env_;
-//    std::istream &is_;
-
-    std::string get_all_input();
 };
 
 #endif // CLI_COMMAND_PARSER_H

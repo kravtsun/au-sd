@@ -3,6 +3,10 @@
 #include "cli_exception.h"
 #include "common.h"
 
+CLIEnvironment::CLIEnvironment()
+    : vars_({})
+{}
+
 CLIEnvironment::CLIEnvironment(int argc, char **argv)
 {
     for (int i = 0; i < argc; ++i)
@@ -11,15 +15,29 @@ CLIEnvironment::CLIEnvironment(int argc, char **argv)
     }
 }
 
+CLIEnvironment::CLIEnvironment(const VarListType &vars)
+    : vars_(vars)
+{}
+
 bool CLIEnvironment::is_var_assignment(const std::string &s)
 {
-    auto equal_pos = s.find('=');
-    if (equal_pos == std::string::npos ||
-        equal_pos+1 == std::string::npos ||
-        s.find('=', equal_pos + 1) != std::string::npos)
+    size_t equal_pos = s.find('=');
+    if (equal_pos == std::string::npos)
     {
         return false;
     }
+
+    for (size_t i = 0; i < equal_pos; ++i)
+    {
+        if (!isalnum(s[i]))
+        {
+            return false;
+        }
+    }
+//    if (s[equal_pos+1] == ' ' && equal_pos+2 == std::string::npos)
+//    {
+//        return false;
+//    }
 
     return true;
 }
@@ -35,7 +53,7 @@ void CLIEnvironment::parse_and_assign(const std::string &s)
     std::string name = s.substr(0, equal_pos);
     std::string value = s.substr(equal_pos+1);
 
-    set_var(name, value);
+    set_var(std::move(name), std::move(value));
 }
 
 std::string CLIEnvironment::get_var(const std::string &name) const
@@ -73,6 +91,7 @@ CLIEnvironment CLIEnvironment::operator|(const CLIEnvironment &rhs)
     return res;
 }
 
-CLIEnvironment::CLIEnvironment(const VarListType &vars)
-    : vars_(vars)
-{}
+const CLIEnvironment::VarListType &CLIEnvironment::get_vars()
+{
+    return vars_;
+}

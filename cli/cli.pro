@@ -3,8 +3,8 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-INCLUDEPATH += include/
-DEPENDPATH += include/
+INCLUDEPATH += include/ third_party/cxxtest
+DEPENDPATH += include/ third_party/cxxtest
 
 SOURCES += src/main.cpp \
     src/cli_exception.cpp \
@@ -14,8 +14,7 @@ SOURCES += src/main.cpp \
     src/cli_exit_command.cpp \
     src/cli_parser.cpp \
     src/cli_command_parser.cpp \
-    src/cli_command_queue.cpp \
-    src/cli_command_pipe.cpp \
+	src/cli_command_queue.cpp \
     src/cli_cat_command.cpp \
     src/cli_echo_command.cpp
 
@@ -31,7 +30,10 @@ HEADERS += \
     include/cli_command_queue.h \
     include/cli_command_pipe.h \
     include/cli_cat_command.h \
-    include/cli_echo_command.h
+	include/cli_echo_command.h \
+    include/cli_environment_test.h \
+    include/cli_cat_command_test.h \
+    include/cli_command_queue_test.h
 
 
 QMAKE_CXXFLAGS += -Wall -Wconversion -Wpedantic

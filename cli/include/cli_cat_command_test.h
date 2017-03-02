@@ -1,0 +1,117 @@
+#ifndef CLI_CAT_COMMAND_TEST_H
+#define CLI_CAT_COMMAND_TEST_H
+
+#include <cxxtest/TestSuite.h>
+#include "cli_cat_command.h"
+#include "cli_exception.h"
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+
+
+class CLICatCommandTest : public CxxTest::TestSuite
+{
+public:
+    CLICatCommandTest()
+    {
+        writeLinesToFile(filename1(), lines1());
+        writeLinesToFile(filename2(), lines2());
+    }
+
+    void testEmpty()
+    {
+        std::string ask = "\n\n123";
+        std::istringstream is(ask);
+        std::string answer = ask + "\n";
+        std::ostringstream os;
+        CLICatCommand cat_command(is, os, {});
+        cat_command.run(empty_env_);
+        TS_ASSERT_EQUALS(os.str(), answer);
+    }
+
+    void testFile()
+    {
+        std::istringstream is("");
+        std::ostringstream os;
+
+        CLICatCommand cat_command(is, os, {filename1()});
+        cat_command.run(empty_env_);
+
+        TS_ASSERT_EQUALS(os.str(), merge_lines(lines1()));
+    }
+
+    void testMultipleFiles()
+    {
+        std::istringstream is("");
+        std::ostringstream os("");
+
+        CLICatCommand cat_command(is, os, {filename1(), filename2()});
+        cat_command.run(empty_env_);
+
+        const std::string all_lines = merge_lines(lines1()) + merge_lines(lines2());
+
+        TS_ASSERT_EQUALS(os.str(), all_lines);
+    }
+
+    void testNotExists()
+    {
+        std::string filename = "26486321386463213";
+        std::istringstream is;
+        std::ostringstream os;
+        CLICatCommand cat_command(is, os, {filename});
+        TS_ASSERT_THROWS(cat_command.run(empty_env_), CLICommandException &);
+    }
+
+private:
+    CLIEnvironment empty_env_;
+
+    static inline std::string filename1()
+    {
+        return "example.txt";
+    }
+
+    static inline std::string filename2()
+    {
+        return "123";
+    }
+
+    static inline std::vector<std::string> lines1()
+    {
+        return {
+            "Some example text",
+            "second line"
+        };
+    }
+
+    static inline std::vector<std::string> lines2()
+    {
+        return {
+            "#123",
+            "\\"
+        };
+    }
+
+    std::string merge_lines(std::vector<std::string> &&vs)
+    {
+        if (vs.empty()) return "\n";
+
+        std::string res = "";
+        for (auto &&s : vs)
+        {
+            res += s + "\n";
+        }
+        return res;
+    }
+    static void writeLinesToFile(const std::string &filename, const std::vector<std::string> &lines)
+    {
+        std::ofstream fout(filename);
+        for (auto const &s : lines)
+        {
+            fout << s << std::endl;
+        }
+    }
+};
+
+#endif // CLI_CAT_COMMAND_TEST_H
+
