@@ -43,7 +43,7 @@ void CLIWordCountCommand::step(std::string &&line)
     }
 }
 
-void CLIWordCountCommand::end_file_step(const std::__cxx11::string &filename)
+void CLIWordCountCommand::end_file_step(const std::string &filename)
 {
     chars_count_ += lines_count_;
     lines_total_count_ += lines_count_;
@@ -69,7 +69,7 @@ void CLIWordCountCommand::end_run(CLIEnvironment &env)
     }
 }
 
-void CLIWordCountCommand::print_characteristics(size_t lines_count, size_t words_count, size_t chars_count, const std::__cxx11::string &label)
+void CLIWordCountCommand::print_characteristics(size_t lines_count, size_t words_count, size_t chars_count, const std::string &label)
 {
     os_ << lines_count << "\t" << words_count << "\t" << chars_count << "\t" << label << std::endl;
 }

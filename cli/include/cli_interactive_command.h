@@ -13,8 +13,19 @@
 class CLIInteractiveCommand : public CLICommand
 {
 public:
+    /**
+     * @brief CLIInteractiveCommand constructor for command objects.
+     * @param is input stream.
+     * @param os output stream.
+     * @param params command line parameters.
+     */
     CLIInteractiveCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
+    /**
+     * @brief run entering point.
+     * @param env environment.
+     * @return return code.
+     */
     int run(CLIEnvironment &env) override;
 
     virtual std::string name() const = 0;

@@ -6,12 +6,17 @@
 
 /**
  * @brief The CLICommandQueueEntry class
- * simple struct for storing all commands in a "step" -
- * it represents all commands executed till EOL or ';'
- * (if ';' is to be implemented further).
+ * simple storage for all commands executed in a "step"
+ * (main loop's iteration) it represents all commands
+ * executed till EOL or ';' (if ';' is to be implemented further).
  * Simply a wrapper around std::vector of std::vector of something...
  */
 typedef std::vector<std::string> CLICommandPipeEntry;
+
+/**
+ * @brief one single command with its command line arguments
+ * stored as an array of strings.
+ */
 typedef std::vector<CLICommandPipeEntry> CLICommandPipe;
 
 #endif // CLI_COMMAND_PIPE_H

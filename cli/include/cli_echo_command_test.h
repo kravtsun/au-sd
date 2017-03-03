@@ -8,6 +8,10 @@
 #include <string>
 #include <sstream>
 
+/**
+ * @brief The CLIEchoCommandTest class testing suite
+ * for "echo" command.
+ */
 class CLIEchoCommandTest : public CxxTest::TestSuite
 {
     void single_test(const CLICommand::ParamsListType &params, const std::string &shouldbe)
@@ -22,11 +26,18 @@ class CLIEchoCommandTest : public CxxTest::TestSuite
     }
 
 public:
+    /**
+     * @brief testSingle simple test.
+     */
     void testSingle()
     {
         single_test({"123"}, "123\n");
     }
 
+    /**
+     * @brief testMultiple testing when echo command
+     * is dealing with several arguments.
+     */
     void testMultiple()
     {
         single_test({"a   ", "b", "c" }, "a    b c\n");

@@ -7,9 +7,19 @@
 #include <sstream>
 #include <cassert>
 
-
+/**
+ * @brief The CLICommandParserTest class testing suite
+ * for CLICommandParser
+ */
 class CLICommandParserTest : public CxxTest::TestSuite
 {
+    /**
+     * @brief single_test represent a skeleton for a test.
+     * @param env environment.
+     * @param string as if it was taken from user's input.
+     * @param expected array of lexems already preprocessed
+     * with environmental variable mechanisms.
+     */
     void single_test(const CLIEnvironment &env, const std::string &s, const std::vector<std::string> &expected)
     {
         std::istringstream is(s);
@@ -18,6 +28,13 @@ class CLICommandParserTest : public CxxTest::TestSuite
         TS_ASSERT_EQUALS(pipe[0], expected);
     }
 
+    /**
+     * @brief multiple_test runs several single_test's
+     * @param vars variables to be put in environment when
+     * testing.
+     * @param asks array of strings as it they are from user's input.
+     * @param answers result of CLICommandParser.
+     */
     void multiple_test(CLIEnvironment::VarListType &&vars,
                        std::vector<std::string> &&asks,
                        std::vector<CLICommandPipeEntry> &&answers)
@@ -32,6 +49,10 @@ class CLICommandParserTest : public CxxTest::TestSuite
     }
 
 public:
+    /**
+     * @brief testEnvironmentVariables tests preprocessing environmental variables occurences
+     * in user's input.
+     */
     void testEnvironmentVariables()
     {
         TS_TRACE("Starting CLICommandParser::environmentVariables test.");
@@ -52,6 +73,10 @@ public:
         TS_TRACE("Finishing CLICommandParser::environmentVariables test.");
     }
 
+    /**
+     * @brief testQuotes checks if CLICommandParser treats quotes properly
+     * (according to technical task).
+     */
     void testQuotes()
     {
         TS_TRACE("Starting CLICommandParser::quotes test.");
@@ -71,6 +96,10 @@ public:
         TS_TRACE("Finishing CLICommandParser::quotes test.");
     }
 
+    /**
+     * @brief testLines test if some sentence was split by user on several lines.
+     * but all these lines are to make one pipe sequence.
+     */
     void testLines()
     {
         TS_TRACE("Starting CLICommandParser::quotes test.");

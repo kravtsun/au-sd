@@ -22,7 +22,7 @@ void CLICatCommand::step(std::string &&line)
     os_ << line << std::endl;
 }
 
-void CLICatCommand::end_file_step(const std::__cxx11::string &filename)
+void CLICatCommand::end_file_step(const std::string &filename)
 {
     (void)filename;
 }

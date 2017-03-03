@@ -94,9 +94,9 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
     bool next_line_needed = true;
     while (next_line_needed && std::getline(is, line))
     {
-        next_line_needed = false;
         for (size_t i = 0; i < line.size(); ++i)
         {
+            next_line_needed = false;
             if (line[i] == '$' && !is_single_quotes)
             {
                 if (is_variable_opened && var_name.empty())

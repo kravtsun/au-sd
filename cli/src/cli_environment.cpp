@@ -81,7 +81,7 @@ void CLIEnvironment::set_var(const std::string &name, const std::string &value)
     vars_[name] = value;
 }
 
-CLIEnvironment CLIEnvironment::operator|(const CLIEnvironment &rhs)
+CLIEnvironment CLIEnvironment::operator|(const CLIEnvironment &rhs) const
 {
     CLIEnvironment res(vars_);
     for (auto const &it : rhs.vars_)

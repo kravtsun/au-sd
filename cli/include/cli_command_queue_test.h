@@ -6,9 +6,18 @@
 #include <string>
 #include <sstream>
 
+/**
+ * @brief The CLICommandQueueTest class
+ * testing suite for CLICommandQueue.
+ */
 class CLICommandQueueTest : public CxxTest::TestSuite
 {
 public:
+    /**
+     * @brief testPipe general test for making sure
+     * several commands in a pipe will share their
+     * input and output streams on a chain.
+     */
     void testPipe(void)
     {
         CLICommandPipeEntry first_command = {"echo", "123"};

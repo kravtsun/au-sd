@@ -5,11 +5,27 @@
 #include "cli_command_pipe.h"
 #include <ostream>
 
+/**
+ * @brief The CLICommandQueue class - commands executioneer.
+ * have responsibility on the order of commands' executed
+ * and makes sure they share data streams correctly.
+ */
 class CLICommandQueue
 {
 public:
+    /**
+     * @brief CLICommandQueue - constructor.
+     * @param env Environmental variables needed for initialization.
+     * @param pipe commands to be executed in a pipe sequence.
+     * @param os output stream.
+     */
     CLICommandQueue(CLIEnvironment &env, CLICommandPipe &&pipe, std::ostream &os);
 
+    /**
+     * @brief execute_pipe - trigger for starting scheduling and running commands
+     * in a single pipe.
+     * @return new environment (which can be changed after commands executed).
+     */
     CLIEnvironment execute_pipe();
 
 private:

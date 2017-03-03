@@ -3,8 +3,8 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-INCLUDEPATH += include/ third_party/cxxtest
-DEPENDPATH += include/ third_party/cxxtest
+INCLUDEPATH += include/
+DEPENDPATH += include/
 
 SOURCES += src/main.cpp \
     src/cli_exception.cpp \
@@ -34,9 +34,6 @@ HEADERS += \
     include/cli_command_pipe.h \
     include/cli_cat_command.h \
 	include/cli_echo_command.h \
-    include/cli_environment_test.h \
-    include/cli_cat_command_test.h \
-    include/cli_command_queue_test.h \
     include/cli_word_count_command.h \
     include/cli_interactive_command.h \
     include/cli_unknown_command.h

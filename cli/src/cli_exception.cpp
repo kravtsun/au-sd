@@ -31,7 +31,7 @@ CLICommandException::CLICommandException(const std::string &command, const std::
     base_msg_ = command_ + ": " + msg_;
 }
 
-CLIUnknownError::CLIUnknownError(std::__cxx11::string &&msg)
+CLIUnknownError::CLIUnknownError(std::string &&msg)
     : msg_(msg)
 {
     base_msg_ = "CLIUnknownError: " + msg_;

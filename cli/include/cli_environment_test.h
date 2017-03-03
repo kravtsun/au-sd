@@ -7,9 +7,16 @@
 #include <string>
 #include <cassert>
 
+/**
+ * @brief The CLIEnvironmentTest class - testing suite
+ * for CLIEnvironment.
+ */
 class CLIEnvironmentTest : public CxxTest::TestSuite
 {
 public:
+    /**
+     * @brief testIsVarAssignment tests is_var_assignment method.
+     */
     void testIsVarAssignment()
     {
         const std::vector<std::string> asks = {
@@ -33,6 +40,9 @@ public:
         }
     }
 
+    /**
+     * @brief testVarFlow tests assigning environmental variables.
+     */
     void testVarFlow()
     {
         const std::vector<std::string> vars = {

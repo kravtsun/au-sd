@@ -26,29 +26,29 @@ bool suite_CLICatCommandTest_init = false;
 static CLICatCommandTest suite_CLICatCommandTest;
 
 static CxxTest::List Tests_CLICatCommandTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_CLICatCommandTest( "../../include/cli_cat_command_test.h", 13, "CLICatCommandTest", suite_CLICatCommandTest, Tests_CLICatCommandTest );
+CxxTest::StaticSuiteDescription suiteDescription_CLICatCommandTest( "../../include/cli_cat_command_test.h", 18, "CLICatCommandTest", suite_CLICatCommandTest, Tests_CLICatCommandTest );
 
 static class TestDescription_suite_CLICatCommandTest_testEmpty : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICatCommandTest_testEmpty() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 22, "testEmpty" ) {}
+ TestDescription_suite_CLICatCommandTest_testEmpty() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 35, "testEmpty" ) {}
  void runTest() { suite_CLICatCommandTest.testEmpty(); }
 } testDescription_suite_CLICatCommandTest_testEmpty;
 
 static class TestDescription_suite_CLICatCommandTest_testFile : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICatCommandTest_testFile() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 33, "testFile" ) {}
+ TestDescription_suite_CLICatCommandTest_testFile() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 50, "testFile" ) {}
  void runTest() { suite_CLICatCommandTest.testFile(); }
 } testDescription_suite_CLICatCommandTest_testFile;
 
 static class TestDescription_suite_CLICatCommandTest_testMultipleFiles : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICatCommandTest_testMultipleFiles() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 44, "testMultipleFiles" ) {}
+ TestDescription_suite_CLICatCommandTest_testMultipleFiles() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 64, "testMultipleFiles" ) {}
  void runTest() { suite_CLICatCommandTest.testMultipleFiles(); }
 } testDescription_suite_CLICatCommandTest_testMultipleFiles;
 
 static class TestDescription_suite_CLICatCommandTest_testNotExists : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICatCommandTest_testNotExists() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 57, "testNotExists" ) {}
+ TestDescription_suite_CLICatCommandTest_testNotExists() : CxxTest::RealTestDescription( Tests_CLICatCommandTest, suiteDescription_CLICatCommandTest, 81, "testNotExists" ) {}
  void runTest() { suite_CLICatCommandTest.testNotExists(); }
 } testDescription_suite_CLICatCommandTest_testNotExists;
 
@@ -82,11 +82,11 @@ public:
 static CLICommandQueueTest suite_CLICommandQueueTest;
 
 static CxxTest::List Tests_CLICommandQueueTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_CLICommandQueueTest( "../../include/cli_command_queue_test.h", 9, "CLICommandQueueTest", suite_CLICommandQueueTest, Tests_CLICommandQueueTest );
+CxxTest::StaticSuiteDescription suiteDescription_CLICommandQueueTest( "../../include/cli_command_queue_test.h", 13, "CLICommandQueueTest", suite_CLICommandQueueTest, Tests_CLICommandQueueTest );
 
 static class TestDescription_suite_CLICommandQueueTest_testPipe : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICommandQueueTest_testPipe() : CxxTest::RealTestDescription( Tests_CLICommandQueueTest, suiteDescription_CLICommandQueueTest, 12, "testPipe" ) {}
+ TestDescription_suite_CLICommandQueueTest_testPipe() : CxxTest::RealTestDescription( Tests_CLICommandQueueTest, suiteDescription_CLICommandQueueTest, 21, "testPipe" ) {}
  void runTest() { suite_CLICommandQueueTest.testPipe(); }
 } testDescription_suite_CLICommandQueueTest_testPipe;
 
@@ -95,17 +95,17 @@ public:
 static CLIEnvironmentTest suite_CLIEnvironmentTest;
 
 static CxxTest::List Tests_CLIEnvironmentTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_CLIEnvironmentTest( "../../include/cli_environment_test.h", 10, "CLIEnvironmentTest", suite_CLIEnvironmentTest, Tests_CLIEnvironmentTest );
+CxxTest::StaticSuiteDescription suiteDescription_CLIEnvironmentTest( "../../include/cli_environment_test.h", 14, "CLIEnvironmentTest", suite_CLIEnvironmentTest, Tests_CLIEnvironmentTest );
 
 static class TestDescription_suite_CLIEnvironmentTest_testIsVarAssignment : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIEnvironmentTest_testIsVarAssignment() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 13, "testIsVarAssignment" ) {}
+ TestDescription_suite_CLIEnvironmentTest_testIsVarAssignment() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 17, "testIsVarAssignment" ) {}
  void runTest() { suite_CLIEnvironmentTest.testIsVarAssignment(); }
 } testDescription_suite_CLIEnvironmentTest_testIsVarAssignment;
 
 static class TestDescription_suite_CLIEnvironmentTest_testVarFlow : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIEnvironmentTest_testVarFlow() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 36, "testVarFlow" ) {}
+ TestDescription_suite_CLIEnvironmentTest_testVarFlow() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 40, "testVarFlow" ) {}
  void runTest() { suite_CLIEnvironmentTest.testVarFlow(); }
 } testDescription_suite_CLIEnvironmentTest_testVarFlow;
 

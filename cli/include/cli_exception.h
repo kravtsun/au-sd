@@ -17,6 +17,11 @@ protected:
     std::string base_msg_;
 };
 
+/**
+ * @brief The CLIExitException class generated when
+ * "exit" command. Apart from this exception there's no way
+ * to break through the main loop (not mentioning hard tools like terminal signals).
+ */
 class CLIExitException : public CLIException
 {
 public:
@@ -34,6 +39,10 @@ private:
     CLIExitException();
 };
 
+/**
+ * @brief The CLIParseException class exception thrown on
+ * bad input when other is expected.
+ */
 class CLIParseException : public CLIException
 {
 public:
@@ -43,6 +52,10 @@ private:
     std::string expr_, goal_;
 };
 
+/**
+ * @brief The CLINotImlementedException class mark code-flow places,
+ * when functionality is not implemented yet.
+ */
 class CLINotImlementedException : public CLIException
 {
 public:
@@ -52,6 +65,11 @@ private:
     std::string component_;
 };
 
+/**
+ * @brief The CLICommandException class represents some complaint
+ * for the command - an atomic worker on some condition which
+ * makes it impossible to continue its job.
+ */
 class CLICommandException : public CLIException
 {
 public:
@@ -61,7 +79,10 @@ private:
     std::string command_, msg_;
 };
 
-
+/**
+ * @brief The CLIUnknownError class represents unclassified or not implemented yet
+ * types of errors.
+ */
 class CLIUnknownError : public CLIException
 {
 public:

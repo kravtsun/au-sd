@@ -10,15 +10,28 @@
 #include <sstream>
 
 
+/**
+ * @brief The CLICatCommandTest class
+ * testing suite for CLICatCommand methods and logic
+ * behind them.
+ */
 class CLICatCommandTest : public CxxTest::TestSuite
 {
 public:
+    /**
+     * @brief CLICatCommandTest constructor.
+     * prepare test following after.
+     */
     CLICatCommandTest()
     {
         writeLinesToFile(filename1(), lines1());
         writeLinesToFile(filename2(), lines2());
     }
 
+    /**
+     * @brief testEmpty test if no parameters was specified
+     * and so cat should run in interactive mode.
+     */
     void testEmpty()
     {
         std::string ask = "\n\n123";
@@ -30,6 +43,10 @@ public:
         TS_ASSERT_EQUALS(os.str(), answer);
     }
 
+    /**
+     * @brief testFile test working with one and only file
+     * specified.
+     */
     void testFile()
     {
         std::istringstream is("");
@@ -41,6 +58,9 @@ public:
         TS_ASSERT_EQUALS(os.str(), merge_lines(lines1()));
     }
 
+    /**
+     * @brief testMultipleFiles test working with several files.
+     */
     void testMultipleFiles()
     {
         std::istringstream is("");
@@ -54,6 +74,10 @@ public:
         TS_ASSERT_EQUALS(os.str(), all_lines);
     }
 
+    /**
+     * @brief testNotExists test on correct behavior when
+     * not-existent file is specified.
+     */
     void testNotExists()
     {
         std::string filename = "26486321386463213";

@@ -3,11 +3,27 @@
 
 #include "cli_interactive_command.h"
 
+/**
+ * @brief The CLIWordCountCommand class command object
+ * which counts number of lines, words and characters
+ * in input stream (if no arguments specified) or for
+ * any file in a parameters' list.
+ */
 class CLIWordCountCommand : public CLIInteractiveCommand
 {
 public:
+    /**
+     * @brief CLIWordCountCommand usual command object constructor.
+     * @param is input stream.
+     * @param os output stream.
+     * @param params command line parameters.
+     */
     CLIWordCountCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
+    /**
+     * @brief name helper method for identifying command object.
+     * @return name of command (like as if it was run in usual Bash).
+     */
     std::string name() const override;
 
 private:

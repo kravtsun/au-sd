@@ -2,7 +2,7 @@
 #include "cli_exception.h"
 #include <cctype>
 
-CLIParser::CLIParser(const std::__cxx11::string &s)
+CLIParser::CLIParser(const std::string &s)
     : iss_(s)
 {}
 
