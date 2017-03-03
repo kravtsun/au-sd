@@ -19,7 +19,8 @@ SOURCES += src/main.cpp \
     src/cli_echo_command.cpp \
     src/cli_word_count_command.cpp \
     src/cli_interactive_command.cpp \
-    src/cli_unknown_command.cpp
+    src/cli_unknown_command.cpp \
+    src/cli_pwd_command.cpp
 
 HEADERS += \
     include/cli_exception.h \
@@ -35,7 +36,8 @@ HEADERS += \
 	include/cli_echo_command.h \
     include/cli_word_count_command.h \
     include/cli_interactive_command.h \
-    include/cli_unknown_command.h
+    include/cli_unknown_command.h \
+    include/cli_pwd_command.h
 
 
 QMAKE_CXXFLAGS += -std=c++11

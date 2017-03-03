@@ -5,6 +5,7 @@
 #include "cli_cat_command.h"
 #include "cli_echo_command.h"
 #include "cli_word_count_command.h"
+#include "cli_pwd_command.h"
 #include "cli_unknown_command.h"
 #include <string>
 #include <iostream>
@@ -37,6 +38,10 @@ static CLICommand *command_from_name(const std::string &command,
     else if (command == "wc")
     {
         return new CLIWordCountCommand(is, os, params);
+    }
+    else if (command == "pwd")
+    {
+        return new CLIPwdCommand(is, os, params);
     }
     else
     {
