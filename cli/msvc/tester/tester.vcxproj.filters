@@ -75,6 +75,9 @@
     <ClInclude Include="..\..\include\cli_word_count_command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\cli_pwd_command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\cli_application.cpp">
@@ -117,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mytestsuite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cli_pwd_command.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

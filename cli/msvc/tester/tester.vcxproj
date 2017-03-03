@@ -124,6 +124,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
     <ClInclude Include="..\..\include\cli_interactive_command.h" />
     <ClInclude Include="..\..\include\cli_parser.h" />
     <ClInclude Include="..\..\include\cli_parser_test.h" />
+    <ClInclude Include="..\..\include\cli_pwd_command.h" />
     <ClInclude Include="..\..\include\cli_unknown_command.h" />
     <ClInclude Include="..\..\include\cli_word_count_command.h" />
   </ItemGroup>
@@ -139,6 +140,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
     <ClCompile Include="..\..\src\cli_exit_command.cpp" />
     <ClCompile Include="..\..\src\cli_interactive_command.cpp" />
     <ClCompile Include="..\..\src\cli_parser.cpp" />
+    <ClCompile Include="..\..\src\cli_pwd_command.cpp" />
     <ClCompile Include="..\..\src\cli_unknown_command.cpp" />
     <ClCompile Include="..\..\src\cli_word_count_command.cpp" />
     <ClCompile Include="mytestsuite.cpp" />
