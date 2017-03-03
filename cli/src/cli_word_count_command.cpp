@@ -24,6 +24,12 @@ void CLIWordCountCommand::init_run(const CLIEnvironment &env)
     chars_count_ = 0;
 }
 
+static bool iswhitespace(char c)
+{
+    // additional checking in case of Unicode.
+    return (c >= -1 && c <= 255 && isblank(c));
+}
+
 void CLIWordCountCommand::step(std::string &&line)
 {
     lines_count_++;
@@ -31,11 +37,11 @@ void CLIWordCountCommand::step(std::string &&line)
     bool word_started = false;
     for (auto const &c : line)
     {
-        if (word_started && isblank(c))
+        if (word_started && iswhitespace(c))
         {
             word_started = false;
         }
-        else if (!word_started && !isblank(c))
+        else if (!word_started && !iswhitespace(c))
         {
             words_count_++;
             word_started = true;
