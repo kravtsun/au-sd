@@ -2,20 +2,24 @@
 First homework project, CLI - command line interpreter.
 
 ##Prerequisites
-on Ubuntu (tested on ver. 16.04): 
+###Ubuntu### (tested on ver. 16.04): 
 qmake ver. (tested on ver.3.0 using Qt version 5.5.1)
 g++ (tested on ver. 5.4.0).
+Python (ver. >= 2.7) added to PATH.
 
-on Windows (tested on ver. 10)
-Microsoft Visual Studio (tested on MSVS 2015).
+###Windows### (tested on ver. 10)
+* Microsoft Visual Studio (tested on MSVS 2013).
+* Python (ver. >= 2.7) added to PATH.
 
 ##USAGE##
-on Ubuntu:
+###Ubuntu###:
 ```bash
 qmake && make && ./cli
 ```
 
-on Windows:
+###Windows###:
+open solution in MS Visual Studio (ver. >= 2015) an build project 'cli'
+(optionally testing it with project 'tester').
 to be descripted later.
 
 ## Architecture description ##

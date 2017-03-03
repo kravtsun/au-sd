@@ -17,7 +17,9 @@ CLIExitCommand::CLIExitCommand(std::istream &is, std::ostream &os, const CLIComm
         }
         catch (CLIParseException &e)
         {
-            throw CLICommandException("exit", "unable to parse into integer exit code: " + params.front());
+            std::string msg = "unable to parse into integer exit code: ";
+            msg += e.what();
+            throw CLICommandException("exit",  msg);
         }
     }
 }

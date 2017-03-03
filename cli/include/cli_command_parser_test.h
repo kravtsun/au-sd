@@ -96,12 +96,14 @@ public:
         TS_TRACE("Finishing CLICommandParser::quotes test.");
     }
 
+
     /**
      * @brief testLines test if some sentence was split by user on several lines.
      * but all these lines are to make one pipe sequence.
      */
     void testLines()
     {
+#ifndef _MSC_VER
         TS_TRACE("Starting CLICommandParser::quotes test.");
         CLIEnvironment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
 
@@ -118,7 +120,9 @@ public:
         multiple_test(std::move(vars), std::move(asks), std::move(answers));
 
         TS_TRACE("Finishing CLICommandParser::quotes test.");
+#endif
     }
+
 };
 
 
