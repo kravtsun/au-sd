@@ -38,6 +38,7 @@ HEADERS += \
     include/cli_unknown_command.h
 
 
+QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -Wall -Wconversion -Wpedantic
 
 QMAKE_CXXFLAGS_DEBUG += -O0 -ggdb
