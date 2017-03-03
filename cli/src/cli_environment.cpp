@@ -1,7 +1,6 @@
 #include <cassert>
 #include "cli_environment.h"
 #include "cli_exception.h"
-#include "common.h"
 
 CLIEnvironment::CLIEnvironment()
     : vars_({})
@@ -61,7 +60,7 @@ std::string CLIEnvironment::get_var(const std::string &name) const
     auto it = vars_.find(name);
     if (it == vars_.end())
     {
-        LOG("Cannot find environment variable :\"" + name + "\"");
+//        LOG("Cannot find environment variable :\"" + name + "\"");
         return "";
     }
     else
@@ -72,11 +71,11 @@ std::string CLIEnvironment::get_var(const std::string &name) const
 
 void CLIEnvironment::set_var(const std::string &name, const std::string &value)
 {
-    auto it = vars_.find(name);
-    if (it != vars_.end())
-    {
-        LOG("Reassigning environment variable \"" + name + "\" to value: " + value);
-    }
+//    auto it = vars_.find(name);
+//    if (it != vars_.end())
+//    {
+//        LOG("Reassigning environment variable \"" + name + "\" to value: " + value);
+//    }
 
     vars_[name] = value;
 }

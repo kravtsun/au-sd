@@ -9,7 +9,6 @@
 #include <fstream>
 #include <sstream>
 
-
 /**
  * @brief The CLICatCommandTest class
  * testing suite for CLICatCommand methods and logic

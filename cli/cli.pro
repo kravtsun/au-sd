@@ -24,7 +24,6 @@ SOURCES += src/main.cpp \
 HEADERS += \
     include/cli_exception.h \
     include/cli_environment.h \
-    include/common.h \
     include/cli_application.h \
     include/cli_command.h \
     include/cli_exit_command.h \

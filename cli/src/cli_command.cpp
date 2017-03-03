@@ -4,6 +4,4 @@ CLICommand::CLICommand(std::istream &is, std::ostream &os, const CLICommand::Par
     : is_(is)
     , os_(os)
     , params_(params)
-{
-
-}
+{}

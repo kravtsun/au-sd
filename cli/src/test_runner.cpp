@@ -57,23 +57,23 @@ public:
 static CLICommandParserTest suite_CLICommandParserTest;
 
 static CxxTest::List Tests_CLICommandParserTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_CLICommandParserTest( "../../include/cli_command_parser_test.h", 11, "CLICommandParserTest", suite_CLICommandParserTest, Tests_CLICommandParserTest );
+CxxTest::StaticSuiteDescription suiteDescription_CLICommandParserTest( "../../include/cli_command_parser_test.h", 14, "CLICommandParserTest", suite_CLICommandParserTest, Tests_CLICommandParserTest );
 
 static class TestDescription_suite_CLICommandParserTest_testEnvironmentVariables : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICommandParserTest_testEnvironmentVariables() : CxxTest::RealTestDescription( Tests_CLICommandParserTest, suiteDescription_CLICommandParserTest, 35, "testEnvironmentVariables" ) {}
+ TestDescription_suite_CLICommandParserTest_testEnvironmentVariables() : CxxTest::RealTestDescription( Tests_CLICommandParserTest, suiteDescription_CLICommandParserTest, 56, "testEnvironmentVariables" ) {}
  void runTest() { suite_CLICommandParserTest.testEnvironmentVariables(); }
 } testDescription_suite_CLICommandParserTest_testEnvironmentVariables;
 
 static class TestDescription_suite_CLICommandParserTest_testQuotes : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICommandParserTest_testQuotes() : CxxTest::RealTestDescription( Tests_CLICommandParserTest, suiteDescription_CLICommandParserTest, 55, "testQuotes" ) {}
+ TestDescription_suite_CLICommandParserTest_testQuotes() : CxxTest::RealTestDescription( Tests_CLICommandParserTest, suiteDescription_CLICommandParserTest, 80, "testQuotes" ) {}
  void runTest() { suite_CLICommandParserTest.testQuotes(); }
 } testDescription_suite_CLICommandParserTest_testQuotes;
 
 static class TestDescription_suite_CLICommandParserTest_testLines : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLICommandParserTest_testLines() : CxxTest::RealTestDescription( Tests_CLICommandParserTest, suiteDescription_CLICommandParserTest, 74, "testLines" ) {}
+ TestDescription_suite_CLICommandParserTest_testLines() : CxxTest::RealTestDescription( Tests_CLICommandParserTest, suiteDescription_CLICommandParserTest, 103, "testLines" ) {}
  void runTest() { suite_CLICommandParserTest.testLines(); }
 } testDescription_suite_CLICommandParserTest_testLines;
 
@@ -99,13 +99,13 @@ CxxTest::StaticSuiteDescription suiteDescription_CLIEnvironmentTest( "../../incl
 
 static class TestDescription_suite_CLIEnvironmentTest_testIsVarAssignment : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIEnvironmentTest_testIsVarAssignment() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 17, "testIsVarAssignment" ) {}
+ TestDescription_suite_CLIEnvironmentTest_testIsVarAssignment() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 20, "testIsVarAssignment" ) {}
  void runTest() { suite_CLIEnvironmentTest.testIsVarAssignment(); }
 } testDescription_suite_CLIEnvironmentTest_testIsVarAssignment;
 
 static class TestDescription_suite_CLIEnvironmentTest_testVarFlow : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIEnvironmentTest_testVarFlow() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 40, "testVarFlow" ) {}
+ TestDescription_suite_CLIEnvironmentTest_testVarFlow() : CxxTest::RealTestDescription( Tests_CLIEnvironmentTest, suiteDescription_CLIEnvironmentTest, 46, "testVarFlow" ) {}
  void runTest() { suite_CLIEnvironmentTest.testVarFlow(); }
 } testDescription_suite_CLIEnvironmentTest_testVarFlow;
 
@@ -114,17 +114,17 @@ public:
 static CLIEchoCommandTest suite_CLIEchoCommandTest;
 
 static CxxTest::List Tests_CLIEchoCommandTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_CLIEchoCommandTest( "../../include/cli_echo_command_test.h", 11, "CLIEchoCommandTest", suite_CLIEchoCommandTest, Tests_CLIEchoCommandTest );
+CxxTest::StaticSuiteDescription suiteDescription_CLIEchoCommandTest( "../../include/cli_echo_command_test.h", 15, "CLIEchoCommandTest", suite_CLIEchoCommandTest, Tests_CLIEchoCommandTest );
 
 static class TestDescription_suite_CLIEchoCommandTest_testSingle : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIEchoCommandTest_testSingle() : CxxTest::RealTestDescription( Tests_CLIEchoCommandTest, suiteDescription_CLIEchoCommandTest, 25, "testSingle" ) {}
+ TestDescription_suite_CLIEchoCommandTest_testSingle() : CxxTest::RealTestDescription( Tests_CLIEchoCommandTest, suiteDescription_CLIEchoCommandTest, 32, "testSingle" ) {}
  void runTest() { suite_CLIEchoCommandTest.testSingle(); }
 } testDescription_suite_CLIEchoCommandTest_testSingle;
 
 static class TestDescription_suite_CLIEchoCommandTest_testMultiple : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIEchoCommandTest_testMultiple() : CxxTest::RealTestDescription( Tests_CLIEchoCommandTest, suiteDescription_CLIEchoCommandTest, 30, "testMultiple" ) {}
+ TestDescription_suite_CLIEchoCommandTest_testMultiple() : CxxTest::RealTestDescription( Tests_CLIEchoCommandTest, suiteDescription_CLIEchoCommandTest, 41, "testMultiple" ) {}
  void runTest() { suite_CLIEchoCommandTest.testMultiple(); }
 } testDescription_suite_CLIEchoCommandTest_testMultiple;
 
@@ -133,17 +133,17 @@ public:
 static CLIParserTest suite_CLIParserTest;
 
 static CxxTest::List Tests_CLIParserTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_CLIParserTest( "../../include/cli_parser_test.h", 8, "CLIParserTest", suite_CLIParserTest, Tests_CLIParserTest );
+CxxTest::StaticSuiteDescription suiteDescription_CLIParserTest( "../../include/cli_parser_test.h", 12, "CLIParserTest", suite_CLIParserTest, Tests_CLIParserTest );
 
 static class TestDescription_suite_CLIParserTest_testSuccess : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIParserTest_testSuccess() : CxxTest::RealTestDescription( Tests_CLIParserTest, suiteDescription_CLIParserTest, 11, "testSuccess" ) {}
+ TestDescription_suite_CLIParserTest_testSuccess() : CxxTest::RealTestDescription( Tests_CLIParserTest, suiteDescription_CLIParserTest, 19, "testSuccess" ) {}
  void runTest() { suite_CLIParserTest.testSuccess(); }
 } testDescription_suite_CLIParserTest_testSuccess;
 
 static class TestDescription_suite_CLIParserTest_testFail : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_CLIParserTest_testFail() : CxxTest::RealTestDescription( Tests_CLIParserTest, suiteDescription_CLIParserTest, 18, "testFail" ) {}
+ TestDescription_suite_CLIParserTest_testFail() : CxxTest::RealTestDescription( Tests_CLIParserTest, suiteDescription_CLIParserTest, 29, "testFail" ) {}
  void runTest() { suite_CLIParserTest.testFail(); }
 } testDescription_suite_CLIParserTest_testFail;
 

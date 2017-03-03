@@ -4,8 +4,7 @@
 
 CLICatCommand::CLICatCommand(std::istream &is, std::ostream &os, const ParamsListType &params_)
     : CLIInteractiveCommand(is, os, params_)
-{
-}
+{}
 
 std::string CLICatCommand::name() const
 {

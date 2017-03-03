@@ -1,5 +1,4 @@
 #include "cli_exception.h"
-#include <cstring>
 
 CLIException::CLIException()
     : base_msg_("")

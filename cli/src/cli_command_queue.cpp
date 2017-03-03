@@ -1,6 +1,5 @@
 #include "cli_command_queue.h"
 #include "cli_exception.h"
-#include "common.h"
 #include "cli_command.h"
 #include "cli_exit_command.h"
 #include "cli_cat_command.h"
@@ -16,9 +15,7 @@ CLICommandQueue::CLICommandQueue(CLIEnvironment &env, CLICommandPipe &&pipe, std
     : env_(env)
     , pipe_(pipe)
     , os_(os)
-{
-
-}
+{}
 
 static CLICommand *command_from_name(const std::string &command,
                                      const CLICommand::ParamsListType &params,
@@ -51,13 +48,6 @@ static CLICommand *command_from_name(const std::string &command,
     return nullptr;
 }
 
-
-template<typename T>
-static void clear_stream(T &ss)
-{
-    ss.str(std::string());
-}
-
 CLIEnvironment CLICommandQueue::execute_pipe()
 {
     // TODO: execute environmental varialbes assignments.
@@ -67,10 +57,10 @@ CLIEnvironment CLICommandQueue::execute_pipe()
 
     for (auto const &command_strings : pipe_)
     {
+        // clears output stream.
         os.str("");
         if (command_strings.empty())
         {
-            LOG("command_strings is empty");
             continue;
         }
 
