@@ -18,8 +18,8 @@ int CLIPwdCommand::run(CLIEnvironment &env)
 {
     (void)env;
 #ifndef _MSC_VER
-    char *str = get_current_dir_name();
-    if (!str)
+    char *buf = get_current_dir_name();
+    if (!buf)
 #else
     TCHAR buf[MAX_PATH];
     DWORD dwRet = GetCurrentDirectory(MAX_PATH, buf);
