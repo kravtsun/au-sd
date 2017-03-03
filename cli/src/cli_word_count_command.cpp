@@ -27,7 +27,11 @@ void CLIWordCountCommand::init_run(const CLIEnvironment &env)
 static bool iswhitespace(char c)
 {
     // additional checking in case of Unicode.
+#ifdef _MSC_VER
     return (c >= -1 && c <= 255 && isblank(c));
+#else
+    return static_cast<bool>(isblank(c));
+#endif
 }
 
 void CLIWordCountCommand::step(std::string &&line)

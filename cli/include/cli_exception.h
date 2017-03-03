@@ -29,9 +29,7 @@ protected:
 class CLIExitException : public CLIException
 {
 public:
-    CLIExitException(int exit_code=0)
-        : exit_code_(exit_code)
-    {}
+    CLIExitException(int exit_code=0);
 
     int exit_code() const
     {

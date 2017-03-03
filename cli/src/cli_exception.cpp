@@ -13,6 +13,12 @@ const char *CLIException::what() const noexcept
     return base_msg_.c_str();
 }
 
+
+CLIExitException::CLIExitException(int exit_code)
+    : exit_code_(exit_code)
+{}
+
+
 CLIParseException::CLIParseException(const std::string &expr, const std::string &goal)
     : expr_(expr)
     , goal_(goal)
