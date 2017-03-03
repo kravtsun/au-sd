@@ -1,0 +1,4 @@
+<map id="CLIEnvironment::get_var" name="CLIEnvironment::get_var">
+<area shape="rect" id="node2" href="$class_c_l_i_application.html#a333f389e8886b00076b1c1fd7d9264fe" title="Main loop covers basic logic of our code flow. most notable application processess take place in it..." alt="" coords="449,5,624,32"/>
+<area shape="rect" id="node3" href="$class_c_l_i_command_parser.html#a6af7d130388c222abe8394fb1dfd7d50" title="parse_all_commands &#45; &quot;red button&quot; for the command parser, the order to do its work. " alt="" coords="220,27,401,69"/>
+</map>

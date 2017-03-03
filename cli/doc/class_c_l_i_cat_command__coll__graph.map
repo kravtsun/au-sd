@@ -1,0 +1,4 @@
+<map id="CLICatCommand" name="CLICatCommand">
+<area shape="rect" id="node2" href="$class_c_l_i_interactive_command.html" title="The CLIInteractiveCommand class base class for commands working with files &#45; and only if not presente..." alt="" coords="5,204,189,369"/>
+<area shape="rect" id="node3" href="$class_c_l_i_command.html" title="Base class for all commands. reflects general behavior and interface to the atomic worker in our proj..." alt="" coords="32,5,163,156"/>
+</map>

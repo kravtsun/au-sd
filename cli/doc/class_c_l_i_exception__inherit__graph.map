@@ -1,0 +1,7 @@
+<map id="CLIException" name="CLIException">
+<area shape="rect" id="node3" href="$class_c_l_i_command_exception.html" title="The CLICommandException class represents some complaint for the command &#45; an atomic worker on some co..." alt="" coords="5,278,187,355"/>
+<area shape="rect" id="node4" href="$class_c_l_i_exit_exception.html" title="The CLIExitException class generated when &quot;exit&quot; command. Apart from this exception there&#39;s no way to..." alt="" coords="211,271,355,363"/>
+<area shape="rect" id="node5" href="$class_c_l_i_not_imlemented_exception.html" title="The CLINotImlementedException class mark code&#45;flow places, when functionality is not implemented yet..." alt="" coords="379,278,589,355"/>
+<area shape="rect" id="node6" href="$class_c_l_i_parse_exception.html" title="The CLIParseException class exception thrown on bad input when other is expected. ..." alt="" coords="613,278,768,355"/>
+<area shape="rect" id="node7" href="$class_c_l_i_unknown_error.html" title="The CLIUnknownError class represents unclassified or not implemented yet types of errors..." alt="" coords="792,278,939,355"/>
+</map>
