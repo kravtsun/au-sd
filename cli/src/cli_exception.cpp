@@ -4,7 +4,11 @@ CLIException::CLIException()
     : base_msg_("")
 {}
 
+#ifdef _MSC_VER
+const char *CLIException::what() const
+#else
 const char *CLIException::what() const noexcept
+#endif
 {
     return base_msg_.c_str();
 }

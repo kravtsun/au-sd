@@ -121,10 +121,12 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
                 close_variable_if_needed();
                 is_double_quotes = !is_double_quotes;
             }
+#ifndef _MSC_VER
             else if (line[i] == '\\' && i + 1 == line.size())
             {
                 next_line_needed = true;
             }
+#endif
             else if (is_variable_opened && isalnum(line[i]))
             {
                 var_name += line[i];

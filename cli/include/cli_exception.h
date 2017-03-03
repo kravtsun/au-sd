@@ -12,7 +12,11 @@ class CLIException : public std::exception
 public:
     CLIException();
 
+#ifdef _MSC_VER
+	const char *what() const override;
+#else
     const char *what() const noexcept override;
+#endif
 protected:
     std::string base_msg_;
 };
