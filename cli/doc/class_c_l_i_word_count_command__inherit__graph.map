@@ -1,4 +1,0 @@
-<map id="CLIWordCountCommand" name="CLIWordCountCommand">
-<area shape="rect" id="node2" href="$class_c_l_i_interactive_command.html" title="The CLIInteractiveCommand class base class for commands working with files &#45; and only if not presente..." alt="" coords="8,204,192,369"/>
-<area shape="rect" id="node3" href="$class_c_l_i_command.html" title="Base class for all commands. reflects general behavior and interface to the atomic worker in our proj..." alt="" coords="35,5,165,156"/>
-</map>

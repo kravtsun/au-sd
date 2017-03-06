@@ -1,8 +1,0 @@
-<map id="CLICommand" name="CLICommand">
-<area shape="rect" id="node2" href="$class_c_l_i_echo_command.html" title="The CLIEchoCommand class implements console command &quot;cat&quot;&#39;s functionality. " alt="" coords="5,233,159,340"/>
-<area shape="rect" id="node3" href="$class_c_l_i_exit_command.html" title="The CLIExitCommand class exit command. stops execution of the whole application on user&#39;s demand..." alt="" coords="183,233,330,340"/>
-<area shape="rect" id="node4" href="$class_c_l_i_interactive_command.html" title="The CLIInteractiveCommand class base class for commands working with files &#45; and only if not presente..." alt="" coords="354,204,538,369"/>
-<area shape="rect" id="node7" href="$class_c_l_i_unknown_command.html" title="The CLIUnknownCommand class command for delegating unknown command&#39;s execution to the terminal from w..." alt="" coords="562,233,741,340"/>
-<area shape="rect" id="node5" href="$class_c_l_i_cat_command.html" title="The CLICatCommand class implements &quot;cat&quot; bash command. Provided with list of filenames tries to print..." alt="" coords="278,417,422,509"/>
-<area shape="rect" id="node6" href="$class_c_l_i_word_count_command.html" title="The CLIWordCountCommand class command object which counts number of lines, words and characters in in..." alt="" coords="446,417,635,509"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="CLIInteractiveCommand" name="CLIInteractiveCommand">
-<area shape="rect" id="node3" href="$class_c_l_i_cat_command.html" title="The CLICatCommand class implements &quot;cat&quot; bash command. Provided with list of filenames tries to print..." alt="" coords="5,417,149,509"/>
-<area shape="rect" id="node4" href="$class_c_l_i_word_count_command.html" title="The CLIWordCountCommand class command object which counts number of lines, words and characters in in..." alt="" coords="173,417,363,509"/>
-<area shape="rect" id="node2" href="$class_c_l_i_command.html" title="Base class for all commands. reflects general behavior and interface to the atomic worker in our proj..." alt="" coords="107,5,237,156"/>
-</map>

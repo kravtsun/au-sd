@@ -1,8 +1,0 @@
-<map id="CLIApplication::main_loop" name="CLIApplication::main_loop">
-<area shape="rect" id="node2" href="$class_c_l_i_environment.html#a5380ad5be78c6638414c8fd9e03dd5b6" title="get_var &#45; get environmental variable&#39;s value in current environment. " alt="" coords="503,5,669,32"/>
-<area shape="rect" id="node3" href="$class_c_l_i_command_parser.html#a6af7d130388c222abe8394fb1dfd7d50" title="parse_all_commands &#45; &quot;red button&quot; for the command parser, the order to do its work. " alt="" coords="251,26,432,67"/>
-<area shape="rect" id="node4" href="$class_c_l_i_command_queue.html#abc51ca51cbde7e35d03ced4df1dc6363" title="execute_pipe &#45; trigger for starting scheduling and running commands in a single pipe. " alt="" coords="228,92,455,119"/>
-<area shape="rect" id="node5" href="$class_c_l_i_environment.html#a5a55781fe06166e3b762ec51d78ea239" title="is_var_assignment check if a string can be a valid variable assignment as it is somewhat neat and sub..." alt="" coords="733,53,868,94"/>
-<area shape="rect" id="node6" href="$class_c_l_i_environment.html#aa12d2a9721b6a72e12ba3f6b8cba4a56" title="the same as is_var_assignment, but it does not answer the question if a string can be a variable assi..." alt="" coords="508,111,664,153"/>
-<area shape="rect" id="node7" href="$class_c_l_i_environment.html#a383fbbf15be0bdf8755fc851daa49a3d" title="set_var change current environment via changing or setting an environmental variable&#39;s value..." alt="" coords="717,119,884,145"/>
-</map>

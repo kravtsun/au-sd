@@ -1,7 +1,0 @@
-<map id="CLIEnvironment::set_var" name="CLIEnvironment::set_var">
-<area shape="rect" id="node2" href="$class_c_l_i_application.html#a6879ca4ff56d3b3d1c18b86b2e4f03bf" title="CLIApplication the only constructor which takes all the information coming to main module..." alt="" coords="229,29,429,56"/>
-<area shape="rect" id="node3" href="$class_c_l_i_environment.html#a54c1fdaab06f865f86e9ff889823fb46" title="CLIEnvironment init command&#45;line arguments as in bash they are stored as environmental variables with..." alt="" coords="220,80,439,107"/>
-<area shape="rect" id="node4" href="$class_c_l_i_environment.html#aa12d2a9721b6a72e12ba3f6b8cba4a56" title="the same as is_var_assignment, but it does not answer the question if a string can be a variable assi..." alt="" coords="251,131,407,173"/>
-<area shape="rect" id="node5" href="$class_c_l_i_command_queue.html#abc51ca51cbde7e35d03ced4df1dc6363" title="execute_pipe &#45; trigger for starting scheduling and running commands in a single pipe. " alt="" coords="487,139,713,165"/>
-<area shape="rect" id="node6" href="$class_c_l_i_application.html#a333f389e8886b00076b1c1fd7d9264fe" title="Main loop covers basic logic of our code flow. most notable application processess take place in it..." alt="" coords="761,139,936,165"/>
-</map>

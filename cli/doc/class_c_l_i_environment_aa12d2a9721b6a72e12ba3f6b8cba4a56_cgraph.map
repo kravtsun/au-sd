@@ -1,4 +1,0 @@
-<map id="CLIEnvironment::parse_and_assign" name="CLIEnvironment::parse_and_assign">
-<area shape="rect" id="node2" href="$class_c_l_i_environment.html#a5a55781fe06166e3b762ec51d78ea239" title="is_var_assignment check if a string can be a valid variable assignment as it is somewhat neat and sub..." alt="" coords="225,5,360,47"/>
-<area shape="rect" id="node3" href="$class_c_l_i_environment.html#a383fbbf15be0bdf8755fc851daa49a3d" title="set_var change current environment via changing or setting an environmental variable&#39;s value..." alt="" coords="209,71,376,98"/>
-</map>

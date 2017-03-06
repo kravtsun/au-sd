@@ -1,9 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_c_l_i_command.html" title="Base class for all commands. reflects general behavior and interface to the atomic worker in our proj..." alt="" coords="5,81,108,108"/>
-<area shape="rect" id="node2" href="$class_c_l_i_echo_command.html" title="The CLIEchoCommand class implements console command &quot;cat&quot;&#39;s functionality. " alt="" coords="171,5,305,32"/>
-<area shape="rect" id="node3" href="$class_c_l_i_exit_command.html" title="The CLIExitCommand class exit command. stops execution of the whole application on user&#39;s demand..." alt="" coords="175,56,301,83"/>
-<area shape="rect" id="node4" href="$class_c_l_i_interactive_command.html" title="The CLIInteractiveCommand class base class for commands working with files &#45; and only if not presente..." alt="" coords="156,107,320,133"/>
-<area shape="rect" id="node7" href="$class_c_l_i_unknown_command.html" title="The CLIUnknownCommand class command for delegating unknown command&#39;s execution to the terminal from w..." alt="" coords="159,157,317,184"/>
-<area shape="rect" id="node5" href="$class_c_l_i_cat_command.html" title="The CLICatCommand class implements &quot;cat&quot; bash command. Provided with list of filenames tries to print..." alt="" coords="391,81,515,108"/>
-<area shape="rect" id="node6" href="$class_c_l_i_word_count_command.html" title="The CLIWordCountCommand class command object which counts number of lines, words and characters in in..." alt="" coords="368,132,537,159"/>
-</map>
