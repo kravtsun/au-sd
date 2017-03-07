@@ -39,10 +39,41 @@ HEADERS += \
     include/cli_unknown_command.h \
     include/cli_pwd_command.h \
 
+TEST_HEADERS = \
+    include/test/cli_cat_command_test.h \
+    include/test/cli_command_parser_test.h \
+    include/test/cli_command_queue_test.h \
+    include/test/cli_echo_command_test.h \
+    include/test/cli_environment_test.h \
+    include/test/cli_parser_test.h
+
+HEADERS += $$TEST_HEADERS
 
 QMAKE_CXXFLAGS += -Wall -Wconversion -Wpedantic
 
 QMAKE_CXXFLAGS_DEBUG += -O0 -ggdb
 
-DISTFILES += \
-    misc/input.txt
+cli_tester_main = $$OUT_PWD/cli_tester_main.cpp
+cxxtestgen = $$PWD/third_party/cxxtest/bin/cxxtestgen
+test_main.target = cli_tester_main
+test_main.commands = cd $$PWD;\
+    $$cxxtestgen --have-std --runner=ErrorPrinter --output=$$cli_tester_main $$HEADERS;\
+    cd -;
+
+test_runner = $$OUT_PWD/test_runner.out
+test_exec.target = test_runner
+test_exec.commands = cd $$OUT_PWD;\
+    CXXTEST_OBJECTS=$\$(ls $(OBJECTS) | grep -v main.o);\
+    $$QMAKE_CXX -std=c++11 $$QMAKE_CXXFLAGS_RELEASE -I$$_PRO_FILE_PWD_/third_party/cxxtest \
+        -I $$PWD/$$INCLUDEPATH -o $$test_runner $\${CXXTEST_OBJECTS} $$cli_tester_main; \
+    cd -
+test_exec.depends = $(OBJECTS)
+
+test.commands = $$test_runner
+test.depends = test_main test_exec
+
+QMAKE_CLEAN += $$cli_tester_main $$test_runner
+
+QMAKE_EXTRA_TARGETS += test_main test_exec test
+
+POST_TARGETDEPS += test
