@@ -73,7 +73,7 @@ public:
     /**
      * @brief get_var - get environmental variable's value
      * in current environment.
-     * @param name - variable's name.
+     * @param name variable's name.
      * @return "" if no variable with name "name" is here.
      * Otherwise its value is returned.
      */
@@ -82,8 +82,8 @@ public:
     /**
      * @brief set_var change current environment via changing
      * or setting an environmental variable's value.
-     * @param name
-     * @param value
+     * @param name variable's name.
+     * @param value new value for variable @p name.
      */
     void set_var(const std::string &name, const std::string &value);
 

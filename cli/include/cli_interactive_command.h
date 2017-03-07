@@ -9,7 +9,7 @@
  * base class for commands working with files -
  * and only if not presented with them - turning into
  * interactive mode.
- * Template pattern.
+ * Template method pattern.
  */
 class CLIInteractiveCommand : public CLICommand
 {

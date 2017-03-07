@@ -7,7 +7,7 @@
 #include <ostream>
 
 /**
- * @brief The CLICommandQueue class - commands executioneer.
+ * @brief The CLICommandQueue class - commands executor.
  * have responsibility on the order of commands' executed
  * and makes sure they share data streams correctly.
  */
