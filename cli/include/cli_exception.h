@@ -30,7 +30,7 @@ protected:
 class CLIExitException : public CLIException
 {
 public:
-    CLIExitException(int exit_code);
+    explicit CLIExitException(int exit_code);
 
     int exit_code() const
     {
@@ -62,7 +62,7 @@ private:
 class CLINotImlementedException : public CLIException
 {
 public:
-    CLINotImlementedException(const std::string &component);
+    explicit CLINotImlementedException(const std::string &component);
 
 private:
     std::string component_;
@@ -89,7 +89,7 @@ private:
 class CLIUnknownError : public CLIException
 {
 public:
-    CLIUnknownError(std::string &&msg);
+    explicit CLIUnknownError(std::string &&msg);
 
 private:
     std::string msg_;

@@ -17,7 +17,7 @@ public:
      * @brief CLIParser constructor for this particular strings.
      * @param s string for parsing to be prepared.
      */
-    CLIParser(const std::string &s);
+    explicit CLIParser(const std::string &s);
 
     /**
      * @brief parse_integer tries to rip an integer

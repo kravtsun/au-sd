@@ -22,7 +22,7 @@ public:
      * @param env information around the command parser
      * and all meta-information needed for initialization.
      */
-    CLICommandParser(const CLIEnvironment &env);
+    explicit CLICommandParser(const CLIEnvironment &env);
 
     /**
      * @brief parse_all_commands - "red button" for the command parser,

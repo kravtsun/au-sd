@@ -44,7 +44,7 @@ public:
      * setup an eligible CLIEnvironment structure.
      * @param vars variables to be stored in the structure.
      */
-    CLIEnvironment(const VarListType &vars);
+    explicit CLIEnvironment(const VarListType &vars);
 
 
     // NB: parsing functions look odd here?..
