@@ -7,26 +7,26 @@
 namespace cli {
 
 /**
- * @brief The CLIExitCommand class exit command.
+ * @brief The ExitCommand class exit command.
  * stops execution of the whole application on user's demand.
  */
-class CLIExitCommand : public CLICommand
+class ExitCommand : public Command
 {
 public:
     /**
-     * @brief CLIExitCommand constructor
+     * @brief ExitCommand constructor
      * @param is input stream.
      * @param os output stream.
      * @param params command line parameters.
      */
-    CLIExitCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
+    ExitCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
     /**
      * @brief run entering point for the command.
      * @param env environment.
      * @return exit code (bash like).
      */
-    int run(CLIEnvironment &env) override;
+    int run(Environment &env) override;
 
     /**
      * @brief name helper function helps identify the type of command object.

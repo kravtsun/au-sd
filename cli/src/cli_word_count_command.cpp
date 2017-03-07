@@ -4,16 +4,16 @@
 
 namespace cli {
 
-CLIWordCountCommand::CLIWordCountCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
-    : CLIInteractiveCommand(is, os, params)
+WordCountCommand::WordCountCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
+    : InteractiveCommand(is, os, params)
 {}
 
-std::string CLIWordCountCommand::name() const
+std::string WordCountCommand::name() const
 {
     return "wc";
 }
 
-void CLIWordCountCommand::init_run(const CLIEnvironment &env)
+void WordCountCommand::init_run(const Environment &env)
 {
     (void)env;
 
@@ -36,7 +36,7 @@ static bool iswhitespace(char c)
 #endif
 }
 
-void CLIWordCountCommand::step(std::string &&line)
+void WordCountCommand::step(std::string &&line)
 {
     lines_count_++;
     chars_count_ += line.size();
@@ -55,7 +55,7 @@ void CLIWordCountCommand::step(std::string &&line)
     }
 }
 
-void CLIWordCountCommand::end_file_step(const std::string &filename)
+void WordCountCommand::end_file_step(const std::string &filename)
 {
     chars_count_ += lines_count_;
     lines_total_count_ += lines_count_;
@@ -68,7 +68,7 @@ void CLIWordCountCommand::end_file_step(const std::string &filename)
     chars_count_ = 0;
 }
 
-void CLIWordCountCommand::end_run(CLIEnvironment &env)
+void WordCountCommand::end_run(Environment &env)
 {
     (void)env;
     if (filenames_.empty())
@@ -81,7 +81,7 @@ void CLIWordCountCommand::end_run(CLIEnvironment &env)
     }
 }
 
-void CLIWordCountCommand::print_characteristics(size_t lines_count, size_t words_count, size_t chars_count, const std::string &label)
+void WordCountCommand::print_characteristics(size_t lines_count, size_t words_count, size_t chars_count, const std::string &label)
 {
     os_ << lines_count << "\t" << words_count << "\t" << chars_count << "\t" << label << std::endl;
 }

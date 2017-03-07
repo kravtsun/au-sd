@@ -14,48 +14,48 @@
 
 namespace cli {
 
-CLICommandQueue::CLICommandQueue(CLIEnvironment &env, CLICommandPipe &&pipe, std::ostream &os)
+CommandQueue::CommandQueue(Environment &env, CommandPipe &&pipe, std::ostream &os)
     : env_(env)
     , pipe_(pipe)
     , os_(os)
 {}
 
-static CLICommand *command_from_name(const std::string &command,
-                                     const CLICommand::ParamsListType &params,
+static Command *command_from_name(const std::string &command,
+                                     const Command::ParamsListType &params,
                                      std::istream &is,
                                      std::ostream &os)
 {
     if (command == "exit")
     {
-        return new CLIExitCommand(is, os, params);
+        return new ExitCommand(is, os, params);
     }
     else if (command == "cat")
     {
-        return new CLICatCommand(is, os, params);
+        return new CatCommand(is, os, params);
     }
     else if (command == "echo")
     {
-        return new CLIEchoCommand(is, os, params);
+        return new EchoCommand(is, os, params);
     }
     else if (command == "wc")
     {
-        return new CLIWordCountCommand(is, os, params);
+        return new WordCountCommand(is, os, params);
     }
     else if (command == "pwd")
     {
-        return new CLIPwdCommand(is, os, params);
+        return new PwdCommand(is, os, params);
     }
     else
     {
-        CLICommand::ParamsListType unknown_params;
+        Command::ParamsListType unknown_params;
         unknown_params.push_back(command);
         unknown_params.insert(unknown_params.end(), params.cbegin(), params.cend());
-        return new CLIUnknownCommand(is, os, unknown_params);
+        return new UnknownCommand(is, os, unknown_params);
     }
     return nullptr;
 }
 
-CLIEnvironment CLICommandQueue::execute_pipe()
+Environment CommandQueue::execute_pipe()
 {
     std::ostringstream os;
     std::istringstream iss;
@@ -70,14 +70,14 @@ CLIEnvironment CLICommandQueue::execute_pipe()
             continue;
         }
 
-        CLIEnvironment local_env = env_;
+        Environment local_env = env_;
 
         // Executing environmental varialbes assignments.
         size_t i;
         for (i = 0; i < command_strings.size(); ++i)
         {
             const std::string &s = command_strings[i];
-            if (!CLIEnvironment::is_var_assignment(s))
+            if (!Environment::is_var_assignment(s))
             {
                 break;
             }
@@ -94,9 +94,9 @@ CLIEnvironment CLICommandQueue::execute_pipe()
         const std::string &command_name = command_strings[i];
         i++;
 
-        const CLICommand::ParamsListType command_params(command_strings.begin() + i, command_strings.end());
+        const Command::ParamsListType command_params(command_strings.begin() + i, command_strings.end());
         std::istream &is = iss_initialized? iss : std::cin;
-        std::unique_ptr<CLICommand> new_command(command_from_name(command_name, command_params, is, os));
+        std::unique_ptr<Command> new_command(command_from_name(command_name, command_params, is, os));
         new_command->run(env_);
 
         iss.str(os.str());

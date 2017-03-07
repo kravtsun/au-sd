@@ -8,12 +8,12 @@
 namespace cli {
 
 /**
- * @brief The CLIEnvironment class structure for
+ * @brief The Environment class structure for
  * storing environmental variables and meta information.
  * Basic (but currently not so much used) tool for exchanging
  * knowledge between CLI application entities.
  */
-class CLIEnvironment
+class Environment
 {
 public:
     /**
@@ -23,30 +23,30 @@ public:
     typedef std::map<std::string, std::string> VarListType;
 
     /**
-     * @brief CLIEnvironment default constructor.
+     * @brief Environment default constructor.
      * Not needed on running CLI app, but
      * happens to be useful when testing.
      */
-    CLIEnvironment();
+    Environment();
 
     /**
-     * @brief CLIEnvironment init command-line arguments
+     * @brief Environment init command-line arguments
      * as in bash they are stored as environmental variables with number names
      * such as $0, $1, ... etc.
      * @param argc - number of arguments.
      * @param argv - array of c-strings.
      */
-    CLIEnvironment(int argc, char **argv);
+    Environment(int argc, char **argv);
 
     /**
-     * @brief CLIEnvironment simple interface to the inner
+     * @brief Environment simple interface to the inner
      * storage of this structure.
      * helps when testing, so you won't need to
      * start the whole application stack just in order to
-     * setup an eligible CLIEnvironment structure.
+     * setup an eligible Environment structure.
      * @param vars variables to be stored in the structure.
      */
-    explicit CLIEnvironment(const VarListType &vars);
+    explicit Environment(const VarListType &vars);
 
     /**
      * @brief is_var_assignment check if a string
@@ -92,12 +92,12 @@ public:
      * @param rhs right hand side operand.
      * @return updated environment
      */
-    CLIEnvironment operator|(const CLIEnvironment &rhs) const;
+    Environment operator|(const Environment &rhs) const;
 
     /**
      * @brief get_vars get all variables and their values stored.
      * for testing purposes only.
-     * @return structure used for storing variables in CLIEnvironment.
+     * @return structure used for storing variables in Environment.
      */
     const VarListType &get_vars() const;
 

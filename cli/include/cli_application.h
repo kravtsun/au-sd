@@ -6,22 +6,22 @@
 
 namespace cli {
 /**
- * @brief The CLIApplication class
+ * @brief The Application class
  * Controller in our class model.
  * knows basic logic of our tool. Moves most valuable building blocks
  * between main workers.
  */
-class CLIApplication
+class Application
 {
 public:
     /**
-     * @brief CLIApplication
+     * @brief Application
      * the only constructor which takes all the information coming to
      * main module.
      * @param argc - number of command-line arguments
      * @param argv - string command-line arguments
      */
-    CLIApplication(int argc, char **argv);
+    Application(int argc, char **argv);
 
     /**
      * @brief Main loop covers basic logic of our code flow.
@@ -31,7 +31,7 @@ public:
     int main_loop();
 
 private:
-    CLIEnvironment env_;
+    Environment env_;
 };
 
 } // namespace cli.

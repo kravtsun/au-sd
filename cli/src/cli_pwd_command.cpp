@@ -11,11 +11,11 @@
 
 namespace cli {
 
-CLIPwdCommand::CLIPwdCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
-    : CLICommand(is, os, params)
+PwdCommand::PwdCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
+    : Command(is, os, params)
 {}
 
-int CLIPwdCommand::run(CLIEnvironment &env)
+int PwdCommand::run(Environment &env)
 {
     (void)env;
 #ifndef _MSC_VER
@@ -28,7 +28,7 @@ int CLIPwdCommand::run(CLIEnvironment &env)
     if (dwRet == 0 || dwRet > MAX_PATH)
 #endif
     {
-        throw CLICommandException(name(), "failed to determine current directory.");
+        throw CommandException(name(), "failed to determine current directory.");
     }
     else
 #ifdef _MSC_VER
@@ -44,7 +44,7 @@ int CLIPwdCommand::run(CLIEnvironment &env)
     return 0;
 }
 
-std::string CLIPwdCommand::name() const
+std::string PwdCommand::name() const
 {
     return "pwd";
 }

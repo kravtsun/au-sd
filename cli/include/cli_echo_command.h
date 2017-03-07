@@ -1,27 +1,27 @@
 #pragma once
-#ifndef CLIECHOCOMMAND_H
-#define CLIECHOCOMMAND_H
+#ifndef CLI_ECHO_COMMAND_H
+#define CLI_ECHO_COMMAND_H
 
 #include "cli_command.h"
 
 namespace cli {
 
 /**
- * @brief The CLIEchoCommand class
+ * @brief The EchoCommand class
  * implements console command "cat"'s
  * functionality.
  */
-class CLIEchoCommand : public CLICommand
+class EchoCommand : public Command
 {
 public:
     /**
-     * @brief CLIEchoCommand - constructor (the same as for base class
-     * CLICommand).
+     * @brief EchoCommand - constructor (the same as for base class
+     * Command).
      * @param is input stream.
      * @param os output stream.
      * @param params command line parameters.
      */
-    CLIEchoCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
+    EchoCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
     /**
      * @brief run - command for starting.
@@ -29,7 +29,7 @@ public:
      * needed before start.
      * @return exit code.
      */
-    int run(CLIEnvironment &env) override;
+    int run(Environment &env) override;
 
     /**
      * @brief name - helper function.
@@ -40,4 +40,4 @@ public:
 
 } // namespace cli
 
-#endif // CLIECHOCOMMAND_H
+#endif // CLI_ECHO_COMMAND_H

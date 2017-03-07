@@ -6,13 +6,13 @@
 
 namespace cli {
 
-CLICommandParser::CLICommandParser(const CLIEnvironment &env)
+CommandParser::CommandParser(const Environment &env)
     : env_(env)
 {}
 
-CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
-    CLICommandPipe pipe;
-    CLICommandPipeEntry pipe_entry;
+CommandPipe CommandParser::parse_all_commands(std::istream &is) {
+    CommandPipe pipe;
+    CommandPipeEntry pipe_entry;
 
     bool is_variable_opened = false;
     std::string var_name = "";

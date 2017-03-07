@@ -10,18 +10,18 @@
 #include <sstream>
 
 /**
- * @brief The CLIEchoCommandTest class testing suite
+ * @brief The EchoCommandTest class testing suite
  * for "echo" command.
  */
-class CLIEchoCommandTest : public CxxTest::TestSuite
+class EchoCommandTest : public CxxTest::TestSuite
 {
-    void single_test(const CLICommand::ParamsListType &params, const std::string &should_be)
+    void single_test(const cli::Command::ParamsListType &params, const std::string &should_be)
     {
         std::istringstream is;
         std::ostringstream os;
 
-        CLIEchoCommand echo_command(is, os, params);
-        CLIEnvironment empty_env;
+        cli::EchoCommand echo_command(is, os, params);
+        cli::Environment empty_env;
         echo_command.run(empty_env);
         TS_ASSERT_EQUALS(os.str(), should_be);
     }

@@ -7,21 +7,21 @@
 namespace cli {
 
 /**
- * @brief The CLIWordCountCommand class command object
+ * @brief The WordCountCommand class command object
  * which counts number of lines, words and characters
  * in input stream (if no arguments specified) or for
  * any file in a parameters' list.
  */
-class CLIWordCountCommand : public CLIInteractiveCommand
+class WordCountCommand : public InteractiveCommand
 {
 public:
     /**
-     * @brief CLIWordCountCommand usual command object constructor.
+     * @brief WordCountCommand usual command object constructor.
      * @param is input stream.
      * @param os output stream.
      * @param params command line parameters.
      */
-    CLIWordCountCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
+    WordCountCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
     /**
      * @brief name helper method for identifying command object.
@@ -38,10 +38,10 @@ private:
     size_t words_total_count_;
     size_t chars_total_count_;
 
-    virtual void init_run(const CLIEnvironment &env) override;
+    virtual void init_run(const Environment &env) override;
     virtual void step(std::string &&line) override;
     virtual void end_file_step(const std::string &filename) override;
-    virtual void end_run(CLIEnvironment &env) override;
+    virtual void end_run(Environment &env) override;
 
     void print_characteristics(size_t lines_count, size_t words_count, size_t chars_count, const std::string &label);
 };

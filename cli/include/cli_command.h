@@ -14,7 +14,7 @@ namespace cli {
  * reflects general behavior and interface to the atomic worker
  * in our project.
  */
-class CLICommand
+class Command
 {
 public:
     /**
@@ -25,9 +25,9 @@ public:
     typedef std::vector<std::string> ParamsListType;
 
     /**
-     * @brief CLICommand - the only constructor.
+     * @brief Command - the only constructor.
      */
-    CLICommand(std::istream &is, std::ostream &os, const ParamsListType &params = {});
+    Command(std::istream &is, std::ostream &os, const ParamsListType &params = {});
 
     /**
      * @brief run a command's 'play' button.
@@ -37,18 +37,18 @@ public:
      * running the command.
      * @return return code.
      */
-    virtual int run(CLIEnvironment &env) = 0;
+    virtual int run(Environment &env) = 0;
 
     /**
-     * @brief name: helper function in order to identify CLICommand object.
+     * @brief name: helper function in order to identify Command object.
      * @return name of the command implemented.
      */
     virtual std::string name() const = 0;
 
     /**
-     * @brief ~CLICommand destructor.
+     * @brief ~Command destructor.
      */
-    virtual ~CLICommand() {}
+    virtual ~Command() {}
 
 protected:
     std::istream &is_;

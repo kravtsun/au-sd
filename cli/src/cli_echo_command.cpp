@@ -2,11 +2,11 @@
 
 namespace cli {
 
-CLIEchoCommand::CLIEchoCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
-    : CLICommand(is, os, params)
+EchoCommand::EchoCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
+    : Command(is, os, params)
 {}
 
-int CLIEchoCommand::run(CLIEnvironment &env)
+int EchoCommand::run(Environment &env)
 {
     (void)env;
     for (auto it = params_.cbegin(); it != params_.cend(); ++it)
@@ -21,7 +21,7 @@ int CLIEchoCommand::run(CLIEnvironment &env)
     return 0;
 }
 
-std::string CLIEchoCommand::name() const
+std::string EchoCommand::name() const
 {
     return "echo";
 }

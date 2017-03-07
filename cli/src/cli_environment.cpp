@@ -4,11 +4,11 @@
 
 namespace cli {
 
-CLIEnvironment::CLIEnvironment()
+Environment::Environment()
     : vars_({})
 {}
 
-CLIEnvironment::CLIEnvironment(int argc, char **argv)
+Environment::Environment(int argc, char **argv)
 {
     for (int i = 0; i < argc; ++i)
     {
@@ -16,11 +16,11 @@ CLIEnvironment::CLIEnvironment(int argc, char **argv)
     }
 }
 
-CLIEnvironment::CLIEnvironment(const VarListType &vars)
+Environment::Environment(const VarListType &vars)
     : vars_(vars)
 {}
 
-bool CLIEnvironment::is_var_assignment(const std::string &s)
+bool Environment::is_var_assignment(const std::string &s)
 {
     size_t equal_pos = s.find('=');
     if (equal_pos == std::string::npos)
@@ -39,11 +39,11 @@ bool CLIEnvironment::is_var_assignment(const std::string &s)
     return true;
 }
 
-void CLIEnvironment::parse_and_assign(const std::string &s)
+void Environment::parse_and_assign(const std::string &s)
 {
     if (!is_var_assignment(s))
     {
-        throw CLIParseException(s, "variable assignment");
+        throw ParseException(s, "variable assignment");
     }
 
     auto equal_pos = s.find('=');
@@ -53,7 +53,7 @@ void CLIEnvironment::parse_and_assign(const std::string &s)
     set_var(std::move(name), std::move(value));
 }
 
-std::string CLIEnvironment::get_var(const std::string &name) const
+std::string Environment::get_var(const std::string &name) const
 {
     auto it = vars_.find(name);
     if (it == vars_.end())
@@ -66,14 +66,14 @@ std::string CLIEnvironment::get_var(const std::string &name) const
     }
 }
 
-void CLIEnvironment::set_var(const std::string &name, const std::string &value)
+void Environment::set_var(const std::string &name, const std::string &value)
 {
     vars_[name] = value;
 }
 
-CLIEnvironment CLIEnvironment::operator|(const CLIEnvironment &rhs) const
+Environment Environment::operator|(const Environment &rhs) const
 {
-    CLIEnvironment res(vars_);
+    Environment res(vars_);
     for (auto const &it : rhs.vars_)
     {
         res.vars_[it.first] = it.second;
@@ -81,7 +81,7 @@ CLIEnvironment CLIEnvironment::operator|(const CLIEnvironment &rhs) const
     return res;
 }
 
-const CLIEnvironment::VarListType &CLIEnvironment::get_vars() const
+const Environment::VarListType &Environment::get_vars() const
 {
     return vars_;
 }

@@ -4,11 +4,11 @@
 
 namespace cli {
 
-CLIParser::CLIParser(const std::string &s)
+Parser::Parser(const std::string &s)
     : iss_(s)
 {}
 
-int CLIParser::parse_integer()
+int Parser::parse_integer()
 {
     std::string s;
     iss_ >> s;
@@ -16,7 +16,7 @@ int CLIParser::parse_integer()
     const std::string parse_goal = "integer";
     if (s.empty())
     {
-        throw CLIParseException(s, parse_goal);
+        throw ParseException(s, parse_goal);
     }
 
     size_t start = 0;
@@ -29,7 +29,7 @@ int CLIParser::parse_integer()
     {
         if (!isdigit(s[i]))
         {
-            throw CLIParseException(s, parse_goal);
+            throw ParseException(s, parse_goal);
         }
     }
 

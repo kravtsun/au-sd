@@ -4,31 +4,31 @@
 
 namespace cli {
 
-CLICatCommand::CLICatCommand(std::istream &is, std::ostream &os, const ParamsListType &params_)
-    : CLIInteractiveCommand(is, os, params_)
+CatCommand::CatCommand(std::istream &is, std::ostream &os, const ParamsListType &params_)
+    : InteractiveCommand(is, os, params_)
 {}
 
-std::string CLICatCommand::name() const
+std::string CatCommand::name() const
 {
     return "cat";
 }
 
-void CLICatCommand::init_run(const CLIEnvironment &env)
+void CatCommand::init_run(const Environment &env)
 {
     (void) env;
 }
 
-void CLICatCommand::step(std::string &&line)
+void CatCommand::step(std::string &&line)
 {
     os_ << line << std::endl;
 }
 
-void CLICatCommand::end_file_step(const std::string &filename)
+void CatCommand::end_file_step(const std::string &filename)
 {
     (void)filename;
 }
 
-void CLICatCommand::end_run(CLIEnvironment &env)
+void CatCommand::end_run(Environment &env)
 {
     (void)env;
 }
