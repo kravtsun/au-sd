@@ -1,23 +1,25 @@
 #pragma once
-#ifndef CLIPARSER_H
-#define CLIPARSER_H
+#ifndef CLI_PARSER_H
+#define CLI_PARSER_H
 
 #include <string>
 #include <sstream>
 
+namespace cli {
+
 /**
- * @brief The CLIParser class for simple parses.
+ * @brief The Parser class for simple parses.
  * basicaly, it's just a wrapper around std::stringstream procedures.
  * as it's not a fully object at all, should it be moved into its separate namespace?
  */
-class CLIParser
+class Parser
 {
 public:
     /**
-     * @brief CLIParser constructor for this particular strings.
+     * @brief Parser constructor for this particular strings.
      * @param s string for parsing to be prepared.
      */
-    CLIParser(const std::string &s);
+    explicit Parser(const std::string &s);
 
     /**
      * @brief parse_integer tries to rip an integer
@@ -27,8 +29,10 @@ public:
     int parse_integer();
 
 private:
-    CLIParser();
+    Parser();
     std::istringstream iss_;
 };
 
-#endif // CLIPARSER_H
+} // namespace cli
+
+#endif // CLI_PARSER_H

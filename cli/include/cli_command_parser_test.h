@@ -9,10 +9,10 @@
 #include <cassert>
 
 /**
- * @brief The CLICommandParserTest class testing suite
- * for CLICommandParser
+ * @brief The CommandParserTest class testing suite
+ * for CommandParser
  */
-class CLICommandParserTest : public CxxTest::TestSuite
+class CommandParserTest : public CxxTest::TestSuite
 {
     /**
      * @brief single_test represent a skeleton for a test.
@@ -21,10 +21,10 @@ class CLICommandParserTest : public CxxTest::TestSuite
      * @param expected array of lexems already preprocessed
      * with environmental variable mechanisms.
      */
-    void single_test(const CLIEnvironment &env, const std::string &s, const std::vector<std::string> &expected)
+    void single_test(const cli::Environment &env, const std::string &s, const std::vector<std::string> &expected)
     {
         std::istringstream is(s);
-        const CLICommandPipe pipe = CLICommandParser(env).parse_all_commands(is);
+        const cli::CommandPipe pipe = cli::CommandParser(env).parse_all_commands(is);
         TS_ASSERT_EQUALS(pipe.size(), 1);
         TS_ASSERT_EQUALS(pipe[0], expected);
     }
@@ -34,17 +34,16 @@ class CLICommandParserTest : public CxxTest::TestSuite
      * @param vars variables to be put in environment when
      * testing.
      * @param asks array of strings as it they are from user's input.
-     * @param answers result of CLICommandParser.
+     * @param answers result of CommandParser.
      */
-    void multiple_test(CLIEnvironment::VarListType &&vars,
+    void multiple_test(cli::Environment::VarListType &&vars,
                        std::vector<std::string> &&asks,
-                       std::vector<CLICommandPipeEntry> &&answers)
+                       std::vector<cli::CommandPipeEntry> &&answers)
     {
-        CLIEnvironment env(vars);
+        cli::Environment env(vars);
         assert(asks.size() == answers.size());
         for (size_t i = 0; i < asks.size(); ++i)
         {
-//            std::cout << i << std::endl;
             single_test(env, asks[i], answers[i]);
         }
     }
@@ -56,47 +55,46 @@ public:
      */
     void testEnvironmentVariables()
     {
-        TS_TRACE("Starting CLICommandParser::environmentVariables test.");
+        TS_TRACE("Starting CommandParser::environmentVariables test.");
 
-        CLIEnvironment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
+        cli::Environment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
         std::vector<std::string> asks = {"echo $x!=$y",
                                          "echo a$x$y$z",
                                          "$z",
                                          "\"$z\""
                                         };
-        std::vector<CLICommandPipeEntry> answers = {
+        std::vector<cli::CommandPipeEntry> answers = {
             {"echo", "1!=2"},
             {"echo", "a12ls", "-l"},
             {"ls", "-l"},
             {"ls -l"}
         };
         multiple_test(std::move(vars), std::move(asks), std::move(answers));
-        TS_TRACE("Finishing CLICommandParser::environmentVariables test.");
+        TS_TRACE("Finishing CommandParser::environmentVariables test.");
     }
 
     /**
-     * @brief testQuotes checks if CLICommandParser treats quotes properly
+     * @brief testQuotes checks if CommandParser treats quotes properly
      * (according to technical task).
      */
     void testQuotes()
     {
-        TS_TRACE("Starting CLICommandParser::quotes test.");
-        CLIEnvironment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
+        TS_TRACE("Starting CommandParser::quotes test.");
+        cli::Environment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
 
         std::vector<std::string> asks = {
             "\"   \"",
             "'x$y $z'"
         };
 
-        std::vector<CLICommandPipeEntry> answers = {
+        std::vector<cli::CommandPipeEntry> answers = {
             {"   "},
             {"x$y $z"}
         };
 
         multiple_test(std::move(vars), std::move(asks), std::move(answers));
-        TS_TRACE("Finishing CLICommandParser::quotes test.");
+        TS_TRACE("Finishing CommandParser::quotes test.");
     }
-
 
     /**
      * @brief testLines test if some sentence was split by user on several lines.
@@ -105,25 +103,24 @@ public:
     void testLines()
     {
 #ifndef _MSC_VER
-        TS_TRACE("Starting CLICommandParser::quotes test.");
-        CLIEnvironment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
+        TS_TRACE("Starting CommandParser::quotes test.");
+        cli::Environment::VarListType vars = {{"x", "1"}, {"y", "2"}, {"z", "ls -l"}};
 
         std::vector<std::string> asks = {
             "\" \\\n  \"",
             "x$y\\\n2 $\\\nz"
         };
 
-        std::vector<CLICommandPipeEntry> answers = {
+        std::vector<cli::CommandPipeEntry> answers = {
             {"   "},
             {"x", "ls", "-l"}
         };
 
         multiple_test(std::move(vars), std::move(asks), std::move(answers));
 
-        TS_TRACE("Finishing CLICommandParser::quotes test.");
+        TS_TRACE("Finishing CommandParser::quotes test.");
 #endif
     }
-
 };
 
 

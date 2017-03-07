@@ -2,8 +2,10 @@
 #include "cli_exception.h"
 #include "cli_parser.h"
 
-CLIExitCommand::CLIExitCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
-    : CLICommand(is, os, params)
+namespace cli {
+
+ExitCommand::ExitCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
+    : Command(is, os, params)
 {
     if (params.empty())
     {
@@ -13,24 +15,26 @@ CLIExitCommand::CLIExitCommand(std::istream &is, std::ostream &os, const CLIComm
     {
         try
         {
-            exit_code_ = CLIParser(params.front()).parse_integer();
+            exit_code_ = Parser(params.front()).parse_integer();
         }
-        catch (CLIParseException &e)
+        catch (ParseException &e)
         {
             std::string msg = "unable to parse into integer exit code: ";
             msg += e.what();
-            throw CLICommandException("exit",  msg);
+            throw CommandException("exit",  msg);
         }
     }
 }
 
-int CLIExitCommand::run(CLIEnvironment &env)
+int ExitCommand::run(Environment &env)
 {
     (void)env;
-    throw CLIExitException(exit_code_);
+    throw ExitException(exit_code_);
 }
 
-std::string CLIExitCommand::name() const
+std::string ExitCommand::name() const
 {
     return "exit";
 }
+
+} // namespace cli

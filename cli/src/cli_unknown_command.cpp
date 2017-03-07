@@ -2,11 +2,13 @@
 #include "cli_exception.h"
 #include <cstdlib>
 
-CLIUnknownCommand::CLIUnknownCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
-    : CLICommand(is, os, params)
+namespace cli {
+
+UnknownCommand::UnknownCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
+    : Command(is, os, params)
 {}
 
-int CLIUnknownCommand::run(CLIEnvironment &env)
+int UnknownCommand::run(Environment &env)
 {
     (void)env;
     std::string call_string = "";
@@ -18,7 +20,9 @@ int CLIUnknownCommand::run(CLIEnvironment &env)
     return system(call_string.c_str());
 }
 
-std::string CLIUnknownCommand::name() const
+std::string UnknownCommand::name() const
 {
-    throw CLINotImlementedException("name() for subprocess CLICommand.");
+    throw NotImlementedException("name() for subprocess Command.");
 }
+
+} // namespace cli
