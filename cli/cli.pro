@@ -53,27 +53,26 @@ QMAKE_CXXFLAGS += -Wall -Wconversion -Wpedantic
 
 QMAKE_CXXFLAGS_DEBUG += -O0 -ggdb
 
-cli_tester_main = $$OUT_PWD/cli_tester_main.cpp
-cxxtestgen = $$PWD/third_party/cxxtest/bin/cxxtestgen
-test_main.target = cli_tester_main
-test_main.commands = cd $$PWD;\
-    $$cxxtestgen --have-std --runner=ErrorPrinter --output=$$cli_tester_main $$HEADERS;\
-    cd -;
 
-test_runner = $$OUT_PWD/test_runner.out
-test_exec.target = test_runner
+cxxtestgen = $$PWD/third_party/cxxtest/bin/cxxtestgen
+test_main.target = $$OUT_PWD/cli_tester_main.cpp
+test_main.commands = cd $$PWD;\
+    $$cxxtestgen --have-std --runner=ErrorPrinter --output=$$test_main.target $$TEST_HEADERS;\
+    cd -;
+QMAKE_CLEAN += $$test_main.target
+
+test_exec.target = $$OUT_PWD/test_runner.out
 test_exec.commands = cd $$OUT_PWD;\
     CXXTEST_OBJECTS=$\$(ls $(OBJECTS) | grep -v main.o);\
     $$QMAKE_CXX -std=c++11 $$QMAKE_CXXFLAGS_RELEASE -I$$_PRO_FILE_PWD_/third_party/cxxtest \
-        -I $$PWD/$$INCLUDEPATH -o $$test_runner $\${CXXTEST_OBJECTS} $$cli_tester_main; \
+        -I $$PWD/$$INCLUDEPATH -o $$test_exec.target $\${CXXTEST_OBJECTS} $$test_main.target; \
     cd -
-test_exec.depends = $(OBJECTS)
+test_exec.depends = $(OBJECTS) test_main
+QMAKE_CLEAN += $$test_exec.target
 
-test.commands = $$test_runner
-test.depends = test_main test_exec
-
-QMAKE_CLEAN += $$cli_tester_main $$test_runner
+test.commands = $$test_exec.target
+test.depends = test_exec
 
 QMAKE_EXTRA_TARGETS += test_main test_exec test
 
-POST_TARGETDEPS += test
+PRE_TARGETDEPS += test
