@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-	../src/test_runner.cpp
+    ../src/test_runner.cpp \
 
 INCLUDEPATH += ../include/ ../third_party/cxxtest/
 
@@ -29,3 +29,6 @@ LIBS += cli_application.o \
 	cli_parser.o\
 	cli_unknown_command.o\
 	cli_word_count_command.o\
+    cli_pwd_command.o\
+
+
