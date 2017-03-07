@@ -7,6 +7,8 @@
 #include <string>
 #include <sstream>
 
+namespace cli {
+
 /**
  * @brief Base class for all commands.
  * reflects general behavior and interface to the atomic worker
@@ -53,5 +55,7 @@ protected:
     std::ostream &os_;
     ParamsListType params_;
 };
+
+} // namespace cli
 
 #endif // CLI_COMMAND_H

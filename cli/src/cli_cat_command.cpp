@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+namespace cli {
+
 CLICatCommand::CLICatCommand(std::istream &is, std::ostream &os, const ParamsListType &params_)
     : CLIInteractiveCommand(is, os, params_)
 {}
@@ -30,3 +32,5 @@ void CLICatCommand::end_run(CLIEnvironment &env)
 {
     (void)env;
 }
+
+} // namespace cli

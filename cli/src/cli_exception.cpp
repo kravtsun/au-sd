@@ -1,5 +1,7 @@
 #include "cli_exception.h"
 
+namespace cli {
+
 CLIException::CLIException()
     : base_msg_("")
 {}
@@ -43,3 +45,5 @@ CLIUnknownError::CLIUnknownError(std::string &&msg)
 {
     base_msg_ = "CLIUnknownError: " + msg_;
 }
+
+} // namespace cli

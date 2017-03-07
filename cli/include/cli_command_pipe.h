@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 
+namespace cli {
 /**
  * @brief The CLICommandQueueEntry class
  * simple storage for all commands executed in a "step"
@@ -19,5 +20,7 @@ typedef std::vector<std::string> CLICommandPipeEntry;
  * stored as an array of strings.
  */
 typedef std::vector<CLICommandPipeEntry> CLICommandPipe;
+
+} // namespace cli
 
 #endif // CLI_COMMAND_PIPE_H

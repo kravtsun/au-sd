@@ -2,6 +2,8 @@
 #include <cctype>
 #include <iostream>
 
+namespace cli {
+
 CLIWordCountCommand::CLIWordCountCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLIInteractiveCommand(is, os, params)
 {}
@@ -83,3 +85,5 @@ void CLIWordCountCommand::print_characteristics(size_t lines_count, size_t words
 {
     os_ << lines_count << "\t" << words_count << "\t" << chars_count << "\t" << label << std::endl;
 }
+
+} // namespace cli

@@ -4,6 +4,8 @@
 
 #include "cli_interactive_command.h"
 
+namespace cli {
+
 /**
  * @brief The CLIWordCountCommand class command object
  * which counts number of lines, words and characters
@@ -43,5 +45,7 @@ private:
 
     void print_characteristics(size_t lines_count, size_t words_count, size_t chars_count, const std::string &label);
 };
+
+} // namespace cli
 
 #endif // CLI_WORD_COUNT_COMMAND_H

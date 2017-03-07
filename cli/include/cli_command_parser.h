@@ -7,6 +7,8 @@
 #include <vector>
 #include <istream>
 
+namespace cli {
+
 /**
  * @brief The CLICommandParser
  * transforms all the user's input into sequence
@@ -36,5 +38,7 @@ public:
 private:
     const CLIEnvironment &env_;
 };
+
+} // namespace cli
 
 #endif // CLI_COMMAND_PARSER_H

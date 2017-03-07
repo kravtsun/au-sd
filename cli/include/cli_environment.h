@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 
+namespace cli {
+
 /**
  * @brief The CLIEnvironment class structure for
  * storing environmental variables and meta information.
@@ -102,5 +104,7 @@ public:
 private:
     VarListType vars_;
 };
+
+} // namespace cli
 
 #endif // CLI_ENVIRONMENT_H

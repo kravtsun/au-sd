@@ -4,6 +4,8 @@
 
 #include "cli_command.h"
 
+namespace cli {
+
 /**
  * @brief The CLIExitCommand class exit command.
  * stops execution of the whole application on user's demand.
@@ -34,5 +36,7 @@ public:
 private:
     int exit_code_;
 };
+
+} // namespace cli
 
 #endif // CLI_EXIT_COMMAND_H

@@ -5,6 +5,8 @@
 #include <exception>
 #include <string>
 
+namespace cli {
+
 /**
  * @brief CLIException - stub base class for exceptions thrown in CLI project.
  */
@@ -95,5 +97,6 @@ private:
     std::string msg_;
 };
 
+} // namespace cli
 
 #endif // CLI_EXCEPTION_H

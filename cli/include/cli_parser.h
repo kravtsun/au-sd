@@ -5,6 +5,8 @@
 #include <string>
 #include <sstream>
 
+namespace cli {
+
 /**
  * @brief The CLIParser class for simple parses.
  * basicaly, it's just a wrapper around std::stringstream procedures.
@@ -30,5 +32,7 @@ private:
     CLIParser();
     std::istringstream iss_;
 };
+
+} // namespace cli
 
 #endif // CLIPARSER_H

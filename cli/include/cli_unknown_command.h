@@ -4,6 +4,8 @@
 
 #include "cli_command.h"
 
+namespace cli {
+
 /**
  * @brief The CLIUnknownCommand class command
  * for delegating unknown command's execution to the terminal
@@ -33,5 +35,7 @@ public:
      */
     std::string name() const override;
 };
+
+} // namespace cli
 
 #endif // CLI_UNKNOWN_COMMAND_H

@@ -4,6 +4,8 @@
 
 #include "cli_command.h"
 
+namespace cli {
+
 /**
  * @brief The CLIEchoCommand class
  * implements console command "cat"'s
@@ -35,5 +37,7 @@ public:
      */
     std::string name() const override;
 };
+
+} // namespace cli
 
 #endif // CLIECHOCOMMAND_H

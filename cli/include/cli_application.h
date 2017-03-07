@@ -4,6 +4,7 @@
 
 #include "cli_environment.h"
 
+namespace cli {
 /**
  * @brief The CLIApplication class
  * Controller in our class model.
@@ -32,5 +33,7 @@ public:
 private:
     CLIEnvironment env_;
 };
+
+} // namespace cli.
 
 #endif // CLI_APPLICATION_H

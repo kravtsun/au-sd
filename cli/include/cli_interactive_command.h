@@ -4,6 +4,8 @@
 
 #include "cli_command.h"
 
+namespace cli {
+
 /**
  * @brief The CLIInteractiveCommand class
  * base class for commands working with files -
@@ -40,5 +42,6 @@ protected:
     virtual void end_run(CLIEnvironment &env) = 0;
 };
 
-#endif // CLI_INTERACTIVE_COMMAND_H
+} // namespace cli
 
+#endif // CLI_INTERACTIVE_COMMAND_H

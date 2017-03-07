@@ -6,6 +6,8 @@
 #include "cli_command_pipe.h"
 #include <ostream>
 
+namespace cli {
+
 /**
  * @brief The CLICommandQueue class - commands executor.
  * have responsibility on the order of commands' executed
@@ -34,5 +36,7 @@ private:
     CLICommandPipe pipe_;
     std::ostream &os_;
 };
+
+} // namespace cli
 
 #endif // CLI_COMMAND_QUEUE_H

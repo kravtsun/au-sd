@@ -2,6 +2,8 @@
 #include "cli_exception.h"
 #include "cli_parser.h"
 
+namespace cli {
+
 CLIExitCommand::CLIExitCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLICommand(is, os, params)
 {
@@ -34,3 +36,5 @@ std::string CLIExitCommand::name() const
 {
     return "exit";
 }
+
+} // namespace cli

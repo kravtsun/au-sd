@@ -2,6 +2,8 @@
 #include "cli_exception.h"
 #include <cstdlib>
 
+namespace cli {
+
 CLIUnknownCommand::CLIUnknownCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLICommand(is, os, params)
 {}
@@ -22,3 +24,5 @@ std::string CLIUnknownCommand::name() const
 {
     throw CLINotImlementedException("name() for subprocess CLICommand.");
 }
+
+} // namespace cli

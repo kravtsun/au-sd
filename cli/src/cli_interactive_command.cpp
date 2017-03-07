@@ -2,6 +2,8 @@
 #include "cli_exception.h"
 #include <fstream>
 
+namespace cli {
+
 CLIInteractiveCommand::CLIInteractiveCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLICommand(is, os, params)
     , filenames_(params_)
@@ -39,3 +41,5 @@ int CLIInteractiveCommand::run(CLIEnvironment &env)
     end_run(env);
     return 0;
 }
+
+} // namespace cli

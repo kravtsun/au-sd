@@ -12,6 +12,8 @@
 #include <memory>
 #include <cassert>
 
+namespace cli {
+
 CLICommandQueue::CLICommandQueue(CLIEnvironment &env, CLICommandPipe &&pipe, std::ostream &os)
     : env_(env)
     , pipe_(pipe)
@@ -103,3 +105,5 @@ CLIEnvironment CLICommandQueue::execute_pipe()
     os_ << os.str();
     return env_;
 }
+
+} // namespace cli

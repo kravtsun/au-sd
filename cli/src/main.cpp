@@ -4,6 +4,6 @@
 
 int main(int argc, char **argv)
 {
-    CLIApplication app(argc, argv);
+    cli::CLIApplication app(argc, argv);
     return app.main_loop();
 }

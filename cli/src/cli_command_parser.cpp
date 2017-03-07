@@ -4,6 +4,8 @@
 #include <cassert>
 #include <cctype>
 
+namespace cli {
+
 CLICommandParser::CLICommandParser(const CLIEnvironment &env)
     : env_(env)
 {}
@@ -145,3 +147,5 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
 
     return pipe;
 }
+
+} // namespace cli

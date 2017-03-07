@@ -1,5 +1,7 @@
 #include "cli_echo_command.h"
 
+namespace cli {
+
 CLIEchoCommand::CLIEchoCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLICommand(is, os, params)
 {}
@@ -22,4 +24,6 @@ int CLIEchoCommand::run(CLIEnvironment &env)
 std::string CLIEchoCommand::name() const
 {
     return "echo";
+}
+
 }

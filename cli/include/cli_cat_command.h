@@ -4,6 +4,8 @@
 
 #include "cli_interactive_command.h"
 
+namespace cli {
+
 /**
  * @brief The CLICatCommand class
  * implements "cat" bash command.
@@ -35,5 +37,7 @@ private:
     void end_file_step(const std::string &filename) override;
     void end_run(CLIEnvironment &env) override;
 };
+
+} // namespace cli
 
 #endif // CLI_CAT_COMMAND_H

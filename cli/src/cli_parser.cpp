@@ -2,6 +2,8 @@
 #include "cli_exception.h"
 #include <cctype>
 
+namespace cli {
+
 CLIParser::CLIParser(const std::string &s)
     : iss_(s)
 {}
@@ -38,3 +40,4 @@ int CLIParser::parse_integer()
     return x;
 }
 
+} // namespace cli

@@ -9,6 +9,8 @@
 #include <cstdio>
 #endif
 
+namespace cli {
+
 CLIPwdCommand::CLIPwdCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
     : CLICommand(is, os, params)
 {}
@@ -46,3 +48,5 @@ std::string CLIPwdCommand::name() const
 {
     return "pwd";
 }
+
+} // namespace cli

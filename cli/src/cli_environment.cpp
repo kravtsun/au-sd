@@ -2,6 +2,8 @@
 #include "cli_environment.h"
 #include "cli_exception.h"
 
+namespace cli {
+
 CLIEnvironment::CLIEnvironment()
     : vars_({})
 {}
@@ -83,3 +85,5 @@ const CLIEnvironment::VarListType &CLIEnvironment::get_vars() const
 {
     return vars_;
 }
+
+} // namespace cli

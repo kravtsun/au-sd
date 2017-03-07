@@ -4,6 +4,8 @@
 
 #include "cli_command.h"
 
+namespace cli {
+
 class CLIPwdCommand : public CLICommand
 {
 public:
@@ -28,5 +30,6 @@ public:
     std::string name() const override;
 };
 
-#endif // CLI_PWD_COMMAND_H
+} // namespace cli
 
+#endif // CLI_PWD_COMMAND_H

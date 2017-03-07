@@ -4,6 +4,8 @@
 #include "cli_command_queue.h"
 #include <iostream>
 
+namespace cli {
+
 CLIApplication::CLIApplication(int argc, char **argv)
     : env_(argc, argv)
 {
@@ -43,3 +45,4 @@ int CLIApplication::main_loop()
     return 0;
 }
 
+} // namespace cli
