@@ -9,12 +9,12 @@ SOURCES += \
 INCLUDEPATH += ../include/ ../third_party/cxxtest/
 
 HEADERS += \
-    ../include/cli_command_parser_test.h \
-    ../include/cli_environment_test.h \
-    ../include/cli_cat_command_test.h \
-    ../include/cli_command_queue_test.h \
-    ../include/cli_echo_command_test.h \
-    ../include/cli_parser_test.h
+    ../include/test/cli_command_parser_test.h \
+    ../include/test/cli_environment_test.h \
+    ../include/test/cli_cat_command_test.h \
+    ../include/test/cli_command_queue_test.h \
+    ../include/test/cli_echo_command_test.h \
+    ../include/test/cli_parser_test.h
 
 LIBS += cli_application.o \
     cli_cat_command.o\
@@ -30,5 +30,3 @@ LIBS += cli_application.o \
     cli_unknown_command.o\
     cli_word_count_command.o\
     cli_pwd_command.o\
-
-
