@@ -5,10 +5,13 @@
 #include <cxxtest/TestSuite.h>
 #include "cli_cat_command.h"
 #include "cli_exception.h"
+#include "cli_unknown_command.h"
 #include <vector>
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <exception>
+
 
 /**
  * @brief The CLICatCommandTest class
@@ -26,6 +29,17 @@ public:
     {
         writeLinesToFile(filename1(), lines1());
         writeLinesToFile(filename2(), lines2());
+    }
+
+    /**
+     * @brief ~CLICatCommandTest destructor.
+     * ensures all auxiliary files created while testing
+     * are removed.
+     */
+    virtual ~CLICatCommandTest()
+    {
+        removeFile(filename1());
+        removeFile(filename2());
     }
 
     /**
@@ -134,11 +148,29 @@ private:
 
     static void writeLinesToFile(const std::string &filename, const std::vector<std::string> &lines)
     {
+        //check if file already exists and fall if it does.
+        {
+            std::ifstream fin(filename);
+            if (fin.is_open())
+            {
+                const std::string msg = "file " + filename + " already exists.";
+                throw std::runtime_error(msg.c_str());
+            }
+        }
+
         std::ofstream fout(filename);
         for (auto const &s : lines)
         {
             fout << s << std::endl;
         }
+    }
+
+    static void removeFile(const std::string &filename)
+    {
+        const cli::Command::ParamsListType params = {"rm", "-f", filename};
+        cli::UnknownCommand command(std::cin, std::cout, params);
+        cli::Environment empty_env = {};
+        command.run(empty_env);
     }
 };
 
