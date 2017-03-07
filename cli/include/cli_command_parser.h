@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLI_COMMAND_PARSER_H
 #define CLI_COMMAND_PARSER_H
 

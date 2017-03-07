@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLI_ECHO_COMMAND_TEST_H
 #define CLI_ECHO_COMMAND_TEST_H
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLI_EXCEPTION_H
 #define CLI_EXCEPTION_H
 
@@ -13,7 +14,7 @@ public:
     CLIException();
 
 #ifdef _MSC_VER
-	const char *what() const override;
+    const char *what() const override;
 #else
     const char *what() const noexcept override;
 #endif

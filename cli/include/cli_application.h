@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLI_APPLICATION_H
 #define CLI_APPLICATION_H
 

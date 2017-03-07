@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLIPARSER_H
 #define CLIPARSER_H
 

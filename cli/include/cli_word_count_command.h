@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLI_WORD_COUNT_COMMAND_H
 #define CLI_WORD_COUNT_COMMAND_H
 

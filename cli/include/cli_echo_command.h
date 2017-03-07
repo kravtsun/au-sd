@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CLIECHOCOMMAND_H
 #define CLIECHOCOMMAND_H
 
