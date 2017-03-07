@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    ../src/test_runner.cpp \
+    ../src/test/test_runner.cpp \
 
 INCLUDEPATH += ../include/ ../third_party/cxxtest/
 
