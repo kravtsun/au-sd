@@ -118,15 +118,20 @@ private:
 
     std::string merge_lines(std::vector<std::string> &&vs)
     {
-        if (vs.empty()) return "\n";
+        if (vs.empty())
+        {
+            return "\n";
+        }
 
         std::string res = "";
         for (auto &&s : vs)
         {
             res += s + "\n";
         }
+
         return res;
     }
+
     static void writeLinesToFile(const std::string &filename, const std::vector<std::string> &lines)
     {
         std::ofstream fout(filename);

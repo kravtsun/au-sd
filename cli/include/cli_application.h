@@ -30,8 +30,6 @@ public:
     int main_loop();
 
 private:
-    CLIApplication();
-
     CLIEnvironment env_;
 };
 

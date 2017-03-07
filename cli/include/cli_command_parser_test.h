@@ -97,7 +97,6 @@ public:
         TS_TRACE("Finishing CLICommandParser::quotes test.");
     }
 
-
     /**
      * @brief testLines test if some sentence was split by user on several lines.
      * but all these lines are to make one pipe sequence.
@@ -123,7 +122,6 @@ public:
         TS_TRACE("Finishing CLICommandParser::quotes test.");
 #endif
     }
-
 };
 
 

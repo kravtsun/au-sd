@@ -2,12 +2,10 @@
 #ifndef CLI_COMMAND_H
 #define CLI_COMMAND_H
 
+#include "cli_environment.h"
 #include <vector>
 #include <string>
 #include <sstream>
-
-#include "cli_environment.h"
-
 
 /**
  * @brief Base class for all commands.
@@ -27,7 +25,7 @@ public:
     /**
      * @brief CLICommand - the only constructor.
      */
-    CLICommand(std::istream &is, std::ostream &os, const ParamsListType &params={});
+    CLICommand(std::istream &is, std::ostream &os, const ParamsListType &params = {});
 
     /**
      * @brief run a command's 'play' button.
@@ -54,9 +52,6 @@ protected:
     std::istream &is_;
     std::ostream &os_;
     ParamsListType params_;
-
-private:
-    CLICommand();
 };
 
 #endif // CLI_COMMAND_H

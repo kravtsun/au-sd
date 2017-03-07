@@ -13,7 +13,6 @@ CLIPwdCommand::CLIPwdCommand(std::istream &is, std::ostream &os, const CLIComman
     : CLICommand(is, os, params)
 {}
 
-
 int CLIPwdCommand::run(CLIEnvironment &env)
 {
     (void)env;
