@@ -31,7 +31,7 @@ public:
      * @return the pipes - sequence of commands which will share user's input
      * on current main loop's iteration.
      */
-    CLICommandPipe parse_all_commands(std::istream &is_);
+    CLICommandPipe parse_all_commands(std::istream &is);
 
 private:
     const CLIEnvironment &env_;

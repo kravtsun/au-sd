@@ -90,7 +90,7 @@ CLIEnvironment CLIEnvironment::operator|(const CLIEnvironment &rhs) const
     return res;
 }
 
-const CLIEnvironment::VarListType &CLIEnvironment::get_vars()
+const CLIEnvironment::VarListType &CLIEnvironment::get_vars() const
 {
     return vars_;
 }

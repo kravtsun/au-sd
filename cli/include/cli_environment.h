@@ -100,7 +100,7 @@ public:
      * for testing purposes only.
      * @return structure used for storing variables in CLIEnvironment.
      */
-    const VarListType &get_vars();
+    const VarListType &get_vars() const;
 
 private:
     VarListType vars_;
