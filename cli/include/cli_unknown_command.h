@@ -4,28 +4,30 @@
 
 #include "cli_command.h"
 
+namespace cli {
+
 /**
- * @brief The CLIUnknownCommand class command
+ * @brief The UnknownCommand class command
  * for delegating unknown command's execution to the terminal
  * from which CLI app was called.
  */
-class CLIUnknownCommand : public CLICommand
+class UnknownCommand : public Command
 {
 public:
     /**
-     * @brief CLIUnknownCommand usual constructor for command object.
+     * @brief UnknownCommand usual constructor for command object.
      * @param is input stream.
      * @param os output stream.
      * @param params command line parameters.
      */
-    CLIUnknownCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
+    UnknownCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
     /**
      * @brief run entry point.
      * @param env environment.
      * @return exit code.
      */
-    int run(CLIEnvironment &env) override;
+    int run(Environment &env) override;
 
     /**
      * @brief name helper method for identifying command objects.
@@ -33,5 +35,7 @@ public:
      */
     std::string name() const override;
 };
+
+} // namespace cli
 
 #endif // CLI_UNKNOWN_COMMAND_H

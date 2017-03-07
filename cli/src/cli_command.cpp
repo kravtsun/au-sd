@@ -1,7 +1,11 @@
 #include "cli_command.h"
 
-CLICommand::CLICommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
+namespace cli {
+
+Command::Command(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
     : is_(is)
     , os_(os)
     , params_(params)
 {}
+
+} // namespace cli

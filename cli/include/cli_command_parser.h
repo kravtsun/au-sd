@@ -7,22 +7,24 @@
 #include <vector>
 #include <istream>
 
+namespace cli {
+
 /**
- * @brief The CLICommandParser
+ * @brief The CommandParser
  * transforms all the user's input into sequence
  * of commands and their arguments
  * happens to be a lexer too as it works as a preprocessor
  * make substitution for environmental variables in input.
  */
-class CLICommandParser
+class CommandParser
 {
 public:
     /**
-     * @brief CLICommandParser constructor.
+     * @brief CommandParser constructor.
      * @param env information around the command parser
      * and all meta-information needed for initialization.
      */
-    CLICommandParser(const CLIEnvironment &env);
+    explicit CommandParser(const Environment &env);
 
     /**
      * @brief parse_all_commands - "red button" for the command parser,
@@ -31,10 +33,12 @@ public:
      * @return the pipes - sequence of commands which will share user's input
      * on current main loop's iteration.
      */
-    CLICommandPipe parse_all_commands(std::istream &is_);
+    CommandPipe parse_all_commands(std::istream &is);
 
 private:
-    const CLIEnvironment &env_;
+    const Environment &env_;
 };
+
+} // namespace cli
 
 #endif // CLI_COMMAND_PARSER_H

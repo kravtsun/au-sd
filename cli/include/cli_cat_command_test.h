@@ -12,7 +12,7 @@
 
 /**
  * @brief The CLICatCommandTest class
- * testing suite for CLICatCommand methods and logic
+ * testing suite for CatCommand methods and logic
  * behind them.
  */
 class CLICatCommandTest : public CxxTest::TestSuite
@@ -38,7 +38,7 @@ public:
         std::istringstream is(ask);
         std::string answer = ask + "\n";
         std::ostringstream os;
-        CLICatCommand cat_command(is, os, {});
+        cli::CatCommand cat_command(is, os, {});
         cat_command.run(empty_env_);
         TS_ASSERT_EQUALS(os.str(), answer);
     }
@@ -52,7 +52,7 @@ public:
         std::istringstream is("");
         std::ostringstream os;
 
-        CLICatCommand cat_command(is, os, {filename1()});
+        cli::CatCommand cat_command(is, os, {filename1()});
         cat_command.run(empty_env_);
 
         TS_ASSERT_EQUALS(os.str(), merge_lines(lines1()));
@@ -66,7 +66,7 @@ public:
         std::istringstream is("");
         std::ostringstream os("");
 
-        CLICatCommand cat_command(is, os, {filename1(), filename2()});
+        cli::CatCommand cat_command(is, os, {filename1(), filename2()});
         cat_command.run(empty_env_);
 
         const std::string all_lines = merge_lines(lines1()) + merge_lines(lines2());
@@ -83,12 +83,12 @@ public:
         std::string filename = "26486321386463213";
         std::istringstream is;
         std::ostringstream os;
-        CLICatCommand cat_command(is, os, {filename});
-        TS_ASSERT_THROWS(cat_command.run(empty_env_), CLICommandException &);
+        cli::CatCommand cat_command(is, os, {filename});
+        TS_ASSERT_THROWS(cat_command.run(empty_env_), cli::CommandException &);
     }
 
 private:
-    CLIEnvironment empty_env_;
+    cli::Environment empty_env_;
 
     static inline std::string filename1()
     {
@@ -118,15 +118,20 @@ private:
 
     std::string merge_lines(std::vector<std::string> &&vs)
     {
-        if (vs.empty()) return "\n";
+        if (vs.empty())
+        {
+            return "\n";
+        }
 
         std::string res = "";
         for (auto &&s : vs)
         {
             res += s + "\n";
         }
+
         return res;
     }
+
     static void writeLinesToFile(const std::string &filename, const std::vector<std::string> &lines)
     {
         std::ofstream fout(filename);

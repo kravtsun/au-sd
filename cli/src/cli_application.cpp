@@ -4,13 +4,15 @@
 #include "cli_command_queue.h"
 #include <iostream>
 
-CLIApplication::CLIApplication(int argc, char **argv)
+namespace cli {
+
+Application::Application(int argc, char **argv)
     : env_(argc, argv)
 {
     env_.set_var("PS2", "> ");
 }
 
-int CLIApplication::main_loop()
+int Application::main_loop()
 {
     while (std::cin)
     {
@@ -19,23 +21,23 @@ int CLIApplication::main_loop()
             std::cout << env_.get_var("PS2");
             // NB. Not sure if I need to create a parser on every iteration.
             // Maybe it's because of environment - it's kind of interiterational thing.
-            CLICommandParser p(env_);
+            CommandParser p(env_);
 
             auto commands = p.parse_all_commands(std::cin);
-            CLICommandQueue q(env_, std::move(commands), std::cout);
+            CommandQueue q(env_, std::move(commands), std::cout);
             env_ = q.execute_pipe();
         }
-        catch (CLICommandException &e)
+        catch (CommandException &e)
         {
             std::cout << e.what() << std::endl;
         }
-        catch (CLIExitException &e)
+        catch (ExitException &e)
         {
             return e.exit_code();
         }
-        catch (CLIException &e)
+        catch (Exception &e)
         {
-            std::cout << "Unhandled CLIException: ";
+            std::cout << "Unhandled Exception: ";
             std::cout << e.what() << std::endl;
         }
     }
@@ -43,3 +45,4 @@ int CLIApplication::main_loop()
     return 0;
 }
 
+} // namespace cli

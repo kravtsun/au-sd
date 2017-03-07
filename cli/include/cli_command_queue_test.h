@@ -8,10 +8,10 @@
 #include <sstream>
 
 /**
- * @brief The CLICommandQueueTest class
- * testing suite for CLICommandQueue.
+ * @brief The CommandQueueTest class
+ * testing suite for CommandQueue.
  */
-class CLICommandQueueTest : public CxxTest::TestSuite
+class CommandQueueTest : public CxxTest::TestSuite
 {
 public:
     /**
@@ -21,13 +21,13 @@ public:
      */
     void testPipe(void)
     {
-        CLICommandPipeEntry first_command = {"echo", "123"};
-        CLICommandPipeEntry second_command = {"wc"};
-        CLICommandPipe commands = {first_command, second_command};
+        cli::CommandPipeEntry first_command = {"echo", "123"};
+        cli::CommandPipeEntry second_command = {"wc"};
+        cli::CommandPipe commands = {first_command, second_command};
 
         std::ostringstream os;
-        CLIEnvironment empty_env;
-        CLICommandQueue q(empty_env, std::move(commands), os);
+        cli::Environment empty_env;
+        cli::CommandQueue q(empty_env, std::move(commands), os);
         q.execute_pipe();
         std::istringstream is(os.str());
         std::vector<std::string> ans;
@@ -36,8 +36,8 @@ public:
         {
             ans.push_back(s);
         }
-        std::vector<std::string> shouldbe = {"1", "1", "3"};
-        TS_ASSERT_EQUALS(ans, shouldbe);
+        std::vector<std::string> should_be = {"1", "1", "3"};
+        TS_ASSERT_EQUALS(ans, should_be);
     }
 };
 

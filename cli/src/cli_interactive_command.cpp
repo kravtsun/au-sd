@@ -2,12 +2,14 @@
 #include "cli_exception.h"
 #include <fstream>
 
-CLIInteractiveCommand::CLIInteractiveCommand(std::istream &is, std::ostream &os, const CLICommand::ParamsListType &params)
-    : CLICommand(is, os, params)
+namespace cli {
+
+InteractiveCommand::InteractiveCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
+    : Command(is, os, params)
     , filenames_(params_)
 {}
 
-int CLIInteractiveCommand::run(CLIEnvironment &env)
+int InteractiveCommand::run(Environment &env)
 {
     init_run(env);
 
@@ -26,7 +28,7 @@ int CLIInteractiveCommand::run(CLIEnvironment &env)
             std::ifstream fin(f);
             if (!fin)
             {
-                throw CLICommandException(name(), "Failed to open file: \"" + f + "\"");
+                throw CommandException(name(), "Failed to open file: \"" + f + "\"");
             }
             std::string line;
             while (std::getline(fin, line))
@@ -39,3 +41,5 @@ int CLIInteractiveCommand::run(CLIEnvironment &env)
     end_run(env);
     return 0;
 }
+
+} // namespace cli

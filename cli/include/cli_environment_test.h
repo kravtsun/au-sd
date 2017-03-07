@@ -9,10 +9,10 @@
 #include <cassert>
 
 /**
- * @brief The CLIEnvironmentTest class - testing suite
- * for CLIEnvironment.
+ * @brief The EnvironmentTest class - testing suite
+ * for Environment.
  */
-class CLIEnvironmentTest : public CxxTest::TestSuite
+class EnvironmentTest : public CxxTest::TestSuite
 {
 public:
     /**
@@ -24,7 +24,7 @@ public:
             "x = 1",
             "y123=1",
             "z=",
-            "1=x" // command-line arguments.
+            "1=x"
         };
 
         const std::vector<bool> answers = {
@@ -37,7 +37,7 @@ public:
 
         for (size_t i = 0; i < asks.size(); ++i)
         {
-            TS_ASSERT_EQUALS(CLIEnvironment::is_var_assignment(asks[i]), answers[i]);
+            TS_ASSERT_EQUALS(cli::Environment::is_var_assignment(asks[i]), answers[i]);
         }
     }
 
@@ -55,7 +55,7 @@ public:
         const std::vector<std::string> asks = {
             "y123=1",
             "z=",
-            "1=x" // command-line arguments.
+            "1=x"
         };
 
         const std::vector<std::string> answers = {
@@ -64,10 +64,10 @@ public:
             "x"
         };
         assert(vars.size() == asks.size() && asks.size() == answers.size());
-        CLIEnvironment env, env2;
-
+        cli::Environment env;
         TS_ASSERT_EQUALS(env.get_vars().empty(), true);
 
+        cli::Environment env2;
         for (size_t i = 0; i < asks.size(); ++i)
         {
             env.parse_and_assign(asks[i]);

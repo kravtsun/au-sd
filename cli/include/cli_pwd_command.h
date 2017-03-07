@@ -4,22 +4,24 @@
 
 #include "cli_command.h"
 
-class CLIPwdCommand : public CLICommand
+namespace cli {
+
+class PwdCommand : public Command
 {
 public:
     /**
-     * @brief CLIPwdCommand constructor
+     * @brief PwdCommand constructor
      * @param is input stream.
      * @param os output stream.
      * @param params command line parameters.
      */
-    CLIPwdCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
+    PwdCommand(std::istream &is, std::ostream &os, const ParamsListType &params);
 
     /**
      * @brief run entry point for command.
      * @return return code.
      */
-    int run(CLIEnvironment &env) override;
+    int run(Environment &env) override;
 
     /**
      * @brief name identifier for command.
@@ -28,5 +30,6 @@ public:
     std::string name() const override;
 };
 
-#endif // CLI_PWD_COMMAND_H
+} // namespace cli
 
+#endif // CLI_PWD_COMMAND_H
