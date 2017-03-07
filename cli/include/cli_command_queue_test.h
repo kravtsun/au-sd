@@ -36,8 +36,8 @@ public:
         {
             ans.push_back(s);
         }
-        std::vector<std::string> shouldbe = {"1", "1", "3"};
-        TS_ASSERT_EQUALS(ans, shouldbe);
+        std::vector<std::string> should_be = {"1", "1", "3"};
+        TS_ASSERT_EQUALS(ans, should_be);
     }
 };
 

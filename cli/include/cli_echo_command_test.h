@@ -15,7 +15,7 @@
  */
 class CLIEchoCommandTest : public CxxTest::TestSuite
 {
-    void single_test(const CLICommand::ParamsListType &params, const std::string &shouldbe)
+    void single_test(const CLICommand::ParamsListType &params, const std::string &should_be)
     {
         std::istringstream is;
         std::ostringstream os;
@@ -23,7 +23,7 @@ class CLIEchoCommandTest : public CxxTest::TestSuite
         CLIEchoCommand echo_command(is, os, params);
         CLIEnvironment empty_env;
         echo_command.run(empty_env);
-        TS_ASSERT_EQUALS(os.str(), shouldbe);
+        TS_ASSERT_EQUALS(os.str(), should_be);
     }
 
 public:
