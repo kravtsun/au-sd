@@ -64,10 +64,10 @@ public:
             "x"
         };
         assert(vars.size() == asks.size() && asks.size() == answers.size());
-        CLIEnvironment env, env2;
-
+        CLIEnvironment env;
         TS_ASSERT_EQUALS(env.get_vars().empty(), true);
 
+        CLIEnvironment env2;
         for (size_t i = 0; i < asks.size(); ++i)
         {
             env.parse_and_assign(asks[i]);
