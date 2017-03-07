@@ -66,7 +66,7 @@
     </Link>
     <PreBuildEvent>
       <Command>DEL /Q $(ProjectDir)\mytestsuite.cpp
-$(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuite.cpp $(SolutionDir)\..\include\*_test.h</Command>
+$(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuite.cpp $(SolutionDir)\..\include\test\*_test.h</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>Build test suite</Message>
@@ -95,7 +95,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
     </Link>
     <PreBuildEvent>
       <Command>DEL /Q $(ProjectDir)\mytestsuite.cpp
-$(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuite.cpp $(SolutionDir)\..\include\*_test.h</Command>
+$(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuite.cpp $(SolutionDir)\..\include\test\*_test.h</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>Build test suite</Message>
@@ -108,25 +108,25 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
   <ItemGroup>
     <ClInclude Include="..\..\include\cli_application.h" />
     <ClInclude Include="..\..\include\cli_cat_command.h" />
-    <ClInclude Include="..\..\include\cli_cat_command_test.h" />
     <ClInclude Include="..\..\include\cli_command.h" />
     <ClInclude Include="..\..\include\cli_command_parser.h" />
-    <ClInclude Include="..\..\include\cli_command_parser_test.h" />
     <ClInclude Include="..\..\include\cli_command_pipe.h" />
     <ClInclude Include="..\..\include\cli_command_queue.h" />
-    <ClInclude Include="..\..\include\cli_command_queue_test.h" />
     <ClInclude Include="..\..\include\cli_echo_command.h" />
-    <ClInclude Include="..\..\include\cli_echo_command_test.h" />
     <ClInclude Include="..\..\include\cli_environment.h" />
-    <ClInclude Include="..\..\include\cli_environment_test.h" />
     <ClInclude Include="..\..\include\cli_exception.h" />
     <ClInclude Include="..\..\include\cli_exit_command.h" />
     <ClInclude Include="..\..\include\cli_interactive_command.h" />
     <ClInclude Include="..\..\include\cli_parser.h" />
-    <ClInclude Include="..\..\include\cli_parser_test.h" />
     <ClInclude Include="..\..\include\cli_pwd_command.h" />
     <ClInclude Include="..\..\include\cli_unknown_command.h" />
     <ClInclude Include="..\..\include\cli_word_count_command.h" />
+    <ClInclude Include="..\..\include\test\cli_cat_command_test.h" />
+    <ClInclude Include="..\..\include\test\cli_command_parser_test.h" />
+    <ClInclude Include="..\..\include\test\cli_command_queue_test.h" />
+    <ClInclude Include="..\..\include\test\cli_echo_command_test.h" />
+    <ClInclude Include="..\..\include\test\cli_environment_test.h" />
+    <ClInclude Include="..\..\include\test\cli_parser_test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\cli_application.cpp" />

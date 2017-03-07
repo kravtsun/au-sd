@@ -3,7 +3,7 @@ set -e
 qmake -o bin/Makefile
 cd bin
 TEST_HEADERS_FILE=cxxtest-headers
-ls -1 ../include/*_test.h > ${TEST_HEADERS_FILE}
+ls -1 ../include/test/*_test.h > ${TEST_HEADERS_FILE}
 
 ../third_party/cxxtest/bin/cxxtestgen --have-std --runner=ErrorPrinter -o test_runner.cpp --headers=${TEST_HEADERS_FILE}
 
