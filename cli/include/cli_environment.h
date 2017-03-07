@@ -46,9 +46,6 @@ public:
      */
     explicit CLIEnvironment(const VarListType &vars);
 
-
-    // NB: parsing functions look odd here?..
-
     /**
      * @brief is_var_assignment check if a string
      * can be a valid variable assignment as it is

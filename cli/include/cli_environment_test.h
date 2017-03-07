@@ -24,7 +24,7 @@ public:
             "x = 1",
             "y123=1",
             "z=",
-            "1=x" // command-line arguments.
+            "1=x"
         };
 
         const std::vector<bool> answers = {
@@ -55,7 +55,7 @@ public:
         const std::vector<std::string> asks = {
             "y123=1",
             "z=",
-            "1=x" // command-line arguments.
+            "1=x"
         };
 
         const std::vector<std::string> answers = {

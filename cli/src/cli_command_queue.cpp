@@ -55,7 +55,6 @@ static CLICommand *command_from_name(const std::string &command,
 
 CLIEnvironment CLICommandQueue::execute_pipe()
 {
-    // TODO: execute environmental varialbes assignments.
     std::ostringstream os;
     std::istringstream iss;
     bool iss_initialized = false;
@@ -71,6 +70,7 @@ CLIEnvironment CLICommandQueue::execute_pipe()
 
         CLIEnvironment local_env = env_;
 
+        // Executing environmental varialbes assignments.
         size_t i;
         for (i = 0; i < command_strings.size(); ++i)
         {

@@ -44,7 +44,6 @@ class CLICommandParserTest : public CxxTest::TestSuite
         assert(asks.size() == answers.size());
         for (size_t i = 0; i < asks.size(); ++i)
         {
-//            std::cout << i << std::endl;
             single_test(env, asks[i], answers[i]);
         }
     }

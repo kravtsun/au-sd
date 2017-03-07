@@ -9,8 +9,7 @@ CLICommandParser::CLICommandParser(const CLIEnvironment &env)
 {}
 
 CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
-    // entries currently being parsed.
-    CLICommandPipe pipe; //
+    CLICommandPipe pipe;
     CLICommandPipeEntry pipe_entry;
 
     bool is_variable_opened = false;
@@ -27,17 +26,6 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
         {
             return;
         }
-
-        // Several ways of dealing with cases when env. variable name was not parsed.
-//        if (var_name.empty())
-//        {
-//            output += '$';
-//        }
-
-//        if (var_name.empty())
-//        {
-//            throw CLIParseException(output, "environment variable");
-//        }
 
         // can't work with environmental variables when in single quotes.
         assert(!is_single_quotes);
@@ -101,7 +89,8 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
             {
                 if (is_variable_opened && var_name.empty())
                 {
-                    output += '$'; // $$ -> $.
+                    // $$ in input transforms into single '$' sign.
+                    output += '$';
                     is_variable_opened = false;
                 }
                 else
@@ -131,10 +120,6 @@ CLICommandPipe CLICommandParser::parse_all_commands(std::istream &is) {
             {
                 var_name += line[i];
             }
-//            else if (line[i] == '#' && !is_single_quotes && !is_double_quotes)
-//            {
-//                // TODO. implement?
-//            }
             else if (line[i] == ' ' && !is_single_quotes && !is_double_quotes)
             {
                 close_word();
