@@ -10,8 +10,6 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <exception>
-
 
 /**
  * @brief The CLICatCommandTest class
@@ -154,7 +152,7 @@ private:
             if (fin.is_open())
             {
                 const std::string msg = "file " + filename + " already exists.";
-                throw std::runtime_error(msg.c_str());
+                throw cli::IOError(msg);
             }
         }
 
