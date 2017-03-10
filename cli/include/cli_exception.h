@@ -13,7 +13,6 @@ namespace cli {
 class Exception : public std::exception
 {
 public:
-    Exception();
 
 #ifdef _MSC_VER
     const char *what() const override;
@@ -21,6 +20,7 @@ public:
     const char *what() const noexcept override;
 #endif
 protected:
+    Exception();
     std::string base_msg_;
 };
 
