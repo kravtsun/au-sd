@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_COMMAND_PIPE_H
 #define CLI_COMMAND_PIPE_H
 

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_INTERACTIVE_COMMAND_H
 #define CLI_INTERACTIVE_COMMAND_H
 

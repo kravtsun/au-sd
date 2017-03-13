@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_CAT_COMMAND_H
 #define CLI_CAT_COMMAND_H
 

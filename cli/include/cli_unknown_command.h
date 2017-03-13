@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_UNKNOWN_COMMAND_H
 #define CLI_UNKNOWN_COMMAND_H
 

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_PWD_COMMAND_H
 #define CLI_PWD_COMMAND_H
 

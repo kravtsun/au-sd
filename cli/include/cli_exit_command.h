@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_EXIT_COMMAND_H
 #define CLI_EXIT_COMMAND_H
 

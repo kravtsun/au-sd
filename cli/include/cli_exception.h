@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_EXCEPTION_H
 #define CLI_EXCEPTION_H
 
