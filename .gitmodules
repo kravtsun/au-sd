@@ -1,0 +1,3 @@
+[submodule "cli/third_party/cxxtest"]
+	path = cli/third_party/cxxtest
+	url = https://github.com/CxxTest/cxxtest.git

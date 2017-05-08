@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B8C34DE6-E7AC-4A5A-AC80-8AC0DF96AF70}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>tester</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(SolutionDir)\..\third_party\cxxtest\bin;C:\Users\Andrey\Projects\au-sd\cli\third_party\cxxtest\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(SolutionDir)\..\third_party\cxxtest;$(IncludePath)</IncludePath>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(SolutionDir)\..\third_party\cxxtest\bin;C:\Users\Andrey\Projects\au-sd\cli\third_party\cxxtest\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(SolutionDir)\..\third_party\cxxtest;$(IncludePath)</IncludePath>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PreBuildEvent>
+      <Command>DEL /Q $(ProjectDir)\mytestsuite.cpp
+$(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuite.cpp $(SolutionDir)\..\include\test\*_test.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Build test suite</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent>
+      <Command>DEL /Q $(ProjectDir)\mytestsuite.cpp
+$(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuite.cpp $(SolutionDir)\..\include\test\*_test.h</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Build test suite</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\cli_application.h" />
+    <ClInclude Include="..\..\include\cli_cat_command.h" />
+    <ClInclude Include="..\..\include\cli_command.h" />
+    <ClInclude Include="..\..\include\cli_command_parser.h" />
+    <ClInclude Include="..\..\include\cli_command_pipe.h" />
+    <ClInclude Include="..\..\include\cli_command_queue.h" />
+    <ClInclude Include="..\..\include\cli_echo_command.h" />
+    <ClInclude Include="..\..\include\cli_environment.h" />
+    <ClInclude Include="..\..\include\cli_exception.h" />
+    <ClInclude Include="..\..\include\cli_exit_command.h" />
+    <ClInclude Include="..\..\include\cli_interactive_command.h" />
+    <ClInclude Include="..\..\include\cli_parser.h" />
+    <ClInclude Include="..\..\include\cli_pwd_command.h" />
+    <ClInclude Include="..\..\include\cli_unknown_command.h" />
+    <ClInclude Include="..\..\include\cli_word_count_command.h" />
+    <ClInclude Include="..\..\include\test\cli_cat_command_test.h" />
+    <ClInclude Include="..\..\include\test\cli_command_parser_test.h" />
+    <ClInclude Include="..\..\include\test\cli_command_queue_test.h" />
+    <ClInclude Include="..\..\include\test\cli_echo_command_test.h" />
+    <ClInclude Include="..\..\include\test\cli_environment_test.h" />
+    <ClInclude Include="..\..\include\test\cli_parser_test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\cli_application.cpp" />
+    <ClCompile Include="..\..\src\cli_cat_command.cpp" />
+    <ClCompile Include="..\..\src\cli_command.cpp" />
+    <ClCompile Include="..\..\src\cli_command_parser.cpp" />
+    <ClCompile Include="..\..\src\cli_command_queue.cpp" />
+    <ClCompile Include="..\..\src\cli_echo_command.cpp" />
+    <ClCompile Include="..\..\src\cli_environment.cpp" />
+    <ClCompile Include="..\..\src\cli_exception.cpp" />
+    <ClCompile Include="..\..\src\cli_exit_command.cpp" />
+    <ClCompile Include="..\..\src\cli_interactive_command.cpp" />
+    <ClCompile Include="..\..\src\cli_parser.cpp" />
+    <ClCompile Include="..\..\src\cli_pwd_command.cpp" />
+    <ClCompile Include="..\..\src\cli_unknown_command.cpp" />
+    <ClCompile Include="..\..\src\cli_word_count_command.cpp" />
+    <ClCompile Include="mytestsuite.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
