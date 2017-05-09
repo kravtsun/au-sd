@@ -11,6 +11,7 @@ public class Visualizer {
     private Map map;
 
     public Visualizer(Map map) {
+        logger.debug("Creating Visualizer");
         this.map = map;
     }
 

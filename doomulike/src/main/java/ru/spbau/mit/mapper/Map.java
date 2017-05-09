@@ -4,11 +4,23 @@ import ru.spbau.mit.visualizer.Tile;
 
 import java.awt.Color;
 
-public abstract class Map {
+public class Map {
     protected Tile[][] tiles;
 
-    Map(int width, int height) {
+    public Map(int width, int height) {
         tiles = newTiles(width, height);
+    }
+
+    public Map clone() {
+        Map newMap = new Map(width(), height());
+
+        for (int y = 0; y < height(); ++y) {
+            for (int x = 0; x < width(); ++x) {
+                newMap.setTile(x, y, getTile(x, y));
+            }
+        }
+//        newMap.tiles = tiles.clone();
+        return newMap;
     }
 
     public int width() {

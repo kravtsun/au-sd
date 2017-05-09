@@ -6,7 +6,10 @@ import asciiPanel.AsciiPanel;
 public enum Tile {
     FLOOR('.', AsciiPanel.yellow),
     WALL('#', AsciiPanel.yellow),
-    BOUNDS('x', AsciiPanel.brightBlack);
+    BOUNDS('x', AsciiPanel.brightBlack),
+    CHEST('*', AsciiPanel.brightMagenta),
+    MONSTER('$', AsciiPanel.brightRed),
+    PLAYER('@', AsciiPanel.green);
 
     private char glyph;
     public char glyph() { return glyph; }
@@ -17,5 +20,9 @@ public enum Tile {
     Tile(char glyph, Color color){
         this.glyph = glyph;
         this.color = color;
+    }
+
+    public boolean isFree() {
+        return equals(FLOOR);
     }
 }

@@ -17,5 +17,9 @@
     <Logger name="Visualizer" level = "debug" additivity="false">
       <AppenderRef ref="Debug"/>
     </Logger>
+
+    <Logger name="World" level = "debug" additivity="false">
+      <AppenderRef ref="Debug"/>
+    </Logger>
   </Loggers>
 </Configuration>
