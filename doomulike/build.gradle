@@ -1,0 +1,23 @@
+group 'ru.spbau.mit'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+//    flatDir {
+//        dirs 'third_party/AsciiPanel/dist'
+//    }
+}
+
+dependencies {
+//    compile group: 'net.trystan', name: 'ascii-panel', version: '1.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+    compile fileTree(dir: 'third_party/AsciiPanel/dist', include: ['*.jar'])
+//    compile files('third_party/AsciiPanel/dist/AsciiPanel.jar')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

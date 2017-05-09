@@ -1,3 +1,6 @@
 [submodule "cli/third_party/cxxtest"]
 	path = cli/third_party/cxxtest
 	url = https://github.com/CxxTest/cxxtest.git
+[submodule "doomulike/third_party/AsciiPanel"]
+	path = doomulike/third_party/AsciiPanel
+	url = git@github.com:trystan/AsciiPanel.git
