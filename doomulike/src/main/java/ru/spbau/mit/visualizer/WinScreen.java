@@ -1,12 +1,13 @@
 package ru.spbau.mit.visualizer;
 
 import java.awt.event.KeyEvent;
+import java.util.function.Supplier;
 import asciiPanel.AsciiPanel;
 
-public class WinScreen extends Screen {
-
-    WinScreen() {
-        logger.debug("Creating Winscreen");
+public class WinScreen extends LeafScreen {
+    WinScreen(Supplier<Screen> baseScreenSupplier) {
+        super(baseScreenSupplier);
+        logger.debug("Creating WinScreen");
     }
 
     public void displayOutput(AsciiPanel terminal) {
@@ -15,6 +16,6 @@ public class WinScreen extends Screen {
     }
 
     public Screen respondToUserInput(KeyEvent key) {
-        return key.getKeyCode() == KeyEvent.VK_ENTER ? new PlayScreen() : this;
+        return key.getKeyCode() == KeyEvent.VK_ENTER ? getBaseScreen() : this;
     }
 }

@@ -23,7 +23,7 @@ public class Application extends JFrame implements KeyListener {
         terminal = new AsciiPanel();
         add(terminal);
         pack();
-        screen = new StartScreen();
+        screen = new StartScreen(terminal.getWidthInCharacters(), terminal.getHeightInCharacters());
         addKeyListener(this);
         repaint();
     }

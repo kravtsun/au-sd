@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Screen {
-    protected static final Logger logger = LogManager.getLogger("Application");
+    public static final Logger logger = LogManager.getLogger("Visualizer");
 
     abstract public void displayOutput(AsciiPanel terminal);
 

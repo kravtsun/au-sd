@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/java,jetbrains
+# Created by https://www.gitignore.io/api/java,jetbrains.gradle
 
 ### Java ###
 # Compiled class file
@@ -86,5 +86,24 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 
-# End of https://www.gitignore.io/api/java,jetbrains
+
+### Gradle ###
+.gradle
+/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+# End of https://www.gitignore.io/api/java,jetbrains,gradle
+
+*.log
 
