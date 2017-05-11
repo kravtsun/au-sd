@@ -14,7 +14,7 @@ public class Application extends JFrame implements KeyListener {
     private static final Logger LOGGER = LogManager.getLogger("Application");
     private static final long serialVersionUID = 1089416816205537123L;
 
-    private AsciiPanel terminal;
+    private final AsciiPanel terminal;
     private Screen screen;
 
     public Application() {
@@ -41,15 +41,27 @@ public class Application extends JFrame implements KeyListener {
         app.setVisible(true);
     }
 
+    /**
+     * Action on any key type is empty as logic is transferred to keyPressed handler.
+     * @param e what KeyEvent happened
+     */
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    /**
+     * Screen logic on keyPressed event.
+     * @param e what KeyEvent happened
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         screen = screen.respondToUserInput(e);
         repaint();
     }
 
+    /**
+     * action on releasing a key event.
+     * @param e what KeyEvent happened
+     */
     @Override
     public void keyReleased(KeyEvent e) {}
 }

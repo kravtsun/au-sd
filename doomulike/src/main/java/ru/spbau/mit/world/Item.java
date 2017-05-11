@@ -1,8 +1,8 @@
 package ru.spbau.mit.world;
 
 public class Item {
-    private String description;
-    private Characteristics delta;
+    private final String description;
+    private final Characteristics delta;
 
     public Item(String description, Characteristics delta) {
         this.description = description;

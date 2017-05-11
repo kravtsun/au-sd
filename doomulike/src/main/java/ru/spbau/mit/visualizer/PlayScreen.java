@@ -1,10 +1,12 @@
 package ru.spbau.mit.visualizer;
 
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 import asciiPanel.AsciiPanel;
+import org.jetbrains.annotations.NotNull;
 import ru.spbau.mit.world.Cartographer;
 import ru.spbau.mit.world.World;
 import ru.spbau.mit.mapper.Map;
@@ -33,6 +35,7 @@ public class PlayScreen extends Screen {
         visualizer.drawMap(terminal);
     }
 
+    @NotNull
     public Screen respondToUserInput(KeyEvent key) {
         try {
             int keyCode = key.getKeyCode();
@@ -48,10 +51,10 @@ public class PlayScreen extends Screen {
                     System.exit(0);
                     break;
                 default:
-                    if (Arrays.stream(getProphet().availableCommands()).anyMatch((k) -> k == keyCode)) {
+                    if (getProphet().canAnswer(key)) {
                         getProphet().respondInput(key);
                     } else {
-                        LOGGER.error("Unknown command: " + key.toString());
+                        return super.respondToUserInput(key);
                     }
             }
         } catch (Exception e) {
@@ -61,11 +64,21 @@ public class PlayScreen extends Screen {
         return this;
     }
 
-    Cartographer getCartographer() {
+    @Override
+    public List<UserCommand> getUserCommands() {
+        List<UserCommand> result = new ArrayList<>();
+        result.addAll(getProphet().availableUserCommands());
+        result.add(new UserCommand("enter", "to win."));
+        result.add(new UserCommand("escape", "to loose."));
+        result.addAll(super.getUserCommands());
+        return result;
+    }
+
+    private Cartographer getCartographer() {
         return world;
     }
 
-    WorldProphet getProphet() {
+    private WorldProphet getProphet() {
         return world;
     }
 }

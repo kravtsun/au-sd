@@ -8,12 +8,14 @@ import static ru.spbau.mit.world.logic.MoveAction.MoveType;
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.mit.mapper.Map;
 import ru.spbau.mit.visualizer.Tile;
+import ru.spbau.mit.visualizer.UserCommand;
 import ru.spbau.mit.world.logic.Action;
 import ru.spbau.mit.world.logic.MoveAction;
 
 import java.awt.dnd.InvalidDnDOperationException;
 import java.awt.event.KeyEvent;
 import java.util.*;
+import java.util.function.Function;
 
 import static ru.spbau.mit.world.GameObject.Coordinates;
 import static ru.spbau.mit.world.Character.Inventory;
@@ -74,16 +76,16 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         Action userAction;
         switch (key.getKeyCode()) {
             case KeyEvent.VK_UP:
-                userAction = new MoveAction(player, MoveType.UP);
+                userAction = new MoveAction(this, player, MoveType.UP);
                 break;
             case KeyEvent.VK_DOWN:
-                userAction = new MoveAction(player, MoveType.DOWN);
+                userAction = new MoveAction(this, player, MoveType.DOWN);
                 break;
             case KeyEvent.VK_LEFT:
-                userAction = new MoveAction(player, MoveType.LEFT);
+                userAction = new MoveAction(this, player, MoveType.LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
-                userAction = new MoveAction(player, MoveType.RIGHT);
+                userAction = new MoveAction(this, player, MoveType.RIGHT);
                 break;
             default:
                 String errorMessage = "Unknown command: " + key.toString();
@@ -92,20 +94,18 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         }
         player.setAction(userAction);
         List<Action> actions = new ArrayList<>();
+
+        // Gather all planning actions.
         for (Character go : getCharacters()) {
             go.step(actions);
         }
 
+        // Execute all actions in order (player's first).
         for (Action a : actions) {
-            a.run(this);
+            a.run();
         }
     }
 
-    /**
-     * @return list of all commands which can be handled by the world.
-     * TODO synchronize this function with respondInput main switch
-     * i.e. via adding subscriptions or just Map<KeyEvent, Supplier<Action>>.
-     */
     @Override
     public int[] availableCommands() {
         return new int[] {
@@ -117,13 +117,32 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
     }
 
     @Override
+    public List<UserCommand> availableUserCommands() {
+        Function<String, UserCommand> moveCommandGenerator =
+                (dir) -> {
+                    String msg = "Go " + dir + " or attack creature or loot chest to the " + dir + ".";
+                    return new UserCommand(dir, msg);
+                };
+        return Arrays.asList(
+                moveCommandGenerator.apply("up"),
+                moveCommandGenerator.apply("down"),
+                moveCommandGenerator.apply("left"),
+                moveCommandGenerator.apply("right")
+        );
+    }
+
+    @Override
     public List<String> statusInfo() {
         List<String> result = new ArrayList<>();
-        result.add("Player: " + getPlayer().getName());
-        result.add("Inventory: ");
-        result.addAll(getPlayer().getInventory().strs());
-        result.add("Characteristics: ");
-        result.addAll(getPlayer().getCharacteristics().strs());
+        Player player = getPlayer();
+        String playerTitle = Objects.isNull(player) ? "empty" : player.getName();
+        result.add("Player: " + playerTitle);
+        if (!Objects.isNull(player)) {
+            result.add("Inventory: ");
+            result.addAll(player.getInventory().strs());
+            result.add("Characteristics: ");
+            result.addAll(player.getCharacteristics().strs());
+        }
         return result;
     }
 
@@ -173,6 +192,10 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
 //        throw new IllegalStateException("Void at the Universe found.");
     }
 
+    /**
+     * Gets the character ruled by user.
+     * @return Player.
+     */
     @Nullable
     private Player getPlayer() {
         if (getCharacters().isEmpty()) {
@@ -181,6 +204,11 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         return (Player) getCharacters().get(0);
     }
 
+    /**
+     * Tries to place character at Character.getCoordinates().
+     * @param character {@link Character} to place
+     * @return true if placement was successful
+     */
     private boolean placeCharacter(Character character) {
         Coordinates coordinates = findEmptyPlace(character.getCoordinates());
         if (Objects.isNull(coordinates)
@@ -200,19 +228,33 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
      * if it's busy with wall or something, find most close free position.
      */
     private void placePlayer(String name, Characteristics characteristics, Coordinates preferredLocation) {
-        Player player = new Player(preferredLocation, name, characteristics);
-        Coordinates p = findEmptyPlace(preferredLocation);
+        Coordinates actualLocation = findEmptyPlace(preferredLocation);
+        Player player = new Player(actualLocation, name, characteristics);
         if (!placeCharacter(player)) {
             LOGGER.error("Map is full, unable to place a player.");
             throw new IllegalStateException();
         }
     }
 
+    /**
+     * Checks if place at coordinates is empty (not occupied by any obstacles or characters).
+     * @param coordinates {@link Coordinates}
+     * @return true if successful
+     */
     private boolean isEmptyPlace(Coordinates coordinates) {
+        // TODO get rid of appealing to low-level map.
+        // World's WorldProphet (know-all guy) and WorldMapper (painter guy) should be demarkated.
         return getMap().getTile(coordinates.x(), coordinates.y()).isFree()
                 && Objects.isNull(getGameObjectAtPlace(coordinates));
     }
 
+    /**
+     * Find empty spot most closest to the preferredLocation.
+     * @param preferredLocation {@link Coordinates}
+     * @return Coordinates if found else null.
+     * TODO currently its asymptotics is Theta(H * W) which can be reduced to
+     * O(number of obstacles + number of characters) in the worst case.
+     */
     private Coordinates findEmptyPlace(Coordinates preferredLocation) {
         Map map = getMap();
         if (isEmptyPlace(preferredLocation)) {
@@ -221,12 +263,15 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         List<Coordinates> freePlaces = new ArrayList<>();
         for (int y = 0; y < map.height(); ++y) {
             for (int x = 0; x < map.width(); ++x) {
-                freePlaces.add(new Coordinates(x, y));
+                Coordinates coordinates = new Coordinates(x, y);
+                if (isEmptyPlace(coordinates)) {
+                    freePlaces.add(coordinates);
+                }
             }
         }
         return freePlaces.stream().max((o1, o2) -> {
             int o1dist = o1.dist2(preferredLocation);
-            int o2dist = o1.dist2(preferredLocation);
+            int o2dist = o2.dist2(preferredLocation);
             if (o1dist < o2dist) {
                 return -1;
             } else if (o1dist > o2dist) {

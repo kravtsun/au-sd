@@ -45,7 +45,7 @@ public class Map {
         return getTile(x, y, tiles);
     }
 
-    protected Tile getTile(int x, int y, Tile[][] fromTiles) {
+    private Tile getTile(int x, int y, Tile[][] fromTiles) {
         if (!inBorders(x, y)) {
             return Tile.BOUNDS;
         } else {

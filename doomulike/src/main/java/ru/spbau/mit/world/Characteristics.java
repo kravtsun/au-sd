@@ -12,10 +12,6 @@ public class Characteristics {
     private int strength;
     private int luck; // percentage of double damage.
 
-    public Characteristics() {
-        new Characteristics(0, 0, 0);
-    }
-
     public Characteristics(int health, int strength, int luck) {
         this.health = health;
         this.strength = strength;

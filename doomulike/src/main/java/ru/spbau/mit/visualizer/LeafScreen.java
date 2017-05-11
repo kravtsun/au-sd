@@ -7,8 +7,12 @@ import java.util.function.Supplier;
  * it can just go back (by contract) to screen created via given supplier.
  */
 public abstract class LeafScreen extends Screen {
-    private Supplier<Screen> baseScreenSupplier;
+    private final Supplier<Screen> baseScreenSupplier;
 
+    /***
+     * supplies with screen to which this screen will transfer the control.
+     * @param baseScreenSupplier {@link Screen} supplier.
+     */
     LeafScreen(Supplier<Screen> baseScreenSupplier) {
         this.baseScreenSupplier = baseScreenSupplier;
     }

@@ -12,12 +12,12 @@ public enum Tile {
     CORPSE('&', AsciiPanel.brightBlack),
     PLAYER('@', AsciiPanel.green);
 
-    private char glyph;
+    private final char glyph;
     public char glyph() {
         return glyph;
     }
 
-    private Color color;
+    private final Color color;
     public Color color() {
         return color;
     }

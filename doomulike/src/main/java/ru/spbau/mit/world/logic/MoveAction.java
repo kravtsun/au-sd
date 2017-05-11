@@ -15,15 +15,15 @@ public class MoveAction extends Action {
         DOWN,
         LEFT,
         RIGHT
-    };
+    }
     private int dx;
     private int dy;
 
     @Override
-    public void run(WorldProphet world) {
+    public void run() {
         Coordinates currentPoint = getSubject().getCoordinates();
         Coordinates newCoordinates = new Coordinates(currentPoint.x() + dx, currentPoint.y() + dy);
-        GameObject object = world.getGameObjectAtPlace(newCoordinates);
+        GameObject object = getWorld().getGameObjectAtPlace(newCoordinates);
         if (Objects.isNull(object)) {
             move(newCoordinates);
         } else if (Chest.class.isInstance(object)) {
@@ -34,15 +34,15 @@ public class MoveAction extends Action {
                     + " hit an obstacle at" + newCoordinates.str());
             // just hit a wall.
         } else if (Character.class.isInstance(object)) {
-            new AttackAction(getSubject(), (Character) object).run(world);
+            new AttackAction(getWorld(), getSubject(), (Character) object).run();
         } else {
             LOGGER.error("Character " + getSubject().getName()
                     + " faced unknown object: " + object.toString());
         }
     }
 
-    public MoveAction(Character subject, MoveType moveType) {
-        super(subject);
+    public MoveAction(WorldProphet world, Character subject, MoveType moveType) {
+        super(subject, world);
         switch (moveType) {
             case UP:
                 dx = 0;

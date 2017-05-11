@@ -6,8 +6,8 @@ package ru.spbau.mit.common;
  * @param <S> second object's type.
  */
 public class Pair<F, S> {
-    private F first;
-    private S second;
+    private final F first;
+    private final S second;
 
     public <F1 extends F, S1 extends S> Pair(F1 first, S1 second) {
         this.first = first;

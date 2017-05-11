@@ -8,20 +8,20 @@ import ru.spbau.mit.mapper.Map;
 
 public class Visualizer {
     private static final Logger LOGGER = LogManager.getLogger("Visualizer");
-    private Map map;
+    private final Map map;
 
     /**
      * creates visualizer for given map (with objects' tiles already placed appropriately).
-     * @param map
+     * @param map Tiles container.
      */
     public Visualizer(Map map) {
-        // too much output as any movement produces it.
+        // too much output on the following line as any movement produces a new Visualizer.
 //        LOGGER.debug("Creating Visualizer");
         this.map = map;
     }
 
     /**
-     *
+     * Draw current map in terminal.
      * @param terminal destination terminal.
      */
     public void drawMap(AsciiPanel terminal) {
@@ -30,7 +30,7 @@ public class Visualizer {
 
         if (screenHeight < map.height() || screenWidth < map.width()) {
             Pair<Integer, Integer> mapSize = new Pair<>(map.width(), map.height());
-            Pair<Integer, Integer> terminalSize = new Pair<Integer, Integer>(screenWidth, screenHeight);
+            Pair<Integer, Integer> terminalSize = new Pair<>(screenWidth, screenHeight);
             String errorMessage = "Map with sizes: " + mapSize.str()
                     + " does not fit into terminal with sizes: " + terminalSize.str();
             LOGGER.error(errorMessage);

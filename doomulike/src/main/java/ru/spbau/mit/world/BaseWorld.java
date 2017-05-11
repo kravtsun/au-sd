@@ -11,7 +11,7 @@ import static ru.spbau.mit.world.GameObject.Coordinates;
  */
 public abstract class BaseWorld {
     private final Map map;
-    private List<Character> gameCharacterList;
+    private final List<Character> gameCharacterList;
 
     BaseWorld(Map map) {
         this.map = map;

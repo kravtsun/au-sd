@@ -22,8 +22,8 @@ public abstract class GameObject {
      * Auxiliary class for storing notion of position of GameObject in World.
      */
     public static class Coordinates implements Cloneable {
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
         public Coordinates(int x, int y) {
             this.x = x;
             this.y = y;
@@ -44,18 +44,16 @@ public abstract class GameObject {
 
         @Override
         public Coordinates clone() {
-            Coordinates newPoint = new Coordinates(x, y);
-            return newPoint;
+            return new Coordinates(x, y);
         }
 
         @Override
         public boolean equals(Object rhs) {
             if (Objects.isNull(rhs) || !Coordinates.class.isInstance(rhs)) {
                 return false;
-            } else if (this == rhs) {
-                return true;
             } else {
-                return this.x == ((Coordinates) rhs).x && this.y == ((Coordinates) rhs).y;
+                return this == rhs
+                        || this.x == ((Coordinates) rhs).x && this.y == ((Coordinates) rhs).y;
             }
         }
 

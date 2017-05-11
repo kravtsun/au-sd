@@ -19,6 +19,7 @@
         </Logger>
 
         <Logger name="Visualizer" level="debug" additivity="false">
+            <AppenderRef ref="Console" level="info"/>
             <AppenderRef ref="Debug"/>
         </Logger>
 
