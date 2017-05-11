@@ -1,22 +1,14 @@
 package ru.spbau.mit.world;
 
-import java.util.ArrayList;
+import ru.spbau.mit.world.logic.Action;
+
 import java.util.List;
 
-public class Chest extends GameObject {
-    private List<Item> inventory;
-
-    public Chest(Coordinates p) {
-        super(p);
-        this.inventory = new ArrayList<>();
+public class Chest extends Character {
+    public Chest(Coordinates p, String name, Inventory inventory) {
+        super(p, name, new Characteristics(1, 0, 0), inventory);
     }
 
-    public Chest addItem(Item item) {
-        inventory.add(item);
-        return this;
-    }
-
-    public List<Item> getInventory() {
-        return inventory;
-    }
+    @Override
+    public void step(List<Action> actions) {}
 }

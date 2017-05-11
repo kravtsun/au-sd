@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-  <Appenders>
-    <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-    </Console>
-    <File name="Debug" filename="src/main/resources/debug_output.log" append="false">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-    </File>
-  </Appenders>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="Debug" filename="src/main/resources/debug_output.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
 
-  <Loggers>
-    <Root level="error">
-      <AppenderRef ref="Console"/>
-    </Root>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
 
-    <Logger name="Visualizer" level = "debug" additivity="false">
-      <AppenderRef ref="Debug"/>
-    </Logger>
+        <Logger name="Application" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
 
-    <Logger name="World" level = "debug" additivity="false">
-      <AppenderRef ref="Debug"/>
-    </Logger>
-  </Loggers>
+        <Logger name="Visualizer" level="debug" additivity="false">
+            <AppenderRef ref="Debug"/>
+        </Logger>
+
+        <Logger name="World" level="debug" additivity="false">
+            <AppenderRef ref="Debug"/>
+            <AppenderRef ref="Console" level="info"/>
+        </Logger>
+
+        <Logger name="Action" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Logger name="Character" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+    </Loggers>
 </Configuration>

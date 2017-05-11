@@ -1,4 +1,7 @@
-package ru.spbau.mit.world;
+package ru.spbau.mit.world.logic;
+
+import ru.spbau.mit.world.Character;
+import ru.spbau.mit.world.WorldProphet;
 
 public class NothingAction extends Action {
     public NothingAction(Character subject) {
@@ -7,6 +10,6 @@ public class NothingAction extends Action {
 
     @Override
     public void run(WorldProphet world) {
-
+        // does nothing.
     }
 }

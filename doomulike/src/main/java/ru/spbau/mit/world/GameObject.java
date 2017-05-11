@@ -1,7 +1,9 @@
 package ru.spbau.mit.world;
 
-public abstract class GameObject {
+import java.util.Objects;
+import java.util.Random;
 
+public abstract class GameObject {
     private Coordinates coordinates;
 
     GameObject(Coordinates coordinates) {
@@ -16,6 +18,9 @@ public abstract class GameObject {
         this.coordinates = newCoordinates;
     }
 
+    /**
+     * Auxiliary class for storing notion of position of GameObject in World.
+     */
     public static class Coordinates implements Cloneable {
         int x;
         int y;
@@ -36,14 +41,35 @@ public abstract class GameObject {
             return sqr(x - rhs.x) + sqr(y - rhs.y);
         }
 
-        private static int sqr(int x) {
-            return x * x;
-        }
 
         @Override
         public Coordinates clone() {
             Coordinates newPoint = new Coordinates(x, y);
             return newPoint;
+        }
+
+        @Override
+        public boolean equals(Object rhs) {
+            if (Objects.isNull(rhs) || !Coordinates.class.isInstance(rhs)) {
+                return false;
+            } else if (this == rhs) {
+                return true;
+            } else {
+                return this.x == ((Coordinates) rhs).x && this.y == ((Coordinates) rhs).y;
+            }
+        }
+
+        public String str() {
+            return "(" + String.valueOf(x) + ", " + String.valueOf(y) + ")";
+        }
+
+        static Coordinates random(Random randomizer, int xbound, int ybound) {
+            return new Coordinates(randomizer.nextInt(xbound), randomizer.nextInt(ybound));
+        }
+
+
+        private static int sqr(int x) {
+            return x * x;
         }
     }
 }

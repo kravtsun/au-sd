@@ -1,9 +1,13 @@
 package ru.spbau.mit.mapper;
 
 import ru.spbau.mit.visualizer.Tile;
+import ru.spbau.mit.world.GameObject;
 
 import java.awt.Color;
 
+/**
+ * Storer of empty space and walls representation of game world.
+ */
 public class Map {
     protected Tile[][] tiles;
 

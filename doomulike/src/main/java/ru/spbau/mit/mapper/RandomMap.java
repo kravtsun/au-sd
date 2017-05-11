@@ -1,8 +1,8 @@
 package ru.spbau.mit.mapper;
 import ru.spbau.mit.visualizer.Tile;
-import ru.spbau.mit.common.Pair;
 
 public class RandomMap extends Map {
+    private static final double WALLS_PERCENTAGE = 0.4;
     private static final int SMOOTH_TIMES = 2;
 
     public RandomMap(int width, int height) {
@@ -13,7 +13,7 @@ public class RandomMap extends Map {
     private void randomizeTiles() {
         for (int y = 0; y < height(); y++) {
             for (int x = 0; x < width(); x++) {
-                setTile(x, y, Math.random() < 0.6 ? Tile.FLOOR : Tile.WALL);
+                setTile(x, y, Math.random() > WALLS_PERCENTAGE ? Tile.FLOOR : Tile.WALL);
             }
         }
         smooth(SMOOTH_TIMES);
@@ -41,7 +41,6 @@ public class RandomMap extends Map {
                 for (int y = 0; y < height(); y++) {
                     for (int x = 0; x < width(); x++) {
                     int floors = countTileNeighborhood(x, y, Tile.FLOOR);
-//                    int rocks = countTileNeighborhood(x, y, Tile.BOUNDS) + countTileNeighborhood(x, y, Tile.WALL);
                     int walls = countTileNeighborhood(x, y, Tile.WALL);
                     setTile(x, y, floors >= walls ? Tile.FLOOR : Tile.WALL, newTiles);
                 }

@@ -9,6 +9,7 @@ public enum Tile {
     BOUNDS('x', AsciiPanel.brightBlack),
     CHEST('*', AsciiPanel.brightMagenta),
     MONSTER('$', AsciiPanel.brightRed),
+    CORPSE('&', AsciiPanel.brightBlack),
     PLAYER('@', AsciiPanel.green);
 
     private char glyph;
@@ -23,6 +24,6 @@ public enum Tile {
     }
 
     public boolean isFree() {
-        return equals(FLOOR);
+        return equals(FLOOR) || equals(CORPSE);
     }
 }

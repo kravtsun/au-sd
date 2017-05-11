@@ -4,6 +4,9 @@ import java.awt.event.KeyEvent;
 import java.util.function.Supplier;
 import asciiPanel.AsciiPanel;
 
+/**
+ * Screen showed to player in case of winning.
+ */
 public class WinScreen extends LeafScreen {
     WinScreen(Supplier<Screen> baseScreenSupplier) {
         super(baseScreenSupplier);

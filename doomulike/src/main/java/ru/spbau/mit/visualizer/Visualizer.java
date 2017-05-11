@@ -10,11 +10,20 @@ public class Visualizer {
     private static final Logger logger = LogManager.getLogger("Visualizer");
     private Map map;
 
+    /**
+     * creates visualizer for given map (with objects' tiles already placed appropriately).
+     * @param map
+     */
     public Visualizer(Map map) {
-        logger.debug("Creating Visualizer");
+        // too much output as any movement produces it.
+//        logger.debug("Creating Visualizer");
         this.map = map;
     }
 
+    /**
+     *
+     * @param terminal destination terminal.
+     */
     public void drawMap(AsciiPanel terminal) {
         final int screenHeight = terminal.getHeightInCharacters();
         final int screenWidth = terminal.getWidthInCharacters();

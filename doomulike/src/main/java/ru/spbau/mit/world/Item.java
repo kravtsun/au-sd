@@ -8,4 +8,8 @@ public class Item {
         this.description = description;
         this.delta = delta;
     }
+
+    public String str() {
+        return "item{" + description + "}: " + delta.str();
+    }
 }
