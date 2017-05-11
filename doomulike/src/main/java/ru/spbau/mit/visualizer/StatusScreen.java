@@ -15,7 +15,7 @@ public class StatusScreen extends LeafScreen implements Scrollable {
     public StatusScreen(Supplier<Screen> baseScreenSupplier, List<String> info) {
         super(baseScreenSupplier);
         this.info = info;
-        logger.debug("Creating StatusScreen");
+        LOGGER.debug("Creating StatusScreen");
         left = 0;
         top = 0;
         currentLine = 1;
@@ -46,7 +46,7 @@ public class StatusScreen extends LeafScreen implements Scrollable {
                     setScrollX(0);
                     setScrollY(0);
                     break;
-            default: logger.error("Unknown command: " + key.toString());
+            default: LOGGER.error("Unknown command: " + key.toString());
         }
         return this;
     }

@@ -7,7 +7,7 @@ import ru.spbau.mit.common.Pair;
 import ru.spbau.mit.mapper.Map;
 
 public class Visualizer {
-    private static final Logger logger = LogManager.getLogger("Visualizer");
+    private static final Logger LOGGER = LogManager.getLogger("Visualizer");
     private Map map;
 
     /**
@@ -16,7 +16,7 @@ public class Visualizer {
      */
     public Visualizer(Map map) {
         // too much output as any movement produces it.
-//        logger.debug("Creating Visualizer");
+//        LOGGER.debug("Creating Visualizer");
         this.map = map;
     }
 
@@ -33,7 +33,7 @@ public class Visualizer {
             Pair<Integer, Integer> terminalSize = new Pair<Integer, Integer>(screenWidth, screenHeight);
             String errorMessage = "Map with sizes: " + mapSize.str()
                     + " does not fit into terminal with sizes: " + terminalSize.str();
-            logger.error(errorMessage);
+            LOGGER.error(errorMessage);
             throw new IllegalArgumentException();
         }
 

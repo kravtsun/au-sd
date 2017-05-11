@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Application extends JFrame implements KeyListener {
-    private static final Logger logger = LogManager.getLogger("Application");
+    private static final Logger LOGGER = LogManager.getLogger("Application");
     private static final long serialVersionUID = 1089416816205537123L;
 
     private AsciiPanel terminal;
@@ -19,7 +19,7 @@ public class Application extends JFrame implements KeyListener {
 
     public Application() {
         super();
-        logger.debug("Starting application");
+        LOGGER.debug("Starting application");
         terminal = new AsciiPanel();
         add(terminal);
         pack();

@@ -11,7 +11,7 @@ import ru.spbau.mit.world.WorldProphet;
  * TODO unify logging output from actions taking place.
  */
 public abstract class Action {
-    protected static final Logger logger = LogManager.getLogger("Action");
+    protected static final Logger LOGGER = LogManager.getLogger("Action");
     private Character subject;
 
     protected Action(Character subject) {

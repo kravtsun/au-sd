@@ -11,7 +11,8 @@ import ru.spbau.mit.world.WorldProphet;
  *
  */
 public class AttackAction extends Action {
-    Character object; // who to attack
+    private Character object; // whom to attack
+
     AttackAction(Character subject, Character object) {
         super(subject);
         this.object = object;
@@ -29,7 +30,9 @@ public class AttackAction extends Action {
             if (object.getCharacteristics().getHealth() <= 0) {
                 object.die();
             }
-            logger.info("Attack: " + subject.getName() + " hits " + object.getName() + " with " + subjectStrength + " points");
+            LOGGER.info("Attack: " + subject.getName()
+                    + " hits " + object.getName()
+                    + " with " + subjectStrength + " points");
         }
     }
 }

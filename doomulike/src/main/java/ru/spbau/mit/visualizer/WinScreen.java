@@ -10,7 +10,7 @@ import asciiPanel.AsciiPanel;
 public class WinScreen extends LeafScreen {
     WinScreen(Supplier<Screen> baseScreenSupplier) {
         super(baseScreenSupplier);
-        logger.debug("Creating WinScreen");
+        LOGGER.debug("Creating WinScreen");
     }
 
     public void displayOutput(AsciiPanel terminal) {

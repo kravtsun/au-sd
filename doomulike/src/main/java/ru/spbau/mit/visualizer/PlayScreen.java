@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 import asciiPanel.AsciiPanel;
-import org.apache.logging.log4j.message.ExitMessage;
 import ru.spbau.mit.world.Cartographer;
 import ru.spbau.mit.world.World;
 import ru.spbau.mit.mapper.Map;
@@ -24,7 +23,7 @@ public class PlayScreen extends Screen {
 
     PlayScreen(Supplier<Map> defaultMapSupplier) {
         super();
-        logger.debug("Creating PlayScreen");
+        LOGGER.debug("Creating PlayScreen");
         this.defaultMapSupplier = defaultMapSupplier;
         this.world = new World(defaultMapSupplier.get());
     }
@@ -44,21 +43,19 @@ public class PlayScreen extends Screen {
                     return new WinScreen(() -> new PlayScreen(defaultMapSupplier));
                 case KeyEvent.VK_I:
                     return new StatusScreen(() -> this, getProphet().statusInfo());
-                case KeyEvent.VK_Q: {
-                    logger.debug("Exiting");
+                case KeyEvent.VK_Q:
+                    LOGGER.debug("Exiting");
                     System.exit(0);
                     break;
-                }
                 default:
                     if (Arrays.stream(getProphet().availableCommands()).anyMatch((k) -> k == keyCode)) {
                         getProphet().respondInput(key);
                     } else {
-                        logger.error("Unknown command: " + key.toString());
+                        LOGGER.error("Unknown command: " + key.toString());
                     }
             }
-        }
-        catch (Exception e) {
-            logger.error(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             System.exit(1);
         }
         return this;

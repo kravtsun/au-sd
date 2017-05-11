@@ -1,6 +1,5 @@
 package ru.spbau.mit.world;
 
-import ru.spbau.mit.common.TerminalPrintable;
 import ru.spbau.mit.world.logic.Action;
 
 import java.util.List;

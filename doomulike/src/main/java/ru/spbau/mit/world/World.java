@@ -7,7 +7,6 @@ import static ru.spbau.mit.world.logic.MoveAction.MoveType;
 
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.mit.mapper.Map;
-import ru.spbau.mit.visualizer.PlayScreen;
 import ru.spbau.mit.visualizer.Tile;
 import ru.spbau.mit.world.logic.Action;
 import ru.spbau.mit.world.logic.MoveAction;
@@ -21,12 +20,13 @@ import static ru.spbau.mit.world.Character.Inventory;
 
 /**
  * All objects and map container.
- * TODO put StochasticWorld in a different abstraction level - player placement, his (or her) starting characteristics generated automatically,
+ * TODO put StochasticWorld in a different abstraction level \
+ * - player placement, his (or her) starting characteristics generated automatically,
  * Creatures and chests and others - likewise.
  */
 public class World extends BaseWorld implements WorldProphet, Cartographer {
-    private static final Random randomizer = new Random();
-    private static final Logger logger = LogManager.getLogger("World");
+    private static final Random RANDOMIZER = new Random();
+    private static final Logger LOGGER = LogManager.getLogger("World");
 
     public World(Map map) {
         super(map);
@@ -53,11 +53,11 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
             } else if (Chest.class.isInstance(go)) {
                 newMap.setTile(x, y, Tile.CHEST);
             } else {
-                logger.error("Unknown type of GameObject: " + go.getClass().toGenericString());
+                LOGGER.error("Unknown type of GameObject: " + go.getClass().toGenericString());
             }
         }
         if (!Objects.isNull(getPlayer())) {
-            Coordinates p= getPlayer().getCoordinates();
+            Coordinates p = getPlayer().getCoordinates();
             newMap.setTile(p.x(), p.y(), Tile.PLAYER);
         }
         return newMap;
@@ -66,7 +66,7 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
     @Override
     public void respondInput(KeyEvent key) {
         if (getCharacters().isEmpty() || Objects.isNull(getPlayer())) {
-            logger.error("No player exists. Ignoring commands.");
+            LOGGER.error("No player exists. Ignoring commands.");
             return;
         }
         Player player = getPlayer();
@@ -87,7 +87,7 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
                 break;
             default:
                 String errorMessage = "Unknown command: " + key.toString();
-                logger.error(errorMessage);
+                LOGGER.error(errorMessage);
                 throw new InvalidDnDOperationException(errorMessage);
         }
         player.setAction(userAction);
@@ -137,12 +137,12 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         final int npcCount = 10;
         String baseName = "goblin";
         for (int i = 0; i < npcCount; ++i) {
-            Coordinates coordinates = Coordinates.random(randomizer, getMap().width(), getMap().height());
-            Inventory inventory =  Inventory.random(randomizer);
-            Characteristics characteristics = Characteristics.random(randomizer);
+            Coordinates coordinates = Coordinates.random(RANDOMIZER, getMap().width(), getMap().height());
+            Inventory inventory =  Inventory.random(RANDOMIZER);
+            Characteristics characteristics = Characteristics.random(RANDOMIZER);
             Character character = new Monster(coordinates, baseName + "{" + i + "}", characteristics, inventory);
             if (!placeCharacter(character)) {
-                logger.warn("It was only possible to place " + i + " monsters");
+                LOGGER.warn("It was only possible to place " + i + " monsters");
                 break;
             }
         }
@@ -154,11 +154,11 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         for (int i = 0; i < chestsCount; ++i) {
             final int width = getMap().width();
             final int height = getMap().height();
-            Coordinates coordinates = Coordinates.random(randomizer, width, height);
-            Inventory inventory =  Inventory.random(randomizer);
+            Coordinates coordinates = Coordinates.random(RANDOMIZER, width, height);
+            Inventory inventory =  Inventory.random(RANDOMIZER);
             Character character = new Chest(coordinates, baseName + "{" + i + "}", inventory);
             if (!placeCharacter(character)) {
-                logger.warn("It was only possible to place " + i + " chests");
+                LOGGER.warn("It was only possible to place " + i + " chests");
                 break;
             }
         }
@@ -185,8 +185,7 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
         Coordinates coordinates = findEmptyPlace(character.getCoordinates());
         if (Objects.isNull(coordinates)
                 || !getMap().getTile(coordinates.x(), coordinates.y()).isFree()
-                || getCharacters().contains(character))
-        {
+                || getCharacters().contains(character)) {
             return false;
         }
         getCharacters().add(character);
@@ -197,13 +196,14 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
      * We have
      * @param name name of player
      * @param characteristics Character's characteristics.
-     * @param preferredLocation attempted position, if it's busy with wall or something, find most close free position.
+     * @param preferredLocation attempted position or
+     * if it's busy with wall or something, find most close free position.
      */
     private void placePlayer(String name, Characteristics characteristics, Coordinates preferredLocation) {
         Player player = new Player(preferredLocation, name, characteristics);
         Coordinates p = findEmptyPlace(preferredLocation);
         if (!placeCharacter(player)) {
-            logger.error("Map is full, unable to place a player.");
+            LOGGER.error("Map is full, unable to place a player.");
             throw new IllegalStateException();
         }
     }

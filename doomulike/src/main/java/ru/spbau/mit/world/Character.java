@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Character extends GameObject {
-    private static final Logger logger = LogManager.getLogger("Character");
+    private static final Logger LOGGER = LogManager.getLogger("Character");
     private final String name;
     private final Characteristics characteristics;
     private final Inventory inventory;
@@ -38,7 +38,7 @@ public abstract class Character extends GameObject {
     }
 
     public void die() {
-        logger.info("character " + getName() + " died.");
+        LOGGER.info("character " + getName() + " died.");
         characteristics.setHealth(0);
     }
 

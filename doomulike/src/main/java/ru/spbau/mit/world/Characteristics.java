@@ -3,7 +3,6 @@ package ru.spbau.mit.world;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.StringJoiner;
 
 public class Characteristics {
     private static final int HEALTH_BOUND = 100;

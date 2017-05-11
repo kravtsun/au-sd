@@ -1,7 +1,6 @@
 package ru.spbau.mit.mapper;
 
 import ru.spbau.mit.visualizer.Tile;
-import ru.spbau.mit.world.GameObject;
 
 import java.awt.Color;
 
@@ -9,7 +8,7 @@ import java.awt.Color;
  * Storer of empty space and walls representation of game world.
  */
 public class Map {
-    protected Tile[][] tiles;
+    private Tile[][] tiles;
 
     public Map(int width, int height) {
         tiles = newTiles(width, height);
@@ -32,6 +31,14 @@ public class Map {
     }
     public int height() {
         return tiles.length;
+    }
+
+    public void setTiles(Tile[][] tiles) {
+        this.tiles = tiles;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
     }
 
     public Tile getTile(int x, int y) {

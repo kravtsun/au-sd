@@ -45,7 +45,7 @@ public class RandomMap extends Map {
                     setTile(x, y, floors >= walls ? Tile.FLOOR : Tile.WALL, newTiles);
                 }
             }
-            tiles = newTiles;
+            setTiles(newTiles);
         }
     }
 }

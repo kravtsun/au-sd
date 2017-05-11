@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 public class LooseScreen extends LeafScreen {
     LooseScreen(Supplier<Screen> baseScreenSupplier) {
         super(baseScreenSupplier);
-        logger.debug("Creating LooseScreen");
+        LOGGER.debug("Creating LooseScreen");
     }
 
     public void displayOutput(AsciiPanel terminal) {

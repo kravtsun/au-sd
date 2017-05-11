@@ -13,12 +13,16 @@ public enum Tile {
     PLAYER('@', AsciiPanel.green);
 
     private char glyph;
-    public char glyph() { return glyph; }
+    public char glyph() {
+        return glyph;
+    }
 
     private Color color;
-    public Color color() { return color; }
+    public Color color() {
+        return color;
+    }
 
-    Tile(char glyph, Color color){
+    Tile(char glyph, Color color) {
         this.glyph = glyph;
         this.color = color;
     }
