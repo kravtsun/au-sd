@@ -11,5 +11,6 @@ public class Monster extends Character {
 
     @Override
     public void step(List<Action> actions) {
+        // statue mode.
     }
 }

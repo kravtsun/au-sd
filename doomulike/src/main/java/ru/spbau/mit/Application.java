@@ -46,7 +46,9 @@ public class Application extends JFrame implements KeyListener {
      * @param e what KeyEvent happened
      */
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+        // does nothing.
+    }
 
     /**
      * Screen logic on keyPressed event.
@@ -63,5 +65,7 @@ public class Application extends JFrame implements KeyListener {
      * @param e what KeyEvent happened
      */
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        // does nothing.
+    }
 }

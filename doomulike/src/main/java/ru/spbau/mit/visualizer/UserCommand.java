@@ -14,6 +14,6 @@ public class UserCommand {
     }
 
     public String str() {
-        return keyCombination + ": " + description;
+        return String.format("%10s: %s", keyCombination, description);
     }
 }

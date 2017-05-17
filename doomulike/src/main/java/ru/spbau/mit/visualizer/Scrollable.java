@@ -58,7 +58,8 @@ public interface Scrollable {
         // + 1: because to close
         final int y = getScrollY() + (getCurrentLine()) + 1;
         if (y >= 0 && y < terminal.getHeightInCharacters()) {
-            for (int x = getScrollX(), j = 0; j < line.length(); ++x, ++j) {
+            int x = getScrollX();
+            for (int j = 0; j < line.length(); ++x, ++j) {
                 if (x >= 0 && x < terminal.getWidthInCharacters()) {
                     terminal.write(line.charAt(j), x, y);
                 }

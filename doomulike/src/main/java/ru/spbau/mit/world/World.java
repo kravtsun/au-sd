@@ -257,28 +257,29 @@ public class World extends BaseWorld implements WorldProphet, Cartographer {
      */
     private Coordinates findEmptyPlace(Coordinates preferredLocation) {
         Map map = getMap();
-        if (isEmptyPlace(preferredLocation)) {
-            return preferredLocation;
-        }
-        List<Coordinates> freePlaces = new ArrayList<>();
-        for (int y = 0; y < map.height(); ++y) {
-            for (int x = 0; x < map.width(); ++x) {
-                Coordinates coordinates = new Coordinates(x, y);
-                if (isEmptyPlace(coordinates)) {
-                    freePlaces.add(coordinates);
+        Set<Coordinates> visited = new HashSet<>();
+        visited.add(preferredLocation);
+        Queue<Coordinates> q = new LinkedList<>();
+        q.add(preferredLocation);
+        final int[] dx = new int[]{-1, -1, 1, 1};
+        final int[] dy = new int[]{-1, 1, -1, 1};
+        while (!q.isEmpty()) {
+            Coordinates v = q.poll();
+            if (isEmptyPlace(v)) {
+                return v;
+            }
+            if (Objects.isNull(v)) {
+                return null;
+            } else {
+                for (int i = 0; i < dx.length; ++i) {
+                    Coordinates nextCoordinates = new Coordinates(v.x() + dx[i], v.y() + dy[i]);
+                    if (visited.contains(nextCoordinates)) {
+                        visited.add(nextCoordinates);
+                        q.add(nextCoordinates);
+                    }
                 }
             }
         }
-        return freePlaces.stream().max((o1, o2) -> {
-            int o1dist = o1.dist2(preferredLocation);
-            int o2dist = o2.dist2(preferredLocation);
-            if (o1dist < o2dist) {
-                return -1;
-            } else if (o1dist > o2dist) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }).orElse(null);
+        return null;
     }
 }

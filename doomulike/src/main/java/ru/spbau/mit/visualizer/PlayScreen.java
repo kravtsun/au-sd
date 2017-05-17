@@ -47,7 +47,7 @@ public class PlayScreen extends Screen {
                 case KeyEvent.VK_I:
                     return new StatusScreen(() -> this, getProphet().statusInfo());
                 case KeyEvent.VK_Q:
-                    LOGGER.debug("Exiting");
+                    LOGGER.info("Exiting");
                     System.exit(0);
                     break;
                 default:
@@ -70,6 +70,8 @@ public class PlayScreen extends Screen {
         result.addAll(getProphet().availableUserCommands());
         result.add(new UserCommand("enter", "to win."));
         result.add(new UserCommand("escape", "to loose."));
+        result.add(new UserCommand("i", "status."));
+        result.add(new UserCommand("q", "exit."));
         result.addAll(super.getUserCommands());
         return result;
     }

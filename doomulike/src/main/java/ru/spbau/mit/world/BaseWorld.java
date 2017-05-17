@@ -13,6 +13,10 @@ public abstract class BaseWorld {
     private final Map map;
     private final List<Character> gameCharacterList;
 
+    /**
+     * Map should be filled with all obstacle and floor tiles.
+     * @param map
+     */
     BaseWorld(Map map) {
         this.map = map;
         this.gameCharacterList = new ArrayList<>();
@@ -24,7 +28,6 @@ public abstract class BaseWorld {
         return gameCharacterList;
     }
 
-    /** Helpers **/
     protected Map getMap() {
         return map;
     }

@@ -67,7 +67,7 @@ public class MoveAction extends Action {
 
     private void loot(Chest chest) {
         LOGGER.info(getSubject().getName() + ": loot from " + chest.getName() + ": ");
-        ru.spbau.mit.world.Character.Inventory chestInventory = chest.getInventory();
+        Character.Inventory chestInventory = chest.getInventory();
         for (Item i : chestInventory) {
             LOGGER.info(i.str());
         }

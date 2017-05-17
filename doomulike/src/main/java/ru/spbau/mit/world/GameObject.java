@@ -66,7 +66,7 @@ public abstract class GameObject {
             return "(" + String.valueOf(x) + ", " + String.valueOf(y) + ")";
         }
 
-        static Coordinates random(Random randomizer, int xbound, int ybound) {
+        public static Coordinates random(Random randomizer, int xbound, int ybound) {
             return new Coordinates(randomizer.nextInt(xbound), randomizer.nextInt(ybound));
         }
 

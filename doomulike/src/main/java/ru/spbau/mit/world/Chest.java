@@ -10,5 +10,7 @@ public class Chest extends Character {
     }
 
     @Override
-    public void step(List<Action> actions) {}
+    public void step(List<Action> actions) {
+        // does nothing.
+    }
 }

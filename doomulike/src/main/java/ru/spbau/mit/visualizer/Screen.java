@@ -11,6 +11,10 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Screen implements Scrollable {
+    /**
+     * Logger for any screens.
+     */
+    protected static final Logger LOGGER = LogManager.getLogger("Visualizer");
     private int left;
     private int top;
     private int currentLine;
@@ -21,11 +25,6 @@ public abstract class Screen implements Scrollable {
     Screen() {
         reset();
     }
-
-    /**
-     * Logger for any screens.
-     */
-    static final Logger LOGGER = LogManager.getLogger("Visualizer");
 
     /**
      * displays currently available info (map, expected user action, etc.) to given terminal
@@ -62,6 +61,7 @@ public abstract class Screen implements Scrollable {
                 break;
             default:
                 LOGGER.error("Unknown command: " + key.toString());
+                break;
         }
         return this;
     }
@@ -70,7 +70,7 @@ public abstract class Screen implements Scrollable {
      * get list of available commands which are operable by current screen.
      * @return list of {@link UserCommand} structures.
      */
-    List<UserCommand> getUserCommands() {
+    protected List<UserCommand> getUserCommands() {
         Function<String, UserCommand> scrollCommandGenerator = (dir) -> new UserCommand(dir, "Scroll " + dir);
         return Arrays.asList(
                 scrollCommandGenerator.apply("up"),
