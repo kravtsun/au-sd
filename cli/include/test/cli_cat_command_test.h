@@ -164,7 +164,11 @@ private:
 
     static void removeFile(const std::string &filename)
     {
+#ifdef WIN32
+		const cli::Command::ParamsListType params = { "del", filename };
+#else
         const cli::Command::ParamsListType params = {"rm", "-f", filename};
+#endif
         cli::UnknownCommand command(std::cin, std::cout, params);
         cli::Environment empty_env = {};
         command.run(empty_env);

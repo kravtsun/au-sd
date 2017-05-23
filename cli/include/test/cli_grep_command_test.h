@@ -73,7 +73,13 @@ private:
     std::istringstream is;
     std::ostringstream os;
     const std::string pattern = "main";
+
+	// Paths can change depending on IDE.
+#ifdef WIN32
+	const std::string filename = "../../misc/build.gradle";
+#else
     const std::string filename = "../cli/misc/build.gradle";
+#endif
 };
 
 #endif // CLI_GREP_COMMAND_TEST_H

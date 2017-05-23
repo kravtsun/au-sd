@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -58,7 +58,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\..\third_party\args;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,7 +85,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\..\third_party\args;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +116,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
     <ClInclude Include="..\..\include\cli_environment.h" />
     <ClInclude Include="..\..\include\cli_exception.h" />
     <ClInclude Include="..\..\include\cli_exit_command.h" />
+    <ClInclude Include="..\..\include\cli_grep_command.h" />
     <ClInclude Include="..\..\include\cli_interactive_command.h" />
     <ClInclude Include="..\..\include\cli_parser.h" />
     <ClInclude Include="..\..\include\cli_pwd_command.h" />
@@ -126,6 +127,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
     <ClInclude Include="..\..\include\test\cli_command_queue_test.h" />
     <ClInclude Include="..\..\include\test\cli_echo_command_test.h" />
     <ClInclude Include="..\..\include\test\cli_environment_test.h" />
+    <ClInclude Include="..\..\include\test\cli_grep_command_test.h" />
     <ClInclude Include="..\..\include\test\cli_parser_test.h" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +140,7 @@ $(SolutionDir)\..\third_party\cxxtest\bin\cxxtestgen --error-print -o mytestsuit
     <ClCompile Include="..\..\src\cli_environment.cpp" />
     <ClCompile Include="..\..\src\cli_exception.cpp" />
     <ClCompile Include="..\..\src\cli_exit_command.cpp" />
+    <ClCompile Include="..\..\src\cli_grep_command.cpp" />
     <ClCompile Include="..\..\src\cli_interactive_command.cpp" />
     <ClCompile Include="..\..\src\cli_parser.cpp" />
     <ClCompile Include="..\..\src\cli_pwd_command.cpp" />
