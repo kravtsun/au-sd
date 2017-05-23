@@ -20,30 +20,29 @@ ExitException::ExitException(int exit_code)
 {}
 
 ParseException::ParseException(const std::string &expr, const std::string &goal)
-    : expr_(expr)
-    , goal_(goal)
 {
     base_msg_ = ("ParseException: Failed to parse: \"") +
-            expr_ + ("\" into ") + goal_;
+            expr + ("\" into ") + goal;
 }
 
 NotImlementedException::NotImlementedException(const std::string &component)
-    : component_(component)
 {
-    base_msg_ = "NotImlementedException: " + component_;
+    base_msg_ = "NotImlementedException: " + component;
 }
 
 CommandException::CommandException(const std::string &command, const std::string &msg)
-    : command_(command)
-    , msg_(msg)
 {
-    base_msg_ = command_ + ": " + msg_;
+    base_msg_ = command + ": " + msg;
 }
 
-UnknownError::UnknownError(std::string &&msg)
-    : msg_(msg)
+IOError::IOError(const std::string &msg)
 {
-    base_msg_ = "UnknownError: " + msg_;
+    base_msg_ = "IOError: " + msg;
+}
+
+UnknownError::UnknownError(const std::string &msg)
+{
+    base_msg_ = "UnknownError: " + msg;
 }
 
 } // namespace cli
