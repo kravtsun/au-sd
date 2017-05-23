@@ -1,3 +1,6 @@
 [submodule "cli/third_party/cxxtest"]
 	path = cli/third_party/cxxtest
 	url = https://github.com/CxxTest/cxxtest.git
+[submodule "cli/third_party/args"]
+	path = cli/third_party/args
+	url = https://github.com/Taywee/args

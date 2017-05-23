@@ -6,6 +6,7 @@
 #include "cli_echo_command.h"
 #include "cli_word_count_command.h"
 #include "cli_pwd_command.h"
+#include "cli_grep_command.h"
 #include "cli_unknown_command.h"
 #include <string>
 #include <iostream>
@@ -44,6 +45,10 @@ static Command *command_from_name(const std::string &command,
     else if (command == "pwd")
     {
         return new PwdCommand(is, os, params);
+    }
+    else if (command == "grep")
+    {
+        return new GrepCommand(is, os, params);
     }
     else
     {

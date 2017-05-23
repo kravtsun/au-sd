@@ -35,6 +35,8 @@ public:
 protected:
     std::vector<std::string> filenames_;
 
+    void set_filenames(const std::vector<std::string> &filenames);
+
     virtual void init_run(const Environment &env) = 0;
     virtual void step(std::string &&line) = 0;
     virtual void end_file_step(const std::string &filename) = 0;

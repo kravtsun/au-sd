@@ -29,16 +29,21 @@ int Application::main_loop()
         }
         catch (CommandException &e)
         {
-            std::cout << e.what() << std::endl;
+            std::cerr << e.what() << std::endl;
         }
         catch (ExitException &e)
         {
             return e.exit_code();
         }
+        catch (FinishedCommandException &e)
+        {
+            // command exited too fast, but sucessfully.
+            // doing nothing is chosen strategy for now.
+        }
         catch (Exception &e)
         {
-            std::cout << "Unhandled Exception: ";
-            std::cout << e.what() << std::endl;
+            std::cerr << "Unhandled Exception: ";
+            std::cerr << e.what() << std::endl;
         }
     }
 

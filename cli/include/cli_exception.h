@@ -50,6 +50,8 @@ class ParseException : public Exception
 {
 public:
     ParseException(const std::string &expr, const std::string &goal);
+private:
+    std::string expr_, goal_;
 };
 
 /**
@@ -60,6 +62,8 @@ class NotImlementedException : public Exception
 {
 public:
     explicit NotImlementedException(const std::string &component);
+private:
+    std::string component_;
 };
 
 /**
@@ -71,12 +75,30 @@ class CommandException : public Exception
 {
 public:
     CommandException(const std::string &command, const std::string &msg);
+
+private:
+    std::string command_, msg_;
 };
 
 class IOError : public Exception
 {
 public:
     explicit IOError(const std::string &msg);
+};
+
+class FinishedCommandException : public Exception {
+public:
+    FinishedCommandException(const std::string &msg="", bool success=true)
+        : success_(success)
+    {
+        if (!msg.empty())
+        {
+            base_msg_ += msg;
+        }
+    }
+
+private:
+    bool success_;
 };
 
 /**
@@ -87,6 +109,8 @@ class UnknownError : public Exception
 {
 public:
     explicit UnknownError(const std::string &msg);
+private:
+    std::string msg_;
 };
 
 } // namespace cli

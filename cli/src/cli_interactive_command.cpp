@@ -6,8 +6,14 @@ namespace cli {
 
 InteractiveCommand::InteractiveCommand(std::istream &is, std::ostream &os, const Command::ParamsListType &params)
     : Command(is, os, params)
-    , filenames_(params_)
-{}
+{
+    // default behaviour, can be rewritten by derived class.
+    set_filenames(params);
+}
+
+void InteractiveCommand::set_filenames(const std::vector<std::string> &filenames) {
+    filenames_ = filenames;
+}
 
 int InteractiveCommand::run(Environment &env)
 {

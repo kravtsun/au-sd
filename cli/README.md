@@ -8,7 +8,7 @@ First homework project, CLI - command line interpreter.
 * Python (ver. >= 2.7) added to PATH.
 
 ###Windows (tested on ver. 10)
-* Microsoft Visual Studio (tested on MSVS 2013).
+* Microsoft Visual Studio (tested on MSVS 2015).
 * Python (ver. >= 2.7) added to PATH.
 
 ##USAGE
@@ -18,9 +18,7 @@ qmake && make && ./cli
 ```
 
 ###Windows:
-open solution in MS Visual Studio (ver. >= 2015) an build project 'cli'
-(optionally testing it with project 'tester').
-to be descripted later.
+Open solution file `msvc/msvc.sln` in MS Visual Studio (ver. >= 2015) an build project 'cli'.
 
 ## Architecture description
 

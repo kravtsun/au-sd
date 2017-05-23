@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_PARSER_TEST_H
 #define CLI_PARSER_TEST_H
 

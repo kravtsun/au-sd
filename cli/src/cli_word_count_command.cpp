@@ -16,7 +16,6 @@ std::string WordCountCommand::name() const
 void WordCountCommand::init_run(const Environment &env)
 {
     (void)env;
-
     lines_total_count_ = 0;
     words_total_count_ = 0;
     chars_total_count_ = 0;

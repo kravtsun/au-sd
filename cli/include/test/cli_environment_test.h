@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CLI_ENVIRONMENT_TEST_H
 #define CLI_ENVIRONMENT_TEST_H
 
