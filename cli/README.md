@@ -1,37 +1,37 @@
-#CLI
+# CLI
 First homework project, CLI - command line interpreter.
 
-##Prerequisites
-###Ubuntu (tested on ver. 16.04): 
+## Prerequisites
+### Ubuntu (tested on ver. 16.04): 
 * qmake ver. (tested on ver.3.0 using Qt version 5.5.1)
 * g++ (tested on ver. 5.4.0).
 * Python (ver. >= 2.7) added to PATH.
 
-###Windows (tested on ver. 10)
+### Windows (tested on ver. 10)
 * Microsoft Visual Studio (tested on MSVS 2015).
 * Python (ver. >= 2.7) added to PATH.
 
-##USAGE
-###Ubuntu:
+## USAGE
+### Ubuntu:
 ```bash
 qmake && make && ./cli
 ```
 
-###Windows:
+### Windows:
 Open solution file `msvc/msvc.sln` in MS Visual Studio (ver. >= 2015) an build project 'cli'.
 
 ## Architecture description
 
 We can describe all most important classes via Model-View-Controller concept.
-###Controller
+### Controller
 CLIApplication - operates basic logic of the CLI.
 
-###View: User can interact with the application via stdin (input) or stdout (output). 
+### View: User can interact with the application via stdin (input) or stdout (output). 
 Parsing user's input is made by *CLICommandParser* class. It turns our raw input stream into string lexems 
 which are transported to **Model**-representing classes.
 Output part of **View** is dealed by classes which represent console commands.
 
-###Model:
+### Model:
 There are classes which control the code flow inside the application. Most notable of them is *CLIApplication* 
 to whom control is transfered from main module. It does all initialization procedures has responsibility of 
 manipulating events which happen on each iteration of user-machine session. Talking in terms of intercaction 
