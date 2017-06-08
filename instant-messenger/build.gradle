@@ -91,12 +91,12 @@ task ServerApplication(type: CreateStartScripts) {
     classpath = jar.outputs.files + project.configurations.runtime
 }
 
-task ClientApplication(type: CreateStartScripts) {
-    mainClassName = 'ru.spbau.mit.ClientApplication'
-    applicationName = 'client'
-    outputDir = new File(project.buildDir, 'tmp')
-    classpath = jar.outputs.files + project.configurations.runtime
-}
+//task ClientApplication(type: CreateStartScripts) {
+//    mainClassName = 'ru.spbau.mit.ClientApplication'
+//    applicationName = 'client'
+//    outputDir = new File(project.buildDir, 'tmp')
+//    classpath = jar.outputs.files + project.configurations.runtime
+//}
 
 //task compressingHelloWorldClient(type: CreateStartScripts) {
 //    mainClassName = 'io.grpc.examples.experimental.CompressingHelloWorldClient'
@@ -107,6 +107,6 @@ task ClientApplication(type: CreateStartScripts) {
 
 applicationDistribution.into('bin') {
     from(ServerApplication)
-    from(ClientApplication)
+//    from(ClientApplication)
     fileMode = 0755
 }
