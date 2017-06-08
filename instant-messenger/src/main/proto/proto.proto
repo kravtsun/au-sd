@@ -12,7 +12,13 @@ message Message {
     string receiver = 4;
 }
 
+//message ClientData {
+//    string name = 1;
+//}
+
 service MessageService {
-    rpc Chat(Message) returns (Message) {}
+    rpc Chat(stream Message) returns (stream Message) {}
+
+//    rpc Connect(ClientData) returns (stream Message) {}
 }
 
