@@ -11,8 +11,8 @@ Simple peer-to-peer jabber-like chat messenger.
 ```bash
 # build
 ./gradlew installDist
-# start server
+# start one client
 build/install/instant-messenger/bin/server --host localhost --port 3034
-# start client
-build/install/instant-messenger/bin/client --host localhost --port 3034 --name name
 ```
+
+After successful start one can get help on available commands on start.
