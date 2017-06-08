@@ -22,8 +22,8 @@
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <Logger name="client" level="info" additivity="false">
-            <AppenderRef ref="Console"/>
+        <Logger name="client" level="debug" additivity="false">
+            <AppenderRef ref="Debug"/>
         </Logger>
 
         <!--<Logger name="Application" level="info" additivity="false">-->

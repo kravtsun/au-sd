@@ -10,13 +10,12 @@ import java.io.IOException;
 
 public class ServerApplication {
     private static final Logger logger = LogManager.getLogger("server");
-
     private Server server;
 
     /**
      * @param host not used now.
      * @param port serving port.
-     * @throws IOException
+     * @throws IOException on failing to start and bind to server.
      */
     private ServerApplication(String host, int port) throws IOException {
         // TODO use host for creating service daemon.
@@ -29,7 +28,6 @@ public class ServerApplication {
             // Use stderr here since the logger may have been reset by its JVM shutdown hook.
             System.err.println("*** shutting down gRPC server since JVM is shutting down");
             ServerApplication.this.stop();
-//                interrupt(); // alternative to Thread.stop()?
             System.err.println("*** server shut down");
         }));
     }

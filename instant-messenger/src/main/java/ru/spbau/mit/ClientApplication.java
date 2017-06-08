@@ -2,66 +2,78 @@ package ru.spbau.mit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import org.apache.commons.cli.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import sun.plugin.dom.exception.InvalidStateException;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class ClientApplication {
     private static final Logger logger = LogManager.getLogger("client");
 
-    private final ManagedChannel channel;
-//    private final MessageServiceGrpc.MessageServiceBlockingStub blockingStub;
-    private final MessageServiceGrpc.MessageServiceStub stub;
     private final String name;
+    private final ManagedChannel channel;
+    private final StreamObserver<Message> requestObserver;
 
-    /** Construct client connecting to HelloWorld server at {@code host:port}. */
     public ClientApplication(String host, int port, String name) {
-        this.channel = ManagedChannelBuilder.forAddress(host, port)
-                // Channels are secure by default (via SSL/TLS). For the example we disable TLS to avoid
-                // needing certificates.
-                .usePlaintext(true).build();
-//        this.blockingStub = MessageServiceGrpc.newBlockingStub(channel);
-//        this.blockingStub.connect(ClientData.newBuilder().setName(name).build());
-        this.stub = MessageServiceGrpc.newStub(channel);
-//        Message initMessage = Message.newBuilder()
-//                .setText("test")
-//                .setTime(new Date(System.currentTimeMillis()).toString())
-//                .setSender(name)
-//                .build();
-//        this.stub.chat()
         this.name = name;
+        this.channel = ManagedChannelBuilder.forAddress(host, port)
+                .usePlaintext(true).build();
+
+        MessageServiceGrpc.MessageServiceStub stub = MessageServiceGrpc.newStub(channel);
+
+        StreamObserver<Message> responseObserver = new StreamObserver<Message>() {
+            @Override
+            public void onNext(Message value) {
+                logger.info("received message: \n" + value);
+                String receiver = value.getReceiver();
+                if (!receiver.equals(name)) {
+                    String errorMessage = "Invalid receiver: " + receiver + " for name: " + name;
+                    logger.error(errorMessage);
+                    throw new IllegalStateException(errorMessage);
+                }
+                System.out.println(value.getSender() + " wrote: " + value.getText());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                logger.error(t.getMessage());
+                System.out.println("ERROR: " + t.getMessage());
+                shutdown(1);
+            }
+
+            @Override
+            public void onCompleted() {
+                logger.info("onCompleted, name: " + name);
+                shutdown(0);
+            }
+        };
+
+        this.requestObserver = stub.chat(responseObserver);
+        sent("service", "init");
     }
 
-    public void shutdown() throws InterruptedException {
-        channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+    public void shutdown(int exitCode) {
+        try {
+            System.out.println("Wait for it...");
+            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+        }
+        catch (InterruptedException e) {
+            logger.error(e.getMessage());
+        }
+        System.exit(exitCode);
     }
 
-//    public void sentMessage(String recipient, String text) {
-//        Message request = Message.newBuilder()
-//                .setText(text)
-//                .setTime(new Date(System.currentTimeMillis()).toString())
-//                .setSender(getName())
-//                .setReceiver(recipient)
-//                .build();
-//        logger.info("sending message: \n" + request);
-//        Message response = null;
-//
-//        try {
-//            response = blockingStub.chat(request);
-//        } catch (StatusRuntimeException e) {
-//            logger.error("RPC error: " + e.getMessage());
-//        }
-//        logger.info("received message: " + response);
-//    }
+    public void sent(String recipient, String text) {
+        requestObserver.onNext(Message.newBuilder()
+                .setText(text)
+                .setTime(SimpleMessageService.currentDateString())
+                .setSender(name)
+                .setReceiver(recipient)
+                .build());
+    }
 
     public static void main(String[] args) throws InterruptedException {
         String hostOptionString = "host";
@@ -97,8 +109,6 @@ public class ClientApplication {
                 .desc("name")
                 .build();
 
-        // what if two names collapses?
-
         options.addOption(hostOption);
         options.addOption(portOption);
         options.addOption(nameOption);
@@ -121,7 +131,7 @@ public class ClientApplication {
         // TODO use options to get parsed values.
         String host = cmd.getOptionValue(hostOptionString);
         int port = Integer.valueOf (cmd.getOptionValue(portOptionString));
-        String name = cmd.getOptionValue(nameOptionString);
+        final String name = cmd.getOptionValue(nameOptionString);
         logger.debug("Parsed options: " + "host: " + host + ", port: " + port);
 
         ClientApplication client = null;
@@ -129,69 +139,37 @@ public class ClientApplication {
             client = new ClientApplication(host, port, name);
         }
         catch (Throwable t) {
-            logger.error("Error while trying to create client application: " + t.getMessage());
-            System.err.println(t.getMessage());
+            String errorMessage = "Error while initializing client: " + t.getMessage();
+            logger.error(errorMessage);
+            System.err.println(errorMessage);
             System.exit(1);
         }
 
-        System.out.println("Message format: <message-receiver-name>: message-text");
-        System.out.println("where <message-receiver-name> is non-empty sequence of colon-less symbols");
-        System.out.println("submit \"exit\" to exit.");
+        String messageFormatHelp = "Message format: <message-receiver-name>: message-text\n" +
+            "where <message-receiver-name> is non-empty sequence of colon-less symbols\n" +
+            "submit \"exit\" to exit.";
+        System.out.println(messageFormatHelp);
 
         Scanner in = new Scanner(System.in);
-
-        StreamObserver<Message> responseObserver = new StreamObserver<Message>() {
-            @Override
-            public void onNext(Message value) {
-                logger.info("received message: \n" + value);
-                if (!value.getReceiver().equals(name)) {
-                    String errorMessage = "Invalid receiver: " + value.getReceiver() + " for name: " + name;
-                    throw new InvalidStateException(errorMessage);
-                }
-                System.out.println(value.getSender() + " wrote: " + value.getText());
+        while (true) {
+            String line = in.nextLine();
+            if (line.equals("exit")) {
+                break;
             }
-
-            @Override
-            public void onError(Throwable t) {
-                logger.error(t.getMessage());
-                System.out.println("ERROR: " + t.getMessage());
+            try {
+                int i = line.indexOf(":");
+                String receiver = line.substring(0, i);
+                String message = line.substring(i+1);
+                client.sent(receiver, message);
             }
-
-            @Override
-            public void onCompleted() {
-                logger.info("onCompleted");
-                System.exit(0);
+            catch (Exception e) { // TODO make caught exception more specific.
+                String errorMessage = "Invalid message in line: " + line;
+                logger.error(errorMessage);
+                System.out.println(errorMessage);
+                System.out.println(messageFormatHelp);
             }
-        };
-
-        try {
-            StreamObserver<Message> requestObserver = client.stub.chat(responseObserver);
-            while (true) {
-                String line = in.nextLine();
-                if (line.equals("exit")) {
-                    System.exit(0);
-//                    client.shutdown();
-                }
-                try {
-                    int i = line.indexOf(":");
-                    String receiver = line.substring(0, i);
-                    String message = line.substring(i+1);
-                    requestObserver.onNext(Message.newBuilder()
-                            .setText(message)
-                            .setTime(new Date(System.currentTimeMillis()).toString())
-                            .setSender(name)
-                            .setReceiver(receiver)
-                            .build());
-                }
-                catch (Exception e) { // TODO make caught exception more specific.
-                    logger.error("Invalid message");
-                }
-            }
-//            client.sentMessage("server", "hello");
         }
-        finally {
-            client.shutdown();
-        }
+        client.shutdown(0);
     }
 
 //    public String getName() {
