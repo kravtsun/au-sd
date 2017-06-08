@@ -10,20 +10,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class ServerApplication {
-    private static final Logger logger = LogManager.getLogger("server");
+/**
+ * @brief ServerApplication - application class for peer-to-peer chatting.
+ */
+public final class ServerApplication {
+    private static final Logger LOGGER = LogManager.getLogger("server");
     private Server server;
     private final String name;
+    private Connection connection;
 
     /**
      * @param host not used now.
      * @param port serving port.
-     * @throws IOException on failing to start and bind to server.
+     * @throws IOException on failing to start and server binding.
      */
     private ServerApplication(String host, int port, String name) throws IOException {
         // TODO use host for creating service daemon.
@@ -31,9 +34,9 @@ public class ServerApplication {
                 .addService(new SimpleMessageService())
                 .build()
                 .start();
-        logger.info("Server started, listening on " + port);
+        LOGGER.info("Server started, listening on " + port);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            // Use stderr here since the logger may have been reset by its JVM shutdown hook.
+            // Use stderr here since the LOGGER may have been reset by its JVM shutdown hook.
             System.err.println("*** shutting down gRPC server since JVM is shutting down");
             ServerApplication.this.stop();
             System.err.println("*** server shut down");
@@ -47,86 +50,107 @@ public class ServerApplication {
         }
     }
 
+    /**
+     * @brief Connection class incapsulating grpc logic behind message processing.
+     */
     private class Connection {
-        private ManagedChannel channel;
-        private StreamObserver<Message> requestObserver;
+        private final ManagedChannel channel;
+        private final StreamObserver<Message> requestObserver;
 
         Connection(String host, int port) {
-            logger.debug("Setting ManagedChannelBuilder...");
+            LOGGER.debug("Setting ManagedChannelBuilder...");
             channel = ManagedChannelBuilder.forAddress(host, port)
                     .usePlaintext(true)
                     .build();
 
-            logger.debug("Setting MessageServiceStub...");
+            LOGGER.debug("Setting MessageServiceStub...");
             MessageServiceGrpc.MessageServiceStub stub = MessageServiceGrpc.newStub(channel);
 
             StreamObserver<Message> responseObserver = new StreamObserver<Message>() {
                 @Override
                 public void onNext(Message value) {
-                    logger.info("received message: \n" + value);
-//                    String receiver = value.getReceiver();
-//                    if (!receiver.equals(name)) {
-//                        String errorMessage = "Invalid receiver: " + receiver + " for name: " + name;
-//                        logger.error(errorMessage);
-//                        throw new IllegalStateException(errorMessage);
-//                    }
-                    System.out.println(value.getSender() + " wrote: " + value.getText());
+                    LOGGER.info("received message: \n" + value);
+                    System.out.println(value.getSender() + " a   wrote: " + value.getText());
                 }
 
                 @Override
                 public void onError(Throwable t) {
-                    logger.error(t.getMessage());
+                    LOGGER.error(t.getMessage());
                     System.out.println("ERROR: " + t.getMessage());
-//                    shutdown(1);
+                    disconnect();
                 }
 
                 @Override
                 public void onCompleted() {
-                    logger.info("onCompleted, name: " + name);
-//                    shutdown(0);
+                    LOGGER.info("onCompleted, name: " + name);
+                    System.out.println("disconnected");
                 }
             };
 
-            logger.debug("Setting chat connection...");
+            LOGGER.debug("Setting chat connection...");
             requestObserver = stub.chat(responseObserver);
         }
 
         public void send(String text) {
-            logger.info("sending message: \n" + text);
+            LOGGER.info("sending message: \n" + text);
             Message message = Message.newBuilder()
                     .setText(text)
                     .setTime(SimpleMessageService.currentDateString())
                     .setSender(name)
                     .build();
             requestObserver.onNext(message);
-            logger.info("message sent: \n" + message);
+            LOGGER.info("message sent: \n" + message);
 
         }
 
+        /**
+         * hard way to close connection.
+         */
         public void shutdown() {
             try {
                 channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                logger.error(e.getMessage());
+                LOGGER.error(e.getMessage());
             }
+        }
+
+        /**
+         * soft way to close connection.
+         */
+        public void close() {
+            requestObserver.onCompleted();
         }
     }
 
-
-    private Connection getConnection(String receiverHost, int receiverPort) {
-        return new Connection(receiverHost, receiverPort);
+    /**
+     * Open outgoing connection in order to write messages to specified receiver.
+     * @param receiverHost host to which to connect.
+     * @param receiverPort port to which to connect.
+     */
+    private void connect(String receiverHost, int receiverPort) {
+        connection = new Connection(receiverHost, receiverPort);
     }
 
-//    /**
-//     * Await termination on the main thread since the grpc library uses daemon threads.
-//     */
-//    private void blockUntilShutdown() throws InterruptedException {
-//        if (server != null) {
-//            server.awaitTermination();
-//        }
-//    }
+    /**
+     * @brief close outgoing connection initiated in @a connect
+     */
+    private void disconnect() {
+        if (!isConnected()) {
+            return;
+        }
+        connection.close();
+        connection = null;
+    }
+
+    /**
+     * @return if has outgoing connection.
+     */
+    private boolean isConnected() {
+        return !Objects.isNull(connection);
+    }
 
     public static void main(String[] args) {
+        // Parsing command line arguments.
         String hostOptionString = "host";
         String portOptionString = "port";
         String nameOptionString = "name";
@@ -173,7 +197,7 @@ public class ServerApplication {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
-            logger.error("Error while trying to parse options: " + e.getMessage());
+            LOGGER.error("Error while trying to parse options: " + e.getMessage());
             System.err.println(e.getMessage());
             // TODO make help message display required options in USAGE string.
             formatter.printHelp("instant-messenger", options);
@@ -184,7 +208,7 @@ public class ServerApplication {
         String host = cmd.getOptionValue(hostOptionString);
         int port = Integer.valueOf(cmd.getOptionValue(portOptionString));
         final String name = cmd.getOptionValue(nameOptionString);
-        logger.debug("Parsed options: "
+        LOGGER.debug("Parsed options: "
                 + "host: " + host
                 + ", port: " + port
                 + ", name: " + name);
@@ -192,50 +216,54 @@ public class ServerApplication {
         try {
             serverApplication = new ServerApplication(host, port, name);
         } catch (IOException e) {
-            logger.error("Error while trying to create server application: " + e.getMessage());
+            LOGGER.error("Error while trying to create server application: " + e.getMessage());
             System.err.println(e.getMessage());
             System.exit(1);
         }
 
+        final String connectCommand = "connect";
+        final String disconnectCommand = "disconnect";
+        final String exitCommand = "exit";
         String messageFormatHelp =
-                "connect <host> <port>\n" +
-                        "disconnect\n" +
-                        "exit\n";
-//                "Message format: <message-receiver-name>: message-text\n" +
-//                "where <message-receiver-name> is non-empty sequence of colon-less symbols\n" +
-//                "submit \"exit\" to exit.";
-        System.out.println(messageFormatHelp);
+                "connect <host> <port>\n"
+                        + "disconnect\n"
+                        + "exit\n";
+        String additionalHelp = "NOTES:\n"
+                + "1. exit command available only if disconnected."
+                + "2. disconnect is the only command available in connected mode.";
 
+        System.out.println(messageFormatHelp);
+        System.out.println(additionalHelp);
+
+        // Main loop.
         Scanner stdin = new Scanner(System.in);
-        Connection connection = null;
         while (true) {
             String line = stdin.nextLine();
             try {
-                if (line.equals("exit")) {
+                if (line.equals(exitCommand)) {
                     break;
-                } else if (!Objects.isNull(connection)) {
-                    if (line.equals("disconnect")) {
-                        connection.shutdown();
-                        connection = null;
+                } else if (serverApplication.isConnected()) {
+                    if (line.equals(disconnectCommand)) {
+                        serverApplication.disconnect();
                     } else {
-                        connection.send(line);
+                        serverApplication.connection.send(line);
                     }
                 } else {
-                    if (line.length() > 7 && line.substring(0, 7).equals("connect")) {
+                    if (line.indexOf(connectCommand) == 0) {
                         Scanner in = new Scanner(line);
-                        String s = in.next("connect");
-                        if (!s.equals("connect")) {
-                            throw new IllegalStateException("Command parsing connect command");
+                        String s = in.next(connectCommand);
+                        if (!s.equals(connectCommand)) {
+                            throw new IllegalStateException("Error while parsing connect command");
                         }
                         String receiverHost = in.next();
                         int receiverPort = in.nextInt();
-                        connection = serverApplication.getConnection(receiverHost, receiverPort);
+                        serverApplication.connect(receiverHost, receiverPort);
                     } else {
                         throw new IllegalArgumentException("Illegal command: " + line);
                     }
                 }
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                LOGGER.error(e.getMessage());
                 System.err.println(e.getMessage());
             }
         }
