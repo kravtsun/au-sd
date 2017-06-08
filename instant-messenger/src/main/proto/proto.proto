@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_package = "ru.spbau.mit";
+
+option java_multiple_files = true;
+option java_outer_classname = "InstantMessengerProto";
+option objc_class_prefix = "IMP";
+
+message Message {
+    string text = 1;
+    string time = 2;
+    string sender = 3;
+    string receiver = 4;
+}
+
+service MessageService {
+    rpc Chat(Message) returns (Message) {}
+}
+
