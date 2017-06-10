@@ -16,7 +16,6 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     mavenLocal()
-//    maven { url "https://plugins.gradle.org/m2/" }
 }
 
 buildscript {
@@ -62,13 +61,6 @@ protobuf {
                 option 'enable_deprecated=false'
             }
         }
-//        ofSourceSet('main')*.plugins {
-//            // Apply the "grpc" plugin whose spec is defined above, without
-//            // options.  Note the braces cannot be omitted, otherwise the
-//            // plugin will not be added. This is because of the implicit way
-//            // NamedDomainObjectContainer binds the methods.
-//            grpc { }
-//        }
     }
 }
 

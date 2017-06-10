@@ -10,18 +10,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @brief ServerApplication - application class for peer-to-peer chatting.
  */
 public final class ServerApplication {
     private static final Logger LOGGER = LogManager.getLogger("server");
-    private Server server;
+    private final SimpleMessageService service;
+    private final Server server;
     private final String name;
-    private Connection connection;
+    private final String host;
+    private final int port;
+    private volatile Connection connection;
 
     /**
      * @param host not used now.
@@ -29,9 +32,12 @@ public final class ServerApplication {
      * @throws IOException on failing to start and server binding.
      */
     private ServerApplication(String host, int port, String name) throws IOException {
+        this.host = host;
+        this.port = port;
         // TODO use host for creating service daemon.
+        this.service = new SimpleMessageService();
         server = ServerBuilder.forPort(port)
-                .addService(new SimpleMessageService())
+                .addService(service)
                 .build()
                 .start();
         LOGGER.info("Server started, listening on " + port);
@@ -50,68 +56,56 @@ public final class ServerApplication {
         }
     }
 
+    private String getHost() {
+        return host;
+    }
+
+    private int getPort() {
+        return port;
+    }
+
     /**
      * @brief Connection class incapsulating grpc logic behind message processing.
      */
     private class Connection {
-        private final ManagedChannel channel;
+//        private final ManagedChannel channel;
         private final StreamObserver<Message> requestObserver;
 
         Connection(String host, int port) {
             LOGGER.debug("Setting ManagedChannelBuilder...");
-            channel = ManagedChannelBuilder.forAddress(host, port)
+            ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                     .usePlaintext(true)
                     .build();
+            LOGGER.debug("Setting ManagedChannelBuilder... OK");
 
             LOGGER.debug("Setting MessageServiceStub...");
             MessageServiceGrpc.MessageServiceStub stub = MessageServiceGrpc.newStub(channel);
+            LOGGER.debug("Setting MessageServiceStub... OK");
 
-            StreamObserver<Message> responseObserver = new StreamObserver<Message>() {
-                @Override
-                public void onNext(Message value) {
-                    LOGGER.info("received message: \n" + value);
-                    System.out.println(value.getSender() + " a   wrote: " + value.getText());
-                }
+            StreamObserver<Message> responseObserver = service.getResponseObserver();
 
-                @Override
-                public void onError(Throwable t) {
-                    LOGGER.error(t.getMessage());
-                    System.out.println("ERROR: " + t.getMessage());
-                    disconnect();
-                }
+            if (!host.equals(getHost()) || port != getPort()) {
+                LOGGER.debug("Setting chat connection...");
+                this.requestObserver = stub.chat(responseObserver);
+                LOGGER.debug("Setting chat connection... OK");
+            } else {
+                this.requestObserver = service.getRequestObserver();
+            }
+        }
 
-                @Override
-                public void onCompleted() {
-                    LOGGER.info("onCompleted, name: " + name);
-                    System.out.println("disconnected");
-                }
-            };
-
-            LOGGER.debug("Setting chat connection...");
-            requestObserver = stub.chat(responseObserver);
+        Connection(StreamObserver<Message> requestObserver) {
+            this.requestObserver = requestObserver;
         }
 
         public void send(String text) {
             LOGGER.info("sending message: \n" + text);
             Message message = Message.newBuilder()
                     .setText(text)
-                    .setTime(SimpleMessageService.currentDateString())
+                    .setTime(currentDateString())
                     .setSender(name)
                     .build();
             requestObserver.onNext(message);
             LOGGER.info("message sent: \n" + message);
-
-        }
-
-        /**
-         * hard way to close connection.
-         */
-        public void shutdown() {
-            try {
-                channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                LOGGER.error(e.getMessage());
-            }
         }
 
         /**
@@ -127,19 +121,37 @@ public final class ServerApplication {
      * @param receiverHost host to which to connect.
      * @param receiverPort port to which to connect.
      */
-    private void connect(String receiverHost, int receiverPort) {
-        connection = new Connection(receiverHost, receiverPort);
+    private synchronized void connect(String receiverHost,
+                                      int receiverPort,
+                                      StreamObserver<Message> requestObserver) {
+        if (isConnected()) {
+            throw new IllegalStateException("Already connected");
+        }
+        String infoMessage = "Trying to connect "
+                + serverInfo(getHost(), getPort())
+                + " to " + serverInfo(receiverHost, receiverPort);
+        LOGGER.info(infoMessage);
+        if (Objects.isNull(requestObserver)) {
+            connection = new Connection(receiverHost, receiverPort);
+        } else {
+            connection = new Connection(requestObserver);
+        }
+        LOGGER.info(infoMessage + " OK");
+        System.out.println("connected");
     }
 
     /**
      * @brief close outgoing connection initiated in @a connect
      */
-    private void disconnect() {
+    private synchronized void disconnect() {
         if (!isConnected()) {
             return;
         }
-        connection.close();
+        // Guard against self-chat-connection.
+        Connection oldConnection = connection;
         connection = null;
+        oldConnection.close();
+        System.out.println("disconnected");
     }
 
     /**
@@ -149,11 +161,33 @@ public final class ServerApplication {
         return !Objects.isNull(connection);
     }
 
+    /**
+     * for logging purposes.
+     * @param host host
+     * @param port port
+     * @return logging info string.
+     */
+    private static String serverInfo(String host, int port) {
+        return host + ":" + port;
+    }
+
+    /**
+     * for logging purposes.
+     * @return date string in chosen (in compile-time) format.
+     */
+    private static String currentDateString() {
+        return new Date(System.currentTimeMillis()).toString();
+    }
+
+    /**
+     * Application entry point.
+     * @param args
+     */
     public static void main(String[] args) {
         // Parsing command line arguments.
-        String hostOptionString = "host";
-        String portOptionString = "port";
-        String nameOptionString = "name";
+        final String hostOptionString = "host";
+        final String portOptionString = "port";
+        final String nameOptionString = "name";
 
         Options options = new Options();
 
@@ -229,14 +263,14 @@ public final class ServerApplication {
                         + "disconnect\n"
                         + "exit\n";
         String additionalHelp = "NOTES:\n"
-                + "1. exit command available only if disconnected."
+                + "1. exit command available only if disconnected.\n"
                 + "2. disconnect is the only command available in connected mode.";
 
         System.out.println(messageFormatHelp);
         System.out.println(additionalHelp);
 
         // Main loop.
-        Scanner stdin = new Scanner(System.in);
+        final Scanner stdin = new Scanner(System.in);
         while (true) {
             String line = stdin.nextLine();
             try {
@@ -257,7 +291,7 @@ public final class ServerApplication {
                         }
                         String receiverHost = in.next();
                         int receiverPort = in.nextInt();
-                        serverApplication.connect(receiverHost, receiverPort);
+                        serverApplication.connect(receiverHost, receiverPort, null);
                     } else {
                         throw new IllegalArgumentException("Illegal command: " + line);
                     }
@@ -266,6 +300,70 @@ public final class ServerApplication {
                 LOGGER.error(e.getMessage());
                 System.err.println(e.getMessage());
             }
+        }
+    }
+
+    /**
+     * SimpleMessageService represents remote procedure call facade.
+     */
+    private class SimpleMessageService extends MessageServiceGrpc.MessageServiceImplBase {
+        private final Logger serviceLogger = LogManager.getLogger("service");
+
+        private StreamObserver<Message> getRequestObserver() {
+            return new StreamObserver<Message>() {
+                @Override
+                public void onNext(Message request) {
+                    String from = request.getSender();
+                    String message = from + " wrote: " + request.getText();
+                    serviceLogger.info("received message: \n" + request);
+                    System.out.println(message);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    serviceLogger.error(t.getMessage());
+                    System.err.println("ERROR: " + t.getMessage());
+                    disconnect();
+                }
+
+                @Override
+                public void onCompleted() {
+                    serviceLogger.info("onCompleted, name: " + name);
+                    disconnect();
+                }
+            };
+        }
+
+        private StreamObserver<Message> getResponseObserver() {
+            return new StreamObserver<Message>() {
+                @Override
+                public void onNext(Message value) {
+                    serviceLogger.info("received message: \n" + value);
+                    System.out.println(value.getSender() + " wrote: " + value.getText());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    serviceLogger.error(t.getMessage());
+                    System.out.println("ERROR: " + t.getMessage());
+                    disconnect();
+                }
+
+                @Override
+                public void onCompleted() {
+                    LOGGER.info("onCompleted, name: " + name);
+                }
+            };
+        }
+
+        @Override
+        public StreamObserver<Message> chat(final StreamObserver<Message> responseObserver) {
+            try {
+                connect(null, 0, responseObserver);
+            } catch (Exception e) {
+                responseObserver.onError(e);
+            }
+            return getRequestObserver();
         }
     }
 }
