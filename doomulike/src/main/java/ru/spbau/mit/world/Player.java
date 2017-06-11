@@ -1,7 +1,5 @@
 package ru.spbau.mit.world;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import ru.spbau.mit.visualizer.UserCommand;
 import ru.spbau.mit.world.logic.Action;
 import ru.spbau.mit.world.logic.MoveAction;
@@ -11,11 +9,11 @@ import java.util.*;
 import java.util.function.Function;
 
 public class Player extends Character implements Playable {
-    private Set putItems;
+    private Set<Item> putItems;
 
     Player(Coordinates p, String name, Characteristics characteristics) {
         super(p, name, characteristics, new Inventory());
-        this.putItems = new HashSet();
+        this.putItems = new HashSet<>();
     }
 
     @Override

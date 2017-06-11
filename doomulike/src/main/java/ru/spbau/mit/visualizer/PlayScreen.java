@@ -2,7 +2,9 @@ package ru.spbau.mit.visualizer;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import asciiPanel.AsciiPanel;
@@ -11,7 +13,6 @@ import ru.spbau.mit.world.Cartographer;
 import ru.spbau.mit.world.Player;
 import ru.spbau.mit.world.World;
 import ru.spbau.mit.mapper.Map;
-import ru.spbau.mit.world.WorldProphet;
 
 /**
  * main screen, where game is going on.
@@ -62,7 +63,12 @@ public class PlayScreen extends Screen {
             LOGGER.error(e.getMessage());
             System.exit(1);
         }
-        if (!world.getPlayer().isAlive()) {
+        final Player player = world.getPlayer();
+        if (Objects.isNull(player)) {
+            throw new IllegalStateException("Player is null");
+        }
+
+        if (!player.isAlive()) {
             return new LooseScreen(() -> new PlayScreen(defaultMapSupplier));
         }
         return this;
@@ -70,7 +76,11 @@ public class PlayScreen extends Screen {
 
     @Override
     public List<UserCommand> getUserCommands() {
-        List<UserCommand> result = world.getPlayer().availableUserCommands();
+        final Player player = world.getPlayer();
+        if (Objects.isNull(player)) {
+            return Collections.emptyList();
+        }
+        List<UserCommand> result = player.availableUserCommands();
         result.add(new UserCommand("enter", "to win."));
         result.add(new UserCommand("escape", "to loose."));
         result.add(new UserCommand("i", "status."));
@@ -85,15 +95,5 @@ public class PlayScreen extends Screen {
 
     private Player getPlayer() {
         return world.getPlayer();
-    }
-
-    private List<String> playerStatusInfo() {
-        List<String> result = new ArrayList<>();
-        result.add("Player: " + getPlayer().getName());
-        result.add("Inventory: ");
-        result.addAll(getPlayer().getInventory().strs());
-        result.add("Characteristics: ");
-        result.addAll(getPlayer().getCharacteristics().strs());
-        return result;
     }
 }

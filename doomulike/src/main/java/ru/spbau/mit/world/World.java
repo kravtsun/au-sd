@@ -3,22 +3,14 @@ package ru.spbau.mit.world;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static ru.spbau.mit.world.logic.MoveAction.MoveType;
-
 import org.jetbrains.annotations.Nullable;
 import ru.spbau.mit.mapper.Map;
 import ru.spbau.mit.visualizer.Tile;
-import ru.spbau.mit.visualizer.UserCommand;
 import ru.spbau.mit.world.logic.Action;
-import ru.spbau.mit.world.logic.MoveAction;
-
-import java.awt.dnd.InvalidDnDOperationException;
 import java.awt.event.KeyEvent;
 import java.util.*;
-import java.util.function.Function;
 
 import static ru.spbau.mit.world.GameObject.Coordinates;
-import static ru.spbau.mit.world.Character.Inventory;
 
 /**
  * All objects and map container.
@@ -91,7 +83,8 @@ public class World extends RandomWorld implements WorldProphet, Cartographer {
      * @return if world will do any reaction on provided user input.
      */
     public boolean canAnswer(KeyEvent key) {
-        return getPlayer().canAnswer(key);
+        final Player player = getPlayer();
+        return !Objects.isNull(player) && player.canAnswer(key);
     }
 
     @Override

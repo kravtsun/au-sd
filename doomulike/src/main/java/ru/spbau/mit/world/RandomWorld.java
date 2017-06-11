@@ -6,17 +6,19 @@ import ru.spbau.mit.mapper.Map;
 
 import java.util.*;
 
+import static ru.spbau.mit.world.GameObject.*;
+
 public abstract class RandomWorld extends BaseWorld {
     private static final Random RANDOMIZER = new Random();
     private static final Logger LOGGER = LogManager.getLogger(RandomWorld.class);
 
     /**
      * Map should be filled with all obstacle and floor tiles.
-     * @param map
+     * @param map Map
      */
     RandomWorld(Map map) {
         super(map);
-        placePlayer("Player", new Characteristics(10, 10, 0), mapCenter());
+        placePlayer("Player", new Characteristics(100, 10, 0), mapCenter());
         populateCharacters();
 
     }
@@ -31,7 +33,7 @@ public abstract class RandomWorld extends BaseWorld {
         final int npcCount = 10;
         String baseName = "goblin";
         for (int i = 0; i < npcCount; ++i) {
-            GameObject.Coordinates coordinates = GameObject.Coordinates.random(RANDOMIZER, getMap().width(), getMap().height());
+            Coordinates coordinates = Coordinates.random(RANDOMIZER, getMap().width(), getMap().height());
             Character.Inventory inventory =  Character.Inventory.random(RANDOMIZER);
             Characteristics characteristics = Characteristics.random(RANDOMIZER);
             Character character = new Monster(coordinates, baseName + "{" + i + "}", characteristics, inventory);
@@ -48,7 +50,7 @@ public abstract class RandomWorld extends BaseWorld {
         for (int i = 0; i < chestsCount; ++i) {
             final int width = getMap().width();
             final int height = getMap().height();
-            GameObject.Coordinates coordinates = GameObject.Coordinates.random(RANDOMIZER, width, height);
+            Coordinates coordinates = Coordinates.random(RANDOMIZER, width, height);
             Character.Inventory inventory =  Character.Inventory.random(RANDOMIZER);
             Character character = new Chest(coordinates, baseName + "{" + i + "}", inventory);
             if (!placeCharacter(character)) {
@@ -64,7 +66,7 @@ public abstract class RandomWorld extends BaseWorld {
      * @return true if placement was successful
      */
     private boolean placeCharacter(final Character character) {
-        final GameObject.Coordinates coordinates = findEmptyPlace(character.getCoordinates());
+        final Coordinates coordinates = findEmptyPlace(character.getCoordinates());
         if (Objects.isNull(coordinates)
                 || !getMap().getTile(coordinates.x(), coordinates.y()).isFree()
                 || getCharacters().contains(character)) {
@@ -81,8 +83,8 @@ public abstract class RandomWorld extends BaseWorld {
      * @param preferredLocation attempted position or
      * if it's busy with wall or something, find most close free position.
      */
-    private void placePlayer(String name, Characteristics characteristics, GameObject.Coordinates preferredLocation) {
-        GameObject.Coordinates actualLocation = findEmptyPlace(preferredLocation);
+    private void placePlayer(String name, Characteristics characteristics, Coordinates preferredLocation) {
+        Coordinates actualLocation = findEmptyPlace(preferredLocation);
         Player player = new Player(actualLocation, name, characteristics);
         if (!placeCharacter(player)) {
             LOGGER.error("Map is full, unable to place a player.");
@@ -92,10 +94,10 @@ public abstract class RandomWorld extends BaseWorld {
 
     /**
      * Checks if place at coordinates is empty (not occupied by any obstacles or characters).
-     * @param coordinates {@link GameObject.Coordinates}
+     * @param coordinates {@link Coordinates}
      * @return true if successful
      */
-    private boolean isEmptyPlace(GameObject.Coordinates coordinates) {
+    private boolean isEmptyPlace(Coordinates coordinates) {
         // TODO get rid of appealing to low-level map.
         // World's WorldProphet (know-all guy) and WorldMapper (painter guy) should be demarkated.
         return getMap().getTile(coordinates.x(), coordinates.y()).isFree()
@@ -104,12 +106,12 @@ public abstract class RandomWorld extends BaseWorld {
 
     /**
      * Find empty spot most closest to the preferredLocation.
-     * @param preferredLocation {@link GameObject.Coordinates}
+     * @param preferredLocation {@link Coordinates}
      * @return Coordinates if found else null.
      * TODO currently its asymptotics is Theta(H * W) which can be reduced to
      * O(number of obstacles + number of characters) in the worst case.
      */
-    private GameObject.Coordinates findEmptyPlace(GameObject.Coordinates preferredLocation) {
+    private Coordinates findEmptyPlace(Coordinates preferredLocation) {
         final Set<GameObject.Coordinates> visited = new HashSet<>();
         visited.add(preferredLocation);
         Queue<GameObject.Coordinates> q = new LinkedList<>();
@@ -117,7 +119,7 @@ public abstract class RandomWorld extends BaseWorld {
         final int[] dx = new int[]{-1, -1, 1, 1};
         final int[] dy = new int[]{-1, 1, -1, 1};
         while (!q.isEmpty()) {
-            GameObject.Coordinates v = q.poll();
+            Coordinates v = q.poll();
             if (isEmptyPlace(v)) {
                 return v;
             }
@@ -125,7 +127,7 @@ public abstract class RandomWorld extends BaseWorld {
                 return null;
             } else {
                 for (int i = 0; i < dx.length; ++i) {
-                    final GameObject.Coordinates nextCoordinates = new GameObject.Coordinates(v.x() + dx[i], v.y() + dy[i]);
+                    final Coordinates nextCoordinates = new Coordinates(v.x() + dx[i], v.y() + dy[i]);
                     if (!visited.contains(nextCoordinates)) {
                         visited.add(nextCoordinates);
                         q.add(nextCoordinates);

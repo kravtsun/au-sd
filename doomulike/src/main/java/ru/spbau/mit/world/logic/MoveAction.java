@@ -3,7 +3,6 @@ import ru.spbau.mit.world.*;
 import ru.spbau.mit.world.Character;
 import ru.spbau.mit.world.GameObject.Coordinates;
 
-import java.security.InvalidParameterException;
 import java.util.Objects;
 
 /**

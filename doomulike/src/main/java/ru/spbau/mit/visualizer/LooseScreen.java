@@ -12,11 +12,13 @@ public class LooseScreen extends LeafScreen {
         LOGGER.debug("Creating LooseScreen");
     }
 
+    @Override
     public void displayOutput(AsciiPanel terminal) {
         terminal.write("You lost.", 1, 1);
         pressEnterToDoSomething(terminal, "restart");
     }
 
+    @Override
     @NotNull
     public Screen respondToUserInput(KeyEvent key) {
         return key.getKeyCode() == KeyEvent.VK_ENTER

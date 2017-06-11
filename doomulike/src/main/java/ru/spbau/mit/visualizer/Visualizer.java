@@ -16,7 +16,7 @@ public class Visualizer {
      */
     public Visualizer(Map map) {
         // too much output on the following line as any movement produces a new Visualizer.
-//        LOGGER.debug("Creating Visualizer");
+        LOGGER.debug("Creating Visualizer");
         this.map = map;
     }
 

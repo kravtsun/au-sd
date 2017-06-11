@@ -4,12 +4,9 @@ import asciiPanel.AsciiPanel;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.mit.world.Character;
 import ru.spbau.mit.world.Item;
-import ru.spbau.mit.world.Playable;
 import ru.spbau.mit.world.Player;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class StatusScreen extends LeafScreen {
@@ -33,9 +30,9 @@ public class StatusScreen extends LeafScreen {
         final Character.Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.size(); ++i) {
             final StringBuilder sb = new StringBuilder();
-            sb.append(inventoryCursor == i? "- " : "  ");
+            sb.append(inventoryCursor == i ? "- " : "  ");
             final Item item = inventory.get(i);
-            sb.append(player.isPutItem(i)? "[*]" : "[ ]");
+            sb.append(player.isPutItem(i) ? "[*]" : "[ ]");
             sb.append(item.str());
             writeLine(terminal, sb.toString());
         }
@@ -48,8 +45,8 @@ public class StatusScreen extends LeafScreen {
         writeLine(terminal, "-- press [enter] to resume --");
     }
 
-    @NotNull
     @Override
+    @NotNull
     public Screen respondToUserInput(KeyEvent key) {
         final int keyCode = key.getKeyCode();
         switch (keyCode) {

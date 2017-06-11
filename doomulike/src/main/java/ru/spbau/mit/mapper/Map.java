@@ -22,7 +22,6 @@ public class Map {
                 newMap.setTile(x, y, getTile(x, y));
             }
         }
-//        newMap.tiles = tiles.clone();
         return newMap;
     }
 

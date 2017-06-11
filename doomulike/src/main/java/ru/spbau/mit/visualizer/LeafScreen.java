@@ -17,7 +17,7 @@ public abstract class LeafScreen extends Screen {
         this.baseScreenSupplier = baseScreenSupplier;
     }
 
-    public Screen getBaseScreen() {
+    protected Screen getBaseScreen() {
         return baseScreenSupplier.get();
     }
 }

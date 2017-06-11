@@ -14,7 +14,7 @@ public abstract class BaseWorld implements WorldProphet {
 
     /**
      * Map should be filled with all obstacle and floor tiles.
-     * @param map
+     * @param map Map
      */
     BaseWorld(Map map) {
         this.map = map;

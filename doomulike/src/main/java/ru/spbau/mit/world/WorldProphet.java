@@ -1,12 +1,6 @@
 package ru.spbau.mit.world;
 
 import org.jetbrains.annotations.Nullable;
-import ru.spbau.mit.visualizer.UserCommand;
-
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import java.util.List;
-
 import static ru.spbau.mit.world.GameObject.Coordinates;
 
 /**
