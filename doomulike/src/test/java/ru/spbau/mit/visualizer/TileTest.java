@@ -13,7 +13,6 @@ public class TileTest {
         assertFalse(Tile.CHEST.isFree());
         assertFalse(Tile.MONSTER.isFree());
         assertTrue(Tile.CORPSE.isFree());
-        assertTrue(Tile.PLAYER.isFree());
+        assertFalse(Tile.PLAYER.isFree());
     }
-
 }

@@ -6,7 +6,6 @@ import org.junit.Test;
 import ru.spbau.mit.visualizer.Tile;
 
 import java.awt.*;
-
 import static org.junit.Assert.*;
 
 public class MapTest {
@@ -29,7 +28,8 @@ public class MapTest {
 
     @Test
     public void color() throws Exception {
-        assertEquals(cell.getTile(0, 0).color(), Color.gray);
+        final Color floorColor = new Color(128, 128, 0);
+        assertEquals(floorColor, cell.getTile(0, 0).color());
     }
 
     @Test

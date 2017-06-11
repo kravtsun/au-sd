@@ -3,7 +3,6 @@ package ru.spbau.mit.mapper;
 import org.junit.Before;
 import org.junit.Test;
 import ru.spbau.mit.visualizer.Tile;
-import ru.spbau.mit.world.RandomWorld;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,21 +12,19 @@ import static org.junit.Assert.*;
 public class RandomMapTest {
     private static final int WIDTH = 3;
     private static final int HEIGHT = 4;
-    RandomMap lonelyWallMap;
-    RandomMap wallMap;
+    private RandomMap lonelyWallMap;
+    private RandomMap wallMap;
 
     @Before
     public void setUp() {
-        lonelyWallMap = new RandomMap(WIDTH,HEIGHT);
+        lonelyWallMap = new RandomMap(WIDTH, HEIGHT);
         wallMap = new RandomMap(WIDTH, HEIGHT);
-
         for (int y = 0; y < HEIGHT; ++y) {
             for (int x = 0; x < WIDTH; ++x) {
                 lonelyWallMap.setTile(x, y, Tile.FLOOR);
                 wallMap.setTile(x, y, Tile.WALL);
             }
         }
-
         lonelyWallMap.setTile(1, 1, Tile.WALL);
     }
 
@@ -79,5 +76,4 @@ public class RandomMapTest {
             }
         }
     }
-
 }
