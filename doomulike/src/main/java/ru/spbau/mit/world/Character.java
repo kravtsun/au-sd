@@ -6,10 +6,7 @@ import ru.spbau.mit.common.TerminalPrintable;
 import ru.spbau.mit.world.logic.Action;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public abstract class Character extends GameObject {
     protected static final Logger LOGGER = LogManager.getLogger("Character");
@@ -53,16 +50,6 @@ public abstract class Character extends GameObject {
 
     public boolean occupiesPosition(Coordinates coordinates) {
         return getCoordinates().equals(coordinates);
-    }
-
-    public List<String> statusInfo() {
-        List<String> result = new ArrayList<>();
-        result.add("Player: " + getName());
-        result.add("Inventory: ");
-        result.addAll(getInventory().strs());
-        result.add("Characteristics: ");
-        result.addAll(getCharacteristics().strs());
-        return result;
     }
 
     public static class Inventory extends ArrayList<Item> implements TerminalPrintable {

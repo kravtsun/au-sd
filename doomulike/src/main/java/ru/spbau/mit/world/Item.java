@@ -12,4 +12,8 @@ public class Item {
     public String str() {
         return "item{" + description + "}: " + delta.str();
     }
+
+    public Characteristics getDelta() {
+        return delta;
+    }
 }

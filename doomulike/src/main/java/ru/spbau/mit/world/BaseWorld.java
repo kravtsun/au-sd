@@ -32,6 +32,11 @@ public abstract class BaseWorld implements WorldProphet {
 //        throw new IllegalStateException("Void at the Universe found.");
     }
 
+    @Override
+    public boolean inside(Coordinates p) {
+        return p.x() >= 0 && p.x() < getMap().width() && p.y() >= 0 && p.y() < getMap().height();
+    }
+
     public List<Character> getCharacters() {
         return gameCharacterList;
     }

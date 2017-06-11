@@ -7,20 +7,23 @@ import ru.spbau.mit.world.logic.Action;
 import ru.spbau.mit.world.logic.MoveAction;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 public class Player extends Character implements Playable {
+    private Set putItems;
+
     Player(Coordinates p, String name, Characteristics characteristics) {
         super(p, name, characteristics, new Inventory());
+        this.putItems = new HashSet();
     }
 
     @Override
     public void step(final WorldProphet world, final KeyEvent key, List<Action> actions) {
         LOGGER.info("user pressed key: " + key.toString());
+        if (!isAlive()) {
+            return;
+        }
         Action userAction;
         switch (key.getKeyCode()) {
             case KeyEvent.VK_UP:
@@ -66,5 +69,42 @@ public class Player extends Character implements Playable {
                 moveCommandGenerator.apply("left"),
                 moveCommandGenerator.apply("right")
         );
+    }
+
+    public void toggleItem(final int itemIndex) {
+        if (getInventory().isEmpty()) {
+            return;
+        }
+
+        if (itemIndex < 0 || itemIndex > getInventory().size()) {
+            throw new IllegalArgumentException("itemIndex does not correspond to inventory size");
+        }
+
+        final Characteristics characteristics = getCharacteristics();
+        final Item item = getInventory().get(itemIndex);
+        final Characteristics delta = item.getDelta();
+        if (putItems.contains(item)) {
+            putItems.remove(item);
+            characteristics.setHealth(characteristics.getHealth() - delta.getHealth());
+            characteristics.setStrength(characteristics.getStrength() - delta.getStrength());
+            characteristics.setLuck(characteristics.getLuck() - delta.getLuck());
+        } else {
+            putItems.add(item);
+            characteristics.setHealth(characteristics.getHealth() + delta.getHealth());
+            characteristics.setStrength(characteristics.getStrength() + delta.getStrength());
+            characteristics.setLuck(characteristics.getLuck() + delta.getLuck());
+        }
+
+        if (characteristics.getHealth() < 0) {
+            die();
+        }
+    }
+
+    public boolean isPutItem(final int itemIndex) {
+        if (itemIndex < 0 || itemIndex > getInventory().size()) {
+            return false;
+        }
+        final Item item = getInventory().get(itemIndex);
+        return putItems.contains(item);
     }
 }

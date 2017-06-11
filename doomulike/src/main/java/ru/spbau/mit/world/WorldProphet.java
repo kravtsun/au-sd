@@ -23,4 +23,6 @@ public interface WorldProphet {
      */
     @Nullable
     GameObject getGameObjectAtPlace(Coordinates p);
+
+    boolean inside(Coordinates p);
 }

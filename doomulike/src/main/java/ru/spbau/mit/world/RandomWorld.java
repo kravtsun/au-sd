@@ -6,9 +6,6 @@ import ru.spbau.mit.mapper.Map;
 
 import java.util.*;
 
-/**
- * Created by kravtsun on 11.06.17.
- */
 public class RandomWorld extends BaseWorld {
     private static final Random RANDOMIZER = new Random();
     private static final Logger LOGGER = LogManager.getLogger(RandomWorld.class);

@@ -46,7 +46,7 @@ public class PlayScreen extends Screen {
                 case KeyEvent.VK_ENTER:
                     return new WinScreen(() -> new PlayScreen(defaultMapSupplier));
                 case KeyEvent.VK_I:
-                    return new StatusScreen(() -> this, getPlayer().statusInfo());
+                    return new StatusScreen(() -> this, getPlayer());
                 case KeyEvent.VK_Q:
                     LOGGER.info("Exiting");
                     System.exit(0);
@@ -82,5 +82,15 @@ public class PlayScreen extends Screen {
 
     private Player getPlayer() {
         return world.getPlayer();
+    }
+
+    private List<String> playerStatusInfo() {
+        List<String> result = new ArrayList<>();
+        result.add("Player: " + getPlayer().getName());
+        result.add("Inventory: ");
+        result.addAll(getPlayer().getInventory().strs());
+        result.add("Characteristics: ");
+        result.addAll(getPlayer().getCharacteristics().strs());
+        return result;
     }
 }
