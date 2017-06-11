@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Data class with characteristics for Character.
+ * Can be a nested class for Character.
+ */
 public class Characteristics implements TerminalPrintable {
     private static final int HEALTH_BOUND = 100;
     private static final int STRENGTH_BOUND = 5;

@@ -9,6 +9,9 @@ import java.util.*;
 
 import static ru.spbau.mit.world.GameObject.*;
 
+/**
+ * World creating creatures and loot randomly.
+ */
 public abstract class RandomWorld extends BaseWorld {
     private static final Random RANDOMIZER = new Random();
     private static final Logger LOGGER = LogManager.getLogger(RandomWorld.class);
@@ -111,9 +114,9 @@ public abstract class RandomWorld extends BaseWorld {
      * O(number of obstacles + number of characters) in the worst case.
      */
     private Coordinates findEmptyPlace(Coordinates preferredLocation) {
-        final Set<GameObject.Coordinates> visited = new HashSet<>();
+        final Set<Coordinates> visited = new HashSet<>();
         visited.add(preferredLocation);
-        Queue<GameObject.Coordinates> q = new LinkedList<>();
+        Queue<Coordinates> q = new LinkedList<>();
         q.add(preferredLocation);
         final int[] dx = new int[]{-1, 1, 0, 0};
         final int[] dy = new int[]{0, 0, -1, 1};

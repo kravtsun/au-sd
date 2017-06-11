@@ -1,6 +1,10 @@
 package ru.spbau.mit.mapper;
 import ru.spbau.mit.visualizer.Tile;
 
+/**
+ * Map with random generation of walls and floor tiles.
+ * Enhanced with smoothing algorithm like in game "Life".
+ */
 public class RandomMap extends Map {
     private static final double WALLS_PERCENTAGE = 0.4;
     private static final int SMOOTH_TIMES = 2;

@@ -3,6 +3,9 @@ package ru.spbau.mit.world;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Abstraction for all entities in the game world.
+ */
 public abstract class GameObject {
     private Coordinates coordinates;
 
