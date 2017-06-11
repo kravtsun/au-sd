@@ -61,12 +61,12 @@ public class Player extends Character implements Playable {
                     String msg = "Go " + dir + " or attack creature or loot chest to the " + dir + ".";
                     return new UserCommand(dir, msg);
                 };
-        return Arrays.asList(
-                moveCommandGenerator.apply("up"),
-                moveCommandGenerator.apply("down"),
-                moveCommandGenerator.apply("left"),
-                moveCommandGenerator.apply("right")
-        );
+        List<UserCommand> result = new ArrayList<>();
+        result.add(moveCommandGenerator.apply("up"));
+        result.add(moveCommandGenerator.apply("down"));
+        result.add(moveCommandGenerator.apply("left"));
+        result.add(moveCommandGenerator.apply("right"));
+        return result;
     }
 
     public void toggleItem(final int itemIndex) {
