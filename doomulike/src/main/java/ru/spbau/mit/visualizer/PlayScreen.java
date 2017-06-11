@@ -59,8 +59,9 @@ public class PlayScreen extends Screen {
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            System.exit(1);
+            throw e;
         }
+
         final Player player = world.getPlayer();
         if (Objects.isNull(player)) {
             throw new IllegalStateException("Player is null");

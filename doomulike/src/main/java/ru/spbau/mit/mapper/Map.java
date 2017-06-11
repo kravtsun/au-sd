@@ -13,6 +13,11 @@ public class Map {
 
     public Map(int width, int height) {
         tiles = newTiles(width, height);
+        for (int y = 0; y < height(); ++y) {
+            for (int x = 0; x < width(); ++x) {
+                setTile(x, y, Tile.FLOOR);
+            }
+        }
     }
 
     /**
