@@ -3,6 +3,9 @@ package ru.spbau.mit.visualizer;
 import java.awt.Color;
 import asciiPanel.AsciiPanel;
 
+/**
+ * Branching of how to display a tile on visible Map depending on game object.
+ */
 public enum Tile {
     FLOOR('.', AsciiPanel.yellow),
     WALL('#', AsciiPanel.yellow),

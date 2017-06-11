@@ -10,13 +10,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Implements Scrollable functinality and
+ * provides default behavior for all other screens.
+ */
 public abstract class Screen implements Scrollable {
-    /**
-     * Logger for any screens.
-     */
+    // Logger for any screens.
     protected static final Logger LOGGER = LogManager.getLogger("Visualizer");
+
+    // Ox position of scroll cursor.
     private int left;
+
+    // Oy position of scroll cursor.
     private int top;
+
+    // current line for writing any new lines.
     private int currentLine;
 
     /**

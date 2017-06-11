@@ -10,6 +10,10 @@ import ru.spbau.mit.visualizer.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Application Main application class.
+ * It does repainting and the first proxy on user input.
+ */
 public class Application extends JFrame implements KeyListener {
     private static final Logger LOGGER = LogManager.getLogger("Application");
     private static final long serialVersionUID = 1089416816205537123L;

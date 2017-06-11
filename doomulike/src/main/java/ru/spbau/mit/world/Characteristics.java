@@ -1,11 +1,13 @@
 package ru.spbau.mit.world;
 
+import ru.spbau.mit.common.TerminalPrintable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class Characteristics {
+public class Characteristics implements TerminalPrintable {
     private static final int HEALTH_BOUND = 100;
     private static final int STRENGTH_BOUND = 5;
     private static final int LUCK_BOUND = 10;
@@ -59,6 +61,7 @@ public class Characteristics {
         this.luck = luck;
     }
 
+    @Override
     public List<String> strs() {
         return Arrays.asList(
                 "strength: " + String.valueOf(getStrength()) + ", ",

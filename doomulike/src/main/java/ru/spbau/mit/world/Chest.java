@@ -5,6 +5,9 @@ import ru.spbau.mit.world.logic.Action;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+/**
+ * Stable game object just containing some items.
+ */
 public class Chest extends Character {
     public Chest(Coordinates p, String name, Inventory inventory) {
         super(p, name, new Characteristics(1, 0, 0), inventory);

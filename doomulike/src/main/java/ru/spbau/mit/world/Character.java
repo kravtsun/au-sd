@@ -2,12 +2,14 @@ package ru.spbau.mit.world;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.spbau.mit.common.TerminalPrintable;
 import ru.spbau.mit.world.logic.Action;
 
 import java.awt.event.KeyEvent;
 import java.util.*;
 
+/**
+ * Game object with inventory, with life and characteristics.
+ */
 public abstract class Character extends GameObject {
     protected static final Logger LOGGER = LogManager.getLogger("Character");
     private final String name;
@@ -21,7 +23,7 @@ public abstract class Character extends GameObject {
         this.inventory = inventory;
     }
 
-    public abstract void step(final WorldProphet world, final KeyEvent keyEvent, List<Action> actions);
+    public abstract void step(WorldProphet world, KeyEvent keyEvent, List<Action> actions);
 
     public Inventory getInventory() {
         return inventory;
@@ -52,7 +54,7 @@ public abstract class Character extends GameObject {
         return getCoordinates().equals(coordinates);
     }
 
-    public static class Inventory extends ArrayList<Item> implements TerminalPrintable {
+    public static class Inventory extends ArrayList<Item> {
         public static Inventory random(Random randomizer) {
             final int itemsLimit = 10;
             final int maxAbsDelta = 10;
@@ -68,16 +70,6 @@ public abstract class Character extends GameObject {
                 inventory.add(new Item(String.valueOf(i), characteristics));
             }
             return inventory;
-        }
-
-        @Override
-        public List<String> strs() {
-            List<String> result = new ArrayList<>();
-            Iterator<Item> it = super.iterator();
-            while (it.hasNext()) {
-                result.add(it.next().str() + ", ");
-            }
-            return result;
         }
     }
 }

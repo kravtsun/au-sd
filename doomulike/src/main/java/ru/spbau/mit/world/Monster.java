@@ -7,6 +7,9 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Character with AI aiming to kill the player.
+ */
 public class Monster extends Character {
     Monster(Coordinates p, String name, Characteristics characteristics, Inventory inventory) {
         super(p, name, characteristics, inventory);

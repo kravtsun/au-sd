@@ -6,6 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.event.KeyEvent;
 import java.util.function.Supplier;
 
+/**
+ * Screen for ending the game with loosing result.
+ */
 public class LooseScreen extends LeafScreen {
     LooseScreen(Supplier<Screen> baseScreenSupplier) {
         super(baseScreenSupplier);

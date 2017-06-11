@@ -1,5 +1,8 @@
 package ru.spbau.mit.world;
 
+/**
+ * Game object with some properties affecting living characters characteristics.
+ */
 public class Item {
     private final String description;
     private final Characteristics delta;

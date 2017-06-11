@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 import ru.spbau.mit.common.Pair;
 import ru.spbau.mit.mapper.Map;
 
+/**
+ * it can draw the ready tile map straight to the terminal.
+ */
 public class Visualizer {
     private static final Logger LOGGER = LogManager.getLogger("Visualizer");
     private final Map map;

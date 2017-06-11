@@ -1,7 +1,6 @@
 package ru.spbau.mit.visualizer;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,10 +18,9 @@ import ru.spbau.mit.mapper.Map;
  * Created new PlayScreen at each new game session.
  */
 public class PlayScreen extends Screen {
-//    private Supplier<Map> mapSupplier;
-
-    // map to return if reset.
+    // returns a map after stopping the game session.
     private final Supplier<Map> defaultMapSupplier;
+
     private final World world;
 
     PlayScreen(Supplier<Map> defaultMapSupplier) {

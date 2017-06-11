@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import static ru.spbau.mit.world.GameObject.Coordinates;
 
-
+/**
+ * Stores characters and map, providing default implementation of WorldProphet.
+ * Declares functionality needed from World's creator object.
+ */
 public abstract class BaseWorld implements WorldProphet {
     private final Map map;
     private final List<Character> gameCharacterList;
@@ -29,7 +32,6 @@ public abstract class BaseWorld implements WorldProphet {
             return new Obstacle(p);
         }
         return getCharacters().stream().filter((c) -> c.isAlive() && c.occupiesPosition(p)).findAny().orElse(null);
-//        throw new IllegalStateException("Void at the Universe found.");
     }
 
     @Override

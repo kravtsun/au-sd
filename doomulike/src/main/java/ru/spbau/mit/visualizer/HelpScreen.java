@@ -7,6 +7,9 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Screen for displaying help on commands.
+ */
 public class HelpScreen extends LeafScreen {
     private final List<UserCommand> userCommands;
     HelpScreen(Supplier<Screen> baseScreenSupplier, List<UserCommand> userCommands) {

@@ -2,6 +2,7 @@ package ru.spbau.mit.visualizer;
 
 import asciiPanel.AsciiPanel;
 import org.jetbrains.annotations.NotNull;
+import ru.spbau.mit.common.TerminalPrintable;
 import ru.spbau.mit.world.Character;
 import ru.spbau.mit.world.Item;
 import ru.spbau.mit.world.Player;
@@ -9,6 +10,10 @@ import ru.spbau.mit.world.Player;
 import java.awt.event.KeyEvent;
 import java.util.function.Supplier;
 
+/**
+ * Screen for displaying current information about player and
+ * putting on and taking off items in inventory.
+ */
 public class StatusScreen extends LeafScreen {
     private int inventoryCursor;
     private final Player player;
@@ -37,7 +42,8 @@ public class StatusScreen extends LeafScreen {
             writeLine(terminal, sb.toString());
         }
         writeLine(terminal, "Characteristics: ");
-        for (String s : player.getCharacteristics().strs()) {
+        final TerminalPrintable charactersticsPrintable = player.getCharacteristics();
+        for (String s : charactersticsPrintable.strs()) {
             writeLine(terminal, s);
         }
         writeLine(terminal, "-- navigate with j(down) or k(up) to choose an inventory item --");

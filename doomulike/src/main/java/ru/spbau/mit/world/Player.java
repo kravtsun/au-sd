@@ -8,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.function.Function;
 
+/**
+ * Playable character controllable by User's input (not by any AI).
+ */
 public class Player extends Character implements Playable {
     private Set<Item> putItems;
 
@@ -69,6 +72,13 @@ public class Player extends Character implements Playable {
         return result;
     }
 
+    /**
+     * Puts on, if was initially taken off, or takes off otherwise the item
+     * from player's inventory with provided index.
+     * It also applies any changes to player's characteristics according to the item's summary
+     * In future, this functionality is a method to transfer to Character class.
+     * @param itemIndex index in inventory for item to toggle.
+     */
     public void toggleItem(final int itemIndex) {
         if (itemIndex < 0 || itemIndex >= getInventory().size()) {
             throw new IllegalArgumentException("itemIndex does not correspond to inventory size");
@@ -94,6 +104,10 @@ public class Player extends Character implements Playable {
         }
     }
 
+    /**
+     * @param itemIndex index of item in inventory.
+     * @return if item with specified index is currently put on.
+     */
     public boolean isPutItem(final int itemIndex) {
         if (itemIndex < 0 || itemIndex > getInventory().size()) {
             return false;

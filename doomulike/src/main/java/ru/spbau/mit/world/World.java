@@ -14,7 +14,6 @@ import static ru.spbau.mit.world.GameObject.Coordinates;
 
 /**
  * All objects and map container.
- * TODO put StochasticWorld in a different abstraction level \
  * - player placement, his (or her) starting characteristics generated automatically,
  * Creatures and chests and others - likewise.
  */
