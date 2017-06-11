@@ -23,6 +23,10 @@ public class MoveAction extends Action {
     public void run() {
         Coordinates currentPoint = getSubject().getCoordinates();
         Coordinates newCoordinates = new Coordinates(currentPoint.x() + dx, currentPoint.y() + dy);
+        if (!getWorld().inside(newCoordinates)) {
+            LOGGER.info("Subject " + getSubject() + " is trying to leave the Matrix.");
+            return;
+        }
         GameObject object = getWorld().getGameObjectAtPlace(newCoordinates);
         if (Objects.isNull(object)) {
             move(newCoordinates);
