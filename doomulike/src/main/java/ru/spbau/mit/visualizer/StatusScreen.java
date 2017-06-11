@@ -3,7 +3,7 @@ package ru.spbau.mit.visualizer;
 import asciiPanel.AsciiPanel;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.mit.common.TerminalPrintable;
-import ru.spbau.mit.world.Character;
+import ru.spbau.mit.world.Character.Inventory;
 import ru.spbau.mit.world.Item;
 import ru.spbau.mit.world.Player;
 
@@ -32,7 +32,7 @@ public class StatusScreen extends LeafScreen {
         writeLine(terminal, "Status: ");
         writeLine(terminal, "Player: " + player.getName());
         writeLine(terminal, "Inventory: ");
-        final Character.Inventory inventory = player.getInventory();
+        final Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.size(); ++i) {
             final StringBuilder sb = new StringBuilder();
             sb.append(inventoryCursor == i ? "- " : "  ");

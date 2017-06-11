@@ -51,14 +51,14 @@ public abstract class GameObject {
             if (Objects.isNull(rhs) || !Coordinates.class.isInstance(rhs)) {
                 return false;
             } else {
-                return this == rhs
-                        || this.x == ((Coordinates) rhs).x && this.y == ((Coordinates) rhs).y;
+                final Coordinates rhsCoordinates = (Coordinates) rhs;
+                return this == rhsCoordinates || this.x == rhsCoordinates.x && this.y == rhsCoordinates.y;
             }
         }
 
         @Override
         public int hashCode() {
-            return super.hashCode();
+            return x() ^ y();
         }
 
         public String str() {

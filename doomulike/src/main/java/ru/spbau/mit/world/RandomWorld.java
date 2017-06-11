@@ -3,6 +3,7 @@ package ru.spbau.mit.world;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.spbau.mit.mapper.Map;
+import ru.spbau.mit.world.Character.Inventory;
 
 import java.util.*;
 
@@ -20,21 +21,19 @@ public abstract class RandomWorld extends BaseWorld {
         super(map);
         placePlayer("Player", new Characteristics(100, 10, 0), mapCenter());
         populateCharacters();
-
     }
 
     @Override
     public void populateCharacters() {
-        generateChests();
-        generateNonPlayableCharacters();
+        generateChests(30);
+        generateNonPlayableCharacters(10);
     }
 
-    private void generateNonPlayableCharacters() {
-        final int npcCount = 10;
+    private void generateNonPlayableCharacters(final int npcCount) {
         String baseName = "goblin";
         for (int i = 0; i < npcCount; ++i) {
             Coordinates coordinates = Coordinates.random(RANDOMIZER, getMap().width(), getMap().height());
-            Character.Inventory inventory =  Character.Inventory.random(RANDOMIZER);
+            Inventory inventory =  Inventory.random(RANDOMIZER);
             Characteristics characteristics = Characteristics.random(RANDOMIZER);
             Character character = new Monster(coordinates, baseName + "{" + i + "}", characteristics, inventory);
             if (!placeCharacter(character)) {
@@ -44,14 +43,13 @@ public abstract class RandomWorld extends BaseWorld {
         }
     }
 
-    private void generateChests() {
-        final int chestsCount = 30;
+    private void generateChests(final int chestsCount) {
         String baseName = "chest";
         for (int i = 0; i < chestsCount; ++i) {
             final int width = getMap().width();
             final int height = getMap().height();
             Coordinates coordinates = Coordinates.random(RANDOMIZER, width, height);
-            Character.Inventory inventory =  Character.Inventory.random(RANDOMIZER);
+            Inventory inventory =  Inventory.random(RANDOMIZER);
             Character character = new Chest(coordinates, baseName + "{" + i + "}", inventory);
             if (!placeCharacter(character)) {
                 LOGGER.warn("It was only possible to place " + i + " chests");
@@ -72,6 +70,7 @@ public abstract class RandomWorld extends BaseWorld {
                 || getCharacters().contains(character)) {
             return false;
         }
+        character.setCoordinates(coordinates);
         getCharacters().add(character);
         return true;
     }
@@ -116,19 +115,19 @@ public abstract class RandomWorld extends BaseWorld {
         visited.add(preferredLocation);
         Queue<GameObject.Coordinates> q = new LinkedList<>();
         q.add(preferredLocation);
-        final int[] dx = new int[]{-1, -1, 1, 1};
-        final int[] dy = new int[]{-1, 1, -1, 1};
+        final int[] dx = new int[]{-1, 1, 0, 0};
+        final int[] dy = new int[]{0, 0, -1, 1};
         while (!q.isEmpty()) {
             Coordinates v = q.poll();
             if (isEmptyPlace(v)) {
                 return v;
             }
             if (Objects.isNull(v)) {
-                return null;
+                throw new IllegalStateException("object in queue cannot be null");
             } else {
                 for (int i = 0; i < dx.length; ++i) {
                     final Coordinates nextCoordinates = new Coordinates(v.x() + dx[i], v.y() + dy[i]);
-                    if (!visited.contains(nextCoordinates)) {
+                    if (inside(nextCoordinates) && !visited.contains(nextCoordinates)) {
                         visited.add(nextCoordinates);
                         q.add(nextCoordinates);
                     }
