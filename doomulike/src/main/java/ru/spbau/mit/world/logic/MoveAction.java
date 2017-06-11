@@ -61,7 +61,7 @@ public class MoveAction extends Action {
                 dy = 0;
                 break;
             default:
-                throw new InvalidParameterException();
+                throw new IllegalArgumentException();
         }
     }
 

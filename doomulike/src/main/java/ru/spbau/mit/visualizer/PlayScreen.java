@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import asciiPanel.AsciiPanel;
 import org.jetbrains.annotations.NotNull;
 import ru.spbau.mit.world.Cartographer;
+import ru.spbau.mit.world.Player;
 import ru.spbau.mit.world.World;
 import ru.spbau.mit.mapper.Map;
 import ru.spbau.mit.world.WorldProphet;
@@ -45,14 +46,14 @@ public class PlayScreen extends Screen {
                 case KeyEvent.VK_ENTER:
                     return new WinScreen(() -> new PlayScreen(defaultMapSupplier));
                 case KeyEvent.VK_I:
-                    return new StatusScreen(() -> this, getProphet().statusInfo());
+                    return new StatusScreen(() -> this, getPlayer().statusInfo());
                 case KeyEvent.VK_Q:
                     LOGGER.info("Exiting");
                     System.exit(0);
                     break;
                 default:
-                    if (getProphet().canAnswer(key)) {
-                        getProphet().respondInput(key);
+                    if (world.canAnswer(key)) {
+                        world.respondInput(key);
                     } else {
                         return super.respondToUserInput(key);
                     }
@@ -66,8 +67,7 @@ public class PlayScreen extends Screen {
 
     @Override
     public List<UserCommand> getUserCommands() {
-        List<UserCommand> result = new ArrayList<>();
-        result.addAll(getProphet().availableUserCommands());
+        List<UserCommand> result = world.getPlayer().availableUserCommands();
         result.add(new UserCommand("enter", "to win."));
         result.add(new UserCommand("escape", "to loose."));
         result.add(new UserCommand("i", "status."));
@@ -80,7 +80,7 @@ public class PlayScreen extends Screen {
         return world;
     }
 
-    private WorldProphet getProphet() {
-        return world;
+    private Player getPlayer() {
+        return world.getPlayer();
     }
 }

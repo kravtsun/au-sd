@@ -5,13 +5,14 @@ import org.apache.logging.log4j.Logger;
 import ru.spbau.mit.common.TerminalPrintable;
 import ru.spbau.mit.world.logic.Action;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 public abstract class Character extends GameObject {
-    private static final Logger LOGGER = LogManager.getLogger("Character");
+    protected static final Logger LOGGER = LogManager.getLogger("Character");
     private final String name;
     private final Characteristics characteristics;
     private final Inventory inventory;
@@ -23,7 +24,7 @@ public abstract class Character extends GameObject {
         this.inventory = inventory;
     }
 
-    public abstract void step(List<Action> actions);
+    public abstract void step(final WorldProphet world, final KeyEvent keyEvent, List<Action> actions);
 
     public Inventory getInventory() {
         return inventory;
@@ -52,6 +53,16 @@ public abstract class Character extends GameObject {
 
     public boolean occupiesPosition(Coordinates coordinates) {
         return getCoordinates().equals(coordinates);
+    }
+
+    public List<String> statusInfo() {
+        List<String> result = new ArrayList<>();
+        result.add("Player: " + getName());
+        result.add("Inventory: ");
+        result.addAll(getInventory().strs());
+        result.add("Characteristics: ");
+        result.addAll(getCharacteristics().strs());
+        return result;
     }
 
     public static class Inventory extends ArrayList<Item> implements TerminalPrintable {
