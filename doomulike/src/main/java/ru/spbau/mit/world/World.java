@@ -94,10 +94,7 @@ public class World extends RandomWorld implements WorldProphet, Cartographer {
         return getPlayer().canAnswer(key);
     }
 
-    /**
-     * Gets the character ruled by user.
-     * @return Player.
-     */
+    @Override
     @Nullable
     public Player getPlayer() {
         if (getCharacters().isEmpty()) {

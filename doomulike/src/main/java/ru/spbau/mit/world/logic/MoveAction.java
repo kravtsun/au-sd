@@ -14,7 +14,25 @@ public class MoveAction extends Action {
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT;
+
+        public static MoveType valueOf(final int dx, final int dy) {
+            final String errorMessage = "Illegal MoveType for (" + dx + ", " + dy + ")";
+            if ((dx == 0) == (dy == 0) || Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+                throw new IllegalArgumentException(errorMessage);
+            }
+            if (dy == -1) {
+                return UP;
+            } else if (dy == 1) {
+                return DOWN;
+            } else if (dx == -1) {
+                return LEFT;
+            } else if (dx == 1) {
+                return RIGHT;
+            } else {
+                throw new IllegalStateException(errorMessage);
+            }
+        }
     }
     private int dx;
     private int dy;
@@ -47,6 +65,11 @@ public class MoveAction extends Action {
 
     public MoveAction(WorldProphet world, Character subject, MoveType moveType) {
         super(subject, world);
+
+        if (!subject.isAlive()) {
+            throw new IllegalStateException("subject " + subject.getName() + " is dead.");
+        }
+
         switch (moveType) {
             case UP:
                 dx = 0;

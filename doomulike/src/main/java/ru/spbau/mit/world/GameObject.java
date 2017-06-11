@@ -41,7 +41,6 @@ public abstract class GameObject {
             return sqr(x - rhs.x) + sqr(y - rhs.y);
         }
 
-
         @Override
         public Coordinates clone() {
             return new Coordinates(x, y);
@@ -69,7 +68,6 @@ public abstract class GameObject {
         public static Coordinates random(Random randomizer, int xbound, int ybound) {
             return new Coordinates(randomizer.nextInt(xbound), randomizer.nextInt(ybound));
         }
-
 
         private static int sqr(int x) {
             return x * x;

@@ -62,6 +62,9 @@ public class PlayScreen extends Screen {
             LOGGER.error(e.getMessage());
             System.exit(1);
         }
+        if (!world.getPlayer().isAlive()) {
+            return new LooseScreen(() -> new PlayScreen(defaultMapSupplier));
+        }
         return this;
     }
 

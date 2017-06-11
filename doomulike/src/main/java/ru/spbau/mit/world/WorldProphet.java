@@ -24,5 +24,16 @@ public interface WorldProphet {
     @Nullable
     GameObject getGameObjectAtPlace(Coordinates p);
 
+    /**
+     * Gets the character ruled by user.
+     * @return Player.
+     */
+    @Nullable
+    Player getPlayer();
+
+    /**
+     * @param p Coordinates
+     * @return true if coordinates p inside world borders.
+     */
     boolean inside(Coordinates p);
 }

@@ -6,7 +6,7 @@ import ru.spbau.mit.mapper.Map;
 
 import java.util.*;
 
-public class RandomWorld extends BaseWorld {
+public abstract class RandomWorld extends BaseWorld {
     private static final Random RANDOMIZER = new Random();
     private static final Logger LOGGER = LogManager.getLogger(RandomWorld.class);
 
@@ -16,7 +16,7 @@ public class RandomWorld extends BaseWorld {
      */
     RandomWorld(Map map) {
         super(map);
-        placePlayer("Player", new Characteristics(100, 10, 0), mapCenter());
+        placePlayer("Player", new Characteristics(10, 10, 0), mapCenter());
         populateCharacters();
 
     }
