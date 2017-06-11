@@ -2,6 +2,7 @@ package ru.spbau.mit.world;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Characteristics {
@@ -16,6 +17,22 @@ public class Characteristics {
         this.health = health;
         this.strength = strength;
         this.luck = luck;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (Objects.isNull(o) || !Characteristics.class.isInstance(o)) {
+            return false;
+        }
+        final Characteristics rhs = (Characteristics) o;
+        return this == rhs || health == rhs.getHealth()
+                && strength == rhs.getStrength()
+                && luck == rhs.getLuck();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     public int getHealth() {

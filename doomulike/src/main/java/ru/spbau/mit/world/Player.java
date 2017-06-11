@@ -72,11 +72,7 @@ public class Player extends Character implements Playable {
     }
 
     public void toggleItem(final int itemIndex) {
-        if (getInventory().isEmpty()) {
-            return;
-        }
-
-        if (itemIndex < 0 || itemIndex > getInventory().size()) {
+        if (itemIndex < 0 || itemIndex >= getInventory().size()) {
             throw new IllegalArgumentException("itemIndex does not correspond to inventory size");
         }
 
